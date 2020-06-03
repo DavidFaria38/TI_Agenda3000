@@ -172,6 +172,17 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
     console.log(`${a} > ${b} > ${c} | ${turno}`)
 
     if (turno == 1) {
+ // mudancas: linha 64-72 index.html
+ //           for() .js
+        for(let varDia = 0; varDia < 7; varDia++)
+        {
+            for(let varHora = 0; varHora < 5; varHora++)
+            {
+                document.getElementById(`${varHora}${varDia}`).innerHTML = a;
+                document.getElementById(`${varHora}${varDia}`).style.backgroundColor = c1;
+            }
+        }
+    /*
         document.getElementById('1a').innerHTML = a;
         document.getElementById('1a').style.backgroundColor = c1;
         document.getElementById('2a').innerHTML = a;
@@ -226,7 +237,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('4e').style.backgroundColor = c2;
         document.getElementById('5e').innerHTML = c;
         document.getElementById('5e').style.backgroundColor = c3;
-        
+*/        
         console.log('turno selecionado MANHA');
     }
     if (turno == 2) {
