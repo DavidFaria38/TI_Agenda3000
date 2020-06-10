@@ -29,10 +29,19 @@ body {
 	color: #fff;
 	transition: 0.4s; 
 }
+
+/* Botao Darkmode   -   implementado pelo David 09/06/2020*/
+.nav .darkmode{
+	color: whitesmoke;
+	font-size: 25px;
+	cursor: pointer;
+}
+
 .nav .close {            /* Botao para fechar sidebar */
 	position: absolute;
 	top: 40px;
 	right: 22px;
+	padding: 10px;
 	margin-left: 50px;
 	font-size: 30px
 }
@@ -61,14 +70,12 @@ h1 {
 	font-size: 1.8rem;
 	text-align: center;
 	background-color: #1abc9c;
-
 }
 header{
 	text-align: center;
 	font-size: 1rem;
 	background-color:orange;
 }
-
 
 
 @media only screen and (max-width: 768px) {
@@ -222,8 +229,33 @@ th, td{
 	min-width: 100px;
 }
 */
+@media only screen and ( max-width: 812px ) {
+	.horario > th{           /* formatacao da TableHead de .horario */
+		background-color: gray;
+		text-align: center;
+		height: 50px;
+		min-width: 15px;
+		
+	}
+}
+@media only screen and ( min-width: 813px ) {
+	.horario > th{           /* formatacao da TableHead de .horario */
+		background-color: gray;
+		text-align: center;
+		height: 100px;
+		width: 100px;
+		
+	}
+} 
+
+
+/* ======================================================================= */
+/* ============================ (FIM) Timetable ========================== */
+/* ======================================================================= */
+
+
 /*Felipe modificado */
-.switch {
+/* .switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -275,38 +307,14 @@ input:checked + .slider:before {
 }
 
 /* Rounded sliders */
-.slider.round {
+/* .slider.round {
   border-radius: 34px;
 }
 
 .slider.round:before {
   border-radius: 50%;
-}
-/* - -- -- - - - - - -- - - - - - - -
-@media only screen and ( max-width: 812px ) {
-	.horario > th{           /* formatacao da TableHead de .horario */
-		background-color: gray;
-		text-align: center;
-		height: 50px;
-		min-width: 15px;
-		
-	}
-}
-@media only screen and ( min-width: 813px ) {
-	.horario > th{           /* formatacao da TableHead de .horario */
-		background-color: gray;
-		text-align: center;
-		height: 100px;
-		width: 100px;
-		
-	}
-}
-
-
-/* ======================================================================= */
-/* ============================ (FIM) Timetable ========================== */
-/* ======================================================================= */
-
+} */
+/* - -- -- - - - - - -- - - - - - - -*/
 /* Testes*/
 #col_seg_line_1 {
 	background-color: teal;

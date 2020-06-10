@@ -173,6 +173,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
     console.log(`${a} > ${b} > ${c} | ${turno}`)
 
     if (turno == 1) {
+
         document.getElementById('1a').innerHTML = a;
         document.getElementById('1a').style.backgroundColor = c1;
         document.getElementById('2a').innerHTML = a;
@@ -422,22 +423,26 @@ function submitAddTarefa() {
 /* ======================= FIM ============================= */
 /* ========================================================= */
 /*felipe darkmode*/
-var islight = true;
+/*David alterou*/
+
+document.getElementById('btnDarkMode').addEventListener('click', darkmode)
+
+var islight = 0;
 function darkmode()
 {
-	if(islight)
+	if(islight % 2 == 0)
 	{
-		document.getElementById("content").style.backgroundColor = "black";
+		document.getElementById("content").style.backgroundColor = "#0C1B33";
 		console.log("black");
 		//document.p.style.color = "white";
-		
-		islight=false;
+        
 	}
 	else
 	{
-		document.body.style.backgroundColor = "white";
+        document.getElementById("content").style.backgroundColor = "white";
 		console.log("white");
 		//document.p.style.color = "black";
-		islight=true;
-	}
+
+    }
+    islight++;
 }
