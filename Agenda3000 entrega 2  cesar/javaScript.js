@@ -420,8 +420,15 @@ function submitAddTarefa() {
     console.log(`================================`);
 }
 /* ========================================================= */
-/* ======================= FIM ============================= */
+/* ================ FIM - Config peso ====================== */
 /* ========================================================= */
+
+
+
+/* ========================================================= */
+/* ================== Dardmode function ==================== */
+/* ========================================================= */
+
 /*felipe darkmode*/
 /*David alterou*/
 
@@ -430,9 +437,9 @@ document.getElementById('btnDarkMode').addEventListener('click', darkmode)
 var islight = 0;
 function darkmode()
 {
-	if(islight % 2 == 0)
+    if(islight % 2 == 0)
 	{
-		document.getElementById("content").style.backgroundColor = "#0C1B33";
+        document.getElementById("content").style.backgroundColor = "#0C1B33";
 		console.log("black");
 		//document.p.style.color = "white";
         
@@ -442,7 +449,44 @@ function darkmode()
         document.getElementById("content").style.backgroundColor = "white";
 		console.log("white");
 		//document.p.style.color = "black";
-
+        
     }
     islight++;
 }
+/* ========================================================= */
+/* ================== FIM - Darkmode ======================= */
+/* ========================================================= */
+
+
+
+/* ========================================================= */
+/* ================= Armazenamento Local =================== */
+/* ========================================================= */
+
+var data = {
+    "user": [
+        {
+            "username": "david",
+            "senha": "1234"
+        },
+        {
+            "username": "mariana",
+            "senha": "4321"
+        }
+    ]
+}
+
+onload = 
+function storage() {
+    localStorage.setItem("data", JSON.stringify(data));
+
+    var data1 = data
+    console.log(data1)
+    var user = localStorage.getItem("data")
+    console.log(JSON.parse(user).user[0])
+}
+
+
+/* ========================================================= */
+/* ============= FIM - Armazenamento Local ================= */
+/* ========================================================= */
