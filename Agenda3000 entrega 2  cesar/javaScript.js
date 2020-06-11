@@ -164,7 +164,6 @@ wheat     #f5deb3 = Inglês
 /* ========================================================= */
 
 
-
 /* ========================================================= */
 /* ====== Funcao para organizar o peso da preferencia ====== */
 /* ========================================================= */
@@ -463,27 +462,70 @@ function darkmode()
 /* ================= Armazenamento Local =================== */
 /* ========================================================= */
 
-var data = {
-    "user": [
+var data = {    
+    "disciplinas": [
         {
-            "username": "david",
-            "senha": "1234"
+            "materia": "port",
+            "coordenadas":["21", "13", "23"],
+            "cor": "red" 
         },
         {
-            "username": "mariana",
-            "senha": "4321"
+            "materia": "mat",
+            "coordenadas":["11", "12", "14"],
+            "cor": "blue" 
+        },
+        {
+            "materia": "fis",
+            "coordenadas":["31", "32", "33"],
+            "cor": "red" 
+        },
+        {
+            "materia": "mat",
+            "coordenadas":["41"],
+            "cor": "blue" 
+        },
+        {
+            "materia": "geo",
+            "coordenadas":["51", "56", "57"],
+            "cor": "red" 
+        },
+        {
+            "materia": "mat",
+            "coordenadas":["16", "17", "15"],
+            "cor": "blue" 
         }
     ]
 }
 
-onload = 
-function storage() {
+onload = () => {
+    // armazena no localstorage
     localStorage.setItem("data", JSON.stringify(data));
 
-    var data1 = data
-    console.log(data1)
-    var user = localStorage.getItem("data")
-    console.log(JSON.parse(user).user[0])
+    // var data1 = data
+    // console.log(data1)
+    // elndo do armazenamento interno
+    var data2 = JSON.parse(localStorage.getItem("data"))
+    // console.log(data2.disciplinas[1])
+    
+    var xy, materia, x;
+    
+    for( var i = 0; i < data2.disciplinas.length; i++)
+    {
+        materia = data2.disciplinas[i].materia;
+        xy = data2.disciplinas[i].coordenadas.length;
+        for( var j = 0; j < xy; j++)
+        {
+            // x = data2.disciplinas[i].coordenadas[j];
+            document.getElementById(data2.disciplinas[i].coordenadas[j]).innerText = (`${materia}`)
+
+        }
+
+        
+        console.log(typeof(materia))
+        console.log("xy = " + xy)
+
+        // document.getElementById("11").innerText = ("ola");
+    }
 }
 
 
