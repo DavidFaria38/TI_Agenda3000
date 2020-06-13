@@ -66,13 +66,14 @@ h1 {
 #stickybutton {
 	position: -webkit- sticky;
 	position: sticky;
-	bottom: 0;
+	bottom: 10px;
 	left: 90vw;
-	padding: 50px 60px 50px 60px;
-	font-size: 0.8rem;
+	width: 100px;
+	font-size: 5rem;
 	text-align: center;
 	background-color: #1abc9c;
-	border-radius: 12px;
+	border-radius: 50%;
+	font-family:'Alegreya Sans';
 
 }
 header{
@@ -233,13 +234,6 @@ th, td{
 		height: 50px;
 		min-width: 15px;
 		
-	}
-	#stickybutton {
-	
-		width: 100%;
-		font-size: 1.2rem;
-	
-	
 	}
 }
 
