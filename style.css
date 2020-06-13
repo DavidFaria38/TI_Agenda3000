@@ -63,6 +63,18 @@ h1 {
 	background-color: #1abc9c;
 
 }
+#stickybutton {
+	position: -webkit- sticky;
+	position: sticky;
+	bottom: 0;
+	left: 90vw;
+	padding: 50px 60px 50px 60px;
+	font-size: 0.8rem;
+	text-align: center;
+	background-color: #1abc9c;
+	border-radius: 12px;
+
+}
 header{
 	text-align: center;
 	font-size: 1rem;
@@ -70,26 +82,6 @@ header{
 }
 
 
-
-@media only screen and (max-width: 768px) {
-	/*
-	body {
-		font-size: 1.1rem;
-	}
-	*/
-	nav a{
-		
-		font-size: 100px;
-	}
-	.nav .close {
-	position: absolute;
-	top: 0;
-	right: 22px;
-	margin-left: 100%;
-	font-size: 30px
-	}
-	
-}
 
 /* ======================================================================= */
 /* ========== (INICIO) formulario para add tarefas a timetable =========== */
@@ -211,6 +203,13 @@ table, th, td{
 .horario td{
 	text-align: center;
 }
+.horario > th{           /* formatacao da TableHead de .horario */
+	background-color: gray;
+	text-align: center;
+	height: 100px;
+	width: 100px;
+	
+}
 
 /*
 th, td{
@@ -222,6 +221,10 @@ th, td{
 	min-width: 100px;
 }
 */
+#col_seg_line_1 {
+	background-color: teal;
+	
+}
 
 @media only screen and ( max-width: 812px ) {
 	.horario > th{           /* formatacao da TableHead de .horario */
@@ -231,15 +234,33 @@ th, td{
 		min-width: 15px;
 		
 	}
-}
-@media only screen and ( min-width: 813px ) {
-	.horario > th{           /* formatacao da TableHead de .horario */
-		background-color: gray;
-		text-align: center;
-		height: 100px;
-		width: 100px;
-		
+	#stickybutton {
+	
+		width: 100%;
+		font-size: 1.2rem;
+	
+	
 	}
+}
+
+@media only screen and (max-width: 768px) {
+	/*
+	body {
+		font-size: 1.1rem;
+	}
+	*/
+	nav a{
+		
+		font-size: 100px;
+	}
+	.nav .close {
+	position: absolute;
+	top: 0;
+	right: 22px;
+	margin-left: 100%;
+	font-size: 30px
+	}
+	
 }
 
 
@@ -248,7 +269,3 @@ th, td{
 /* ======================================================================= */
 
 /* Testes*/
-#col_seg_line_1 {
-	background-color: teal;
-	
-}
