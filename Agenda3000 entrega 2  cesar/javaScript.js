@@ -14,22 +14,130 @@ function closeSlideMenu() {
     document.getElementById('content').style.marginLeft = '0px';
 }
 
+
+
+
 /* ========================================================= */
 /* Funcao para abrir e fechar pop-up screen para add tarefas */
 /* ========================================================= */
 function btnOpenAdd() {
     //confirm("click");
     document.querySelector('.bg-modal').style.display = 'flex'
+    document.querySelector('.bg-modal').innerHTML = 
+    `
+    <div class="modal-content">
+    <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
+    <p>Adicionar tarefas</p>
+    
+    <form action="#">
+    <!-- Preferencias 1 -->
+    <div class="pref_1">
+    <label for="pref_1">Preferencia 1 :</label>
+    <select class="materia" name="pref_1" id="pref_1">
+    <option value="blank" selected></option>
+    <option value="mat">Matemática</option>
+    <option value="port">Português</option>
+    <option value="hist">História</option>
+    <option value="geo">Geografia</option>
+    <option value="bio">Biologia</option>
+    <option value="fis">Física</option>
+    <option value="qui">Química</option>
+    <option value="ing">Inglês</option>
+    </select>
+    <select class="peso" name="pesoPref_1" id="pesoPref_1">
+    <option value="-1" selected></option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    </select>
+    </div>
+    
+    <!-- Preferencias 2 -->
+    <div class="pref_2">
+    <label for="pref_2">Preferencia 2 :</label>
+    <select class="materia" name="pref_2" id="pref_2">
+    <option value="blank" selected></option>
+    <option value="mat">Matemática</option>
+    <option value="port">Português</option>
+    <option value="hist">História</option>
+    <option value="geo">Geografia</option>
+    <option value="bio">Biologia</option>
+    <option value="fis">Física</option>
+    <option value="qui">Química</option>
+    <option value="ing">Inglês</option>
+    </select>
+    <select class="peso" name="pesoPref_2" id="pesoPref_2">
+    <option value="-1" selected></option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    </select>
+    </div>
+    
+    <!-- Preferencias 3 -->
+    <div class="pref_3">
+    <label for="pref_3">Preferencia 3 :</label>
+    <select class="materia" name="pref_3" id="pref_3">
+    <option value="blank" selected></option>
+    <option value="mat">Matemática</option>
+    <option value="port">Português</option>
+    <option value="hist">História</option>
+    <option value="geo">Geografia</option>
+    <option value="bio">Biologia</option>
+    <option value="fis">Física</option>
+    <option value="qui">Química</option>
+    <option value="ing">Inglês</option>
+    </select>
+    <select class="peso" name="pesoPref_3" id="pesoPref_3">
+    <option value="-1" selected></option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    </select>
+    </div>
+    
+    <div class="turno">
+    <label for="turnoManha">Manha</label>
+    <input type="radio" name="turno" id="turnoManha">
+    <label for="turnoTarde">Tarde</label>
+    <input type="radio" name="turno" id="turnoTarde">
+    <label for="turnoNoite">Noite</label>
+    <input type="radio" name="turno" id="turnoNoite">
+    
+    <span id="missingFieldTurno" style="color: red;"></span>
+    
+    </div>
+    </form>
+    <button id="btnSubmit" onclick="submitAddTarefa()"> Confirmar </button>
+    
+    </div>`
 }
 function btnCloseAdd() {
     document.querySelector('.bg-modal').style.display = 'none'
+    document.querySelector('.bg-modal').innerHTML = ``
+    console.log('fecho tela')
 }
 /* ========================================================= */
 /* ======================= FIM ============================= */
 /* ========================================================= */
-
-
-
 
 
 
@@ -112,7 +220,7 @@ function validarInput() {
 
     if (missingField != 0) {
         return (false);
-		alert("ERROR PREENCHA CORRETAMENTE");
+        alert("ERROR PREENCHA CORRETAMENTE");
     } else {
         return (true)
     }
@@ -183,7 +291,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('4a').style.backgroundColor = c2;
         document.getElementById('5a').innerHTML = c;
         document.getElementById('5a').style.backgroundColor = c3;
-        
+
         document.getElementById('1b').innerHTML = b;
         document.getElementById('1b').style.backgroundColor = c2;
         document.getElementById('2b').innerHTML = b;
@@ -205,7 +313,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('4c').style.backgroundColor = c2;
         document.getElementById('5c').innerHTML = c;
         document.getElementById('5c').style.backgroundColor = c3;
-        
+
         document.getElementById('1d').innerHTML = b;
         document.getElementById('1d').style.backgroundColor = c2;
         document.getElementById('2d').innerHTML = b;
@@ -227,7 +335,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('4e').style.backgroundColor = c2;
         document.getElementById('5e').innerHTML = c;
         document.getElementById('5e').style.backgroundColor = c3;
-        
+
         console.log('turno selecionado MANHA');
     }
     if (turno == 2) {
@@ -241,7 +349,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('9a').style.backgroundColor = c2;
         document.getElementById('10a').innerHTML = c;
         document.getElementById('10a').style.backgroundColor = c3;
-        
+
         document.getElementById('6b').innerHTML = b;
         document.getElementById('6b').style.backgroundColor = c2;
         document.getElementById('7b').innerHTML = b;
@@ -263,7 +371,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('9c').style.backgroundColor = c2;
         document.getElementById('10c').innerHTML = c;
         document.getElementById('10c').style.backgroundColor = c3;
-        
+
         document.getElementById('6d').innerHTML = b;
         document.getElementById('6d').style.backgroundColor = c2;
         document.getElementById('7d').innerHTML = b;
@@ -299,7 +407,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('14a').style.backgroundColor = c2;
         document.getElementById('15a').innerHTML = c;
         document.getElementById('15a').style.backgroundColor = c3;
-        
+
         document.getElementById('11b').innerHTML = b;
         document.getElementById('11b').style.backgroundColor = c2;
         document.getElementById('12b').innerHTML = b;
@@ -321,7 +429,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('14c').style.backgroundColor = c2;
         document.getElementById('15c').innerHTML = c;
         document.getElementById('15c').style.backgroundColor = c3;
-        
+
         document.getElementById('11d').innerHTML = b;
         document.getElementById('11d').style.backgroundColor = c2;
         document.getElementById('12d').innerHTML = b;
@@ -434,21 +542,18 @@ function submitAddTarefa() {
 document.getElementById('btnDarkMode').addEventListener('click', darkmode)
 
 var islight = 0;
-function darkmode()
-{
-    if(islight % 2 == 0)
-	{
+function darkmode() {
+    if (islight % 2 == 0) {
         document.getElementById("content").style.backgroundColor = "#0C1B33";
-		console.log("black");
-		//document.p.style.color = "white";
-        
-	}
-	else
-	{
+        console.log("black");
+        //document.p.style.color = "white";
+
+    }
+    else {
         document.getElementById("content").style.backgroundColor = "white";
-		console.log("white");
-		//document.p.style.color = "black";
-        
+        console.log("white");
+        //document.p.style.color = "black";
+
     }
     islight++;
 }
@@ -462,40 +567,132 @@ function darkmode()
 /* ================= Armazenamento Local =================== */
 /* ========================================================= */
 
-var data = {    
+var data = {
     "disciplinas": [
         {
-            "materia": "port",
-            "coordenadas":["21", "13", "23"],
-            "cor": "red" 
+            "materia": "Matemática",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#caeaf5"
         },
         {
-            "materia": "mat",
-            "coordenadas":["11", "12", "14"],
-            "cor": "blue" 
+            "materia": "Português",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#0e91bd"
         },
         {
-            "materia": "fis",
-            "coordenadas":["31", "32", "33"],
-            "cor": "red" 
+            "materia": "História",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#9a55b6"
         },
         {
-            "materia": "mat",
-            "coordenadas":["41"],
-            "cor": "blue" 
+            "materia": "Geografia",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#e6e22e"
         },
         {
-            "materia": "geo",
-            "coordenadas":["51", "56", "57"],
-            "cor": "red" 
+            "materia": "Biologia",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#20b2aa"
         },
         {
-            "materia": "mat",
-            "coordenadas":["16", "17", "15"],
-            "cor": "blue" 
+            "materia": "Física",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#eeb958"
+        },
+        {
+            "materia": "Química",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#e47263"
+        },
+        {
+            "materia": "Inglês",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#f5deb3"
+        },
+        {
+            "materia": "teste de materia",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "red"
         }
     ]
+    // "disciplinas": [
+    //     {
+    //         "materia": "Matemática",
+    //         "coordenadas": ["11", "12", "13", "15", "26"],
+    //         "nota": "",
+    //         "cor": "#caeaf5"
+    //     },
+    //     {
+    //         "materia": "Português",
+    //         "coordenadas": ["12", "13", "23"],
+    //         "nota": "",
+    //         "cor": "#0e91bd"
+    //     },
+    //     {
+    //         "materia": "História",
+    //         "coordenadas": ["41"],
+    //         "nota": "",
+    //         "cor": "#9a55b6"
+    //     },
+    //     {
+    //         "materia": "Geografia",
+    //         "coordenadas": ["51", "56", "57"],
+    //         "nota": "",
+    //         "cor": "#e6e22e"
+    //     },
+    //     {
+    //         "materia": "Biologia",
+    //         "coordenadas": ["16", "17", "25"],
+    //         "nota": "",
+    //         "cor": "#20b2aa"
+    //     },
+    //     {
+    //         "materia": "Física",
+    //         "coordenadas": ["31", "32", "33"],
+    //         "nota": "",
+    //         "cor": "#eeb958"
+    //     },
+    //     {
+    //         "materia": "Química",
+    //         "coordenadas": [],
+    //         "nota": "",
+    //         "cor": "#e47263"
+    //     },
+    //     {
+    //         "materia": "Inglês",
+    //         "coordenadas": [],
+    //         "nota": "",
+    //         "cor": "#f5deb3"
+    //     },
+    //     {
+    //         "materia": "teste de materia",
+    //         "coordenadas": [55],
+    //         "nota": "",
+    //         "cor": "red"
+    //     }
+    // ]
 }
+
+/*
+sumario das cores:
+lightblue #caeaf5 = Matemática
+	      #0e91bd = Português
+roxo      #9a55b6 = História
+amarelo   #e6e22e = Geografia
+green     #20b2aa = Biologia
+laranja   #eeb958 = Física
+vermelho  #e47263 = Química
+wheat     #f5deb3 = Inglês
+*/
 
 onload = () => {
     // armazena no localstorage
@@ -504,31 +701,112 @@ onload = () => {
     // var data1 = data
     // console.log(data1)
     // elndo do armazenamento interno
-    var data2 = JSON.parse(localStorage.getItem("data"))
-    // console.log(data2.disciplinas[1])
-    
-    var xy, materia, x;
-    
-    for( var i = 0; i < data2.disciplinas.length; i++)
-    {
+    let data2 = JSON.parse(localStorage.getItem("data"))
+    console.log(data2.disciplinas[1])
+
+    let xy, materia, x, y, i, j;
+
+    for ( i = 0; i < data2.disciplinas.length; i++) {
         materia = data2.disciplinas[i].materia;
         xy = data2.disciplinas[i].coordenadas.length;
-        for( var j = 0; j < xy; j++)
-        {
-            // x = data2.disciplinas[i].coordenadas[j];
-            document.getElementById(data2.disciplinas[i].coordenadas[j]).innerText = (`${materia}`)
-
+        for ( j = 0; j < xy; j++) {
+            x = data2.disciplinas[i].coordenadas[j];
+            y = data2.disciplinas[i].cor;
+            document.getElementById(`${x}`).innerText = (`${materia}`)
+            document.getElementById(`${x}`).style.backgroundColor = y;
         }
+    }
+}
 
-        
-        console.log(typeof(materia))
-        console.log("xy = " + xy)
+onload = showOnScreenFromLocalStorage();
+function showOnScreenFromLocalStorage(){
+    let localStr = JSON.parse(localStorage.getItem("data"))
 
-        // document.getElementById("11").innerText = ("ola");
+    let xy, materia, x, y, i, j;
+
+    for ( i = 0; i < localStr.disciplinas.length; i++) {
+        materia = localStr.disciplinas[i].materia;
+        xy = localStr.disciplinas[i].coordenadas.length;
+        for ( j = 0; j < xy; j++) {
+            x = localStr.disciplinas[i].coordenadas[j];
+            y = localStr.disciplinas[i].cor;
+            document.getElementById(`${x}`).innerText = (`${materia}`)
+            document.getElementById(`${x}`).style.backgroundColor = y;
+        }
     }
 }
 
 
 /* ========================================================= */
 /* ============= FIM - Armazenamento Local ================= */
+/* ========================================================= */
+
+
+
+/* ========================================================= */
+/* =============== Adicao tarefa individual ================ */
+/* ========================================================= */
+
+
+
+function addTarefaIndividual(coord) {
+    let materia, idElemento, elemento;
+    //alert('id = ' + `${id}`)
+    document.querySelector('.bg-modal').style.display = 'flex'
+    document.querySelector('.bg-modal').innerHTML = `
+     <div class="addTarefasIndividuais">
+        <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
+        <p>Adicionar tarefas</p>
+
+        <form action="#">
+
+            <!-- <label for="disciplina">Disciplina: </label> -->
+            <span class="disciplina_span">Disciplina:</span>
+            <select class="disciplina" name="disciplina" id="disciplina_select">
+              <option value="blank" placeholder="Disciplina" selected></option>
+            </select>
+ 
+        
+            <span class="anotacoes_span"> Anotações: </span>
+            <textarea name="anotacoes" id="anotacoes" rows="3" placeholder="Anotações"></textarea>
+        
+        </form>
+        <button id="btnSubmit" onclick="btnSubmit_AddTarefaIndividual(${coord})"> Confirmar </button>
+      </div>`
+
+    // mostrar em select todas opcoes de materia na memoria local
+    let localStr = JSON.parse(localStorage.getItem("data"))
+    for(let i = 0; i < localStr.disciplinas.length; i++)
+    {   
+        materia = localStr.disciplinas[i].materia;
+        idElemento = document.getElementById('disciplina_select');
+        elemento = document.createElement('option');
+        elemento.innerHTML = `<option value="${materia}">${materia}</option>`;
+        idElemento.add(elemento)
+    }
+}
+
+function btnSubmit_AddTarefaIndividual( coord ) {
+    let i, lengthCoord;
+    
+    let disciplina_Form = document.getElementById('disciplina_select').value;
+    let anotacoes_Form = document.getElementById('anotacoes').value;
+    
+    localStr = JSON.parse(localStorage.getItem('data'));
+    
+    for( i = 0; i < localStr.disciplinas.length; i++){
+        if( localStr.disciplinas[i].materia == disciplina_Form){
+            lengthCoord = localStr.disciplinas[i].coordenadas.length;
+            localStr.disciplinas[i].coordenadas[lengthCoord] = coord; 
+        }
+    }
+    
+    localStorage.setItem('data', JSON.stringify(localStr));
+    showOnScreenFromLocalStorage();
+    // clear na tela
+    btnCloseAdd();
+}
+
+/* ========================================================= */
+/* ============== FIM - tarefa individual ================== */
 /* ========================================================= */
