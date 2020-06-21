@@ -139,7 +139,22 @@ function btnCloseAdd() {
 /* ======================= FIM ============================= */
 /* ========================================================= */
 
+/* ========================================================= */
+/* Funcao para dias da semana */
+/* ========================================================= */
 
+function quedia() {
+    var d = new Date();
+    var n = d.getDay()
+    var dias = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
+    return dias[n]
+}
+function setMyDayToToday() {
+    var diahj = quedia();
+    document.getElementById("diadehoje").innerHTML = diahj;
+    console.log(diahj);
+
+}
 
 /* ========================================================= */
 /* ======== Funcao para validacao do input do user ========= */
