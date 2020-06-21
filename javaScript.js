@@ -37,6 +37,8 @@ function quedia() {
     var n = d.getDay()
     var dias = ["Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"];
     return dias[n - 1]
+    var dias = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
+    return dias[n]
 }
 function setMyDayToToday() {
     var diahj = quedia();
