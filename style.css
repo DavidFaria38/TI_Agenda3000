@@ -166,7 +166,7 @@ table{
 	max-width: 90%;
 	overflow: auto;
 	white-space: nowrap;
-	border: solid 1px black;  
+	border: solid 1px transparent;  
 }
 
 .time{                    /* mantemos horarios da timetable fixos na horizontal */

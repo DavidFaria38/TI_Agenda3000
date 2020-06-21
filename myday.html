@@ -9,7 +9,7 @@
 
 </head>
 
-<body>
+<body onload="setMyDayToToday()">
 
 
   <header>
@@ -32,10 +32,10 @@
         <a href="#" class="close" onclick="closeSlideMenu()">
           <i class="fas fa-times"></i> <!-- JS => add X -->
         </a>
-        <a href="#">Home</a>
+        <a href="index.html">Home</a>
         <a href="#">Opçōes</a>
         <a href="#">Configurações</a>
-        <a href="#">Lorem</a>
+        <a href="myday.html">Myday</a>
         <a href="#">lorem</a>
       </div>
     </div>
@@ -54,163 +54,85 @@
         <table>
           <tr class="weekDays">
             <td> </td> <!-- Caso for "th" havera um overwrite na width de .horario -->
-            <th>Segunda</th>
-            <th>Terça</th>
-            <th>Quarta</th>
-            <th>Quinta</th>
-            <th>Sexta</th>
-            <th>Sabado</th>
-            <th>Domingo</th>
+            <th>
+              <h2 id="diadehoje"></h2>
+            </th>
+
           </tr>
           <tr class="horario manha">
             <th class="time "><span>7:00 - 8:00</span></th>
             <td id="1a"></td>
-            <td id="1b"></td>
-            <td id="1c"></td>
-            <td id="1d"></td>
-            <td id="1e"></td>
-            <td id="1f"></td>
-            <td id="1g"></td>
+
           </tr>
           <tr class="horario manha">
             <th class="time"><span>8:00 - 9:00</span></th>
             <td id="2a"></td>
-            <td id="2b"></td>
-            <td id="2c"></td>
-            <td id="2d"></td>
-            <td id="2e"></td>
-            <td id="2f"></td>
-            <td id="2g"></td>
+
           </tr>
           <tr class="horario manha">
             <th class="time"><span>9:00 - 10:00</span></th>
             <td id="3a"></td>
-            <td id="3b"></td>
-            <td id="3c"></td>
-            <td id="3d"></td>
-            <td id="3e"></td>
-            <td id="3f"></td>
-            <td id="3g"></td>
+
           </tr>
           <tr class="horario manha">
             <th class="time"><span>10:00 - 11:00</span></th>
             <td id="4a"></td>
-            <td id="4b"></td>
-            <td id="4c"></td>
-            <td id="4d"></td>
-            <td id="4e"></td>
-            <td id="4f"></td>
-            <td id="4g"></td>
+
           </tr>
           <tr class="horario manha">
             <th class="time"><span>11:00 - 12:00</span></th>
             <td id="5a"></td>
-            <td id="5b"></td>
-            <td id="5c"></td>
-            <td id="5d"></td>
-            <td id="5e"></td>
-            <td id="5f"></td>
-            <td id="5g"></td>
+
           </tr>
           <tr class="horario tarde">
             <th class="time"><span>12:00 - 13:00</span></th>
             <td id="6a"></td>
-            <td id="6b"></td>
-            <td id="6c"></td>
-            <td id="6d"></td>
-            <td id="6e"></td>
-            <td id="6f"></td>
-            <td id="6g"></td>
+
           </tr>
           <tr class="horario tarde">
             <th class="time"><span>13:00 - 14:00</span></th>
             <td id="7a"></td>
-            <td id="7b"></td>
-            <td id="7c"></td>
-            <td id="7d"></td>
-            <td id="7e"></td>
-            <td id="7f"></td>
-            <td id="7g"></td>
+
           </tr>
           <tr class="horario tarde">
             <th class="time"><span>14:00 - 15:00</span></th>
             <td id="8a"></td>
-            <td id="8b"></td>
-            <td id="8c"></td>
-            <td id="8d"></td>
-            <td id="8e"></td>
-            <td id="8f"></td>
-            <td id="8g"></td>
+
           </tr>
           <tr class="horario tarde">
             <th class="time"><span>15:00 - 16:00</span></th>
             <td id="9a"></td>
-            <td id="9b"></td>
-            <td id="9c"></td>
-            <td id="9d"></td>
-            <td id="9e"></td>
-            <td id="9f"></td>
-            <td id="9g"></td>
+
           </tr>
           <tr class="horario tarde">
             <th class="time"><span>16:00 - 17:00</span></th>
             <td id="10a"></td>
-            <td id="10b"></td>
-            <td id="10c"></td>
-            <td id="10d"></td>
-            <td id="10e"></td>
-            <td id="10f"></td>
-            <td id="10g"></td>
+
           </tr>
           <tr class="horario tarde">
             <th class="time"><span>17:00 - 18:00</span></th>
             <td id="11a"></td>
-            <td id="11b"></td>
-            <td id="11c"></td>
-            <td id="11d"></td>
-            <td id="11e"></td>
-            <td id="11f"></td>
-            <td id="11g"></td>
+
           </tr>
           <tr class="horario noite">
             <th class="time"><span>18:00 - 19:00</span></th>
             <td id="12a"></td>
-            <td id="12b"></td>
-            <td id="12c"></td>
-            <td id="12d"></td>
-            <td id="12e"></td>
-            <td id="12f"></td>
-            <td id="12g"></td>
+
           </tr>
           <tr class="horario noite">
             <th class="time"><span>19:00 - 20:00</span></th>
             <td id="13a"></td>
-            <td id="13b"></td>
-            <td id="13c"></td>
-            <td id="13d"></td>
-            <td id="13e"></td>
-            <td id="13f"></td>
-            <td id="13g"></td>
+
           </tr>
           <tr class="horario noite">
             <th class="time"><span>20:00 - 21:00</span></th>
-            <td id="14a"></td>
-            <td id="14b"></td>
-            <td id="14c"></td>
-            <td id="14d"></td>
-            <td id="14e"></td>
-            <td id="14f"></td>
-            <td id="14g"></td>
+            <td id="15a"></td>
+
           </tr>
           <tr class="horario noite">
             <th class="time"><span>21:00 - 22:00</span></th>
             <td id="15a"></td>
-            <td id="15b"></td>
-            <td id="15c"></td>
-            <td id="15d"></td>
-            <td id="15e"></td>
-            <td id="15f"></td>
-            <td id="15g"></td>
+
           </tr>
         </table>
       </div>

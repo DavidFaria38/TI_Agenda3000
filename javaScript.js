@@ -28,10 +28,22 @@ function btnCloseAdd() {
 /* ======================= FIM ============================= */
 /* ========================================================= */
 
+/* ========================================================= */
+/* Funcao para dias da semana */
+/* ========================================================= */
 
+function quedia() {
+    var d = new Date();
+    var n = d.getDay()
+    var dias = ["Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"];
+    return dias[n - 1]
+}
+function setMyDayToToday() {
+    var diahj = quedia();
+    document.getElementById("diadehoje").innerHTML = diahj;
+    console.log(diahj);
 
-
-
+}
 
 /* ========================================================= */
 /* ======== Funcao para validacao do input do user ========= */
@@ -182,7 +194,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('4a').style.backgroundColor = c2;
         document.getElementById('5a').innerHTML = c;
         document.getElementById('5a').style.backgroundColor = c3;
-        
+
         document.getElementById('1b').innerHTML = b;
         document.getElementById('1b').style.backgroundColor = c2;
         document.getElementById('2b').innerHTML = b;
@@ -204,7 +216,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('4c').style.backgroundColor = c2;
         document.getElementById('5c').innerHTML = c;
         document.getElementById('5c').style.backgroundColor = c3;
-        
+
         document.getElementById('1d').innerHTML = b;
         document.getElementById('1d').style.backgroundColor = c2;
         document.getElementById('2d').innerHTML = b;
@@ -226,7 +238,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('4e').style.backgroundColor = c2;
         document.getElementById('5e').innerHTML = c;
         document.getElementById('5e').style.backgroundColor = c3;
-        
+
         console.log('turno selecionado MANHA');
     }
     if (turno == 2) {
@@ -240,7 +252,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('9a').style.backgroundColor = c2;
         document.getElementById('10a').innerHTML = c;
         document.getElementById('10a').style.backgroundColor = c3;
-        
+
         document.getElementById('6b').innerHTML = b;
         document.getElementById('6b').style.backgroundColor = c2;
         document.getElementById('7b').innerHTML = b;
@@ -262,7 +274,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('9c').style.backgroundColor = c2;
         document.getElementById('10c').innerHTML = c;
         document.getElementById('10c').style.backgroundColor = c3;
-        
+
         document.getElementById('6d').innerHTML = b;
         document.getElementById('6d').style.backgroundColor = c2;
         document.getElementById('7d').innerHTML = b;
@@ -298,7 +310,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('14a').style.backgroundColor = c2;
         document.getElementById('15a').innerHTML = c;
         document.getElementById('15a').style.backgroundColor = c3;
-        
+
         document.getElementById('11b').innerHTML = b;
         document.getElementById('11b').style.backgroundColor = c2;
         document.getElementById('12b').innerHTML = b;
@@ -320,7 +332,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
         document.getElementById('14c').style.backgroundColor = c2;
         document.getElementById('15c').innerHTML = c;
         document.getElementById('15c').style.backgroundColor = c3;
-        
+
         document.getElementById('11d').innerHTML = b;
         document.getElementById('11d').style.backgroundColor = c2;
         document.getElementById('12d').innerHTML = b;
