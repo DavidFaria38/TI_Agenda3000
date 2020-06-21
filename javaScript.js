@@ -554,7 +554,7 @@ function submitAddTarefa() {
 /*felipe darkmode*/
 /*David alterou*/
 
-document.getElementById('btnDarkMode').addEventListener('click', darkmode)
+// document.getElementById('btnDarkMode').addEventListener('click', darkmode)
 
 var islight = 0;
 function darkmode() {
@@ -639,62 +639,62 @@ var data = {
             "cor": "red"
         }
     ]
-    // "disciplinas": [
-    //     {
-    //         "materia": "Matemática",
-    //         "coordenadas": ["11", "12", "13", "15", "26"],
-    //         "nota": "",
-    //         "cor": "#caeaf5"
-    //     },
-    //     {
-    //         "materia": "Português",
-    //         "coordenadas": ["12", "13", "23"],
-    //         "nota": "",
-    //         "cor": "#0e91bd"
-    //     },
-    //     {
-    //         "materia": "História",
-    //         "coordenadas": ["41"],
-    //         "nota": "",
-    //         "cor": "#9a55b6"
-    //     },
-    //     {
-    //         "materia": "Geografia",
-    //         "coordenadas": ["51", "56", "57"],
-    //         "nota": "",
-    //         "cor": "#e6e22e"
-    //     },
-    //     {
-    //         "materia": "Biologia",
-    //         "coordenadas": ["16", "17", "25"],
-    //         "nota": "",
-    //         "cor": "#20b2aa"
-    //     },
-    //     {
-    //         "materia": "Física",
-    //         "coordenadas": ["31", "32", "33"],
-    //         "nota": "",
-    //         "cor": "#eeb958"
-    //     },
-    //     {
-    //         "materia": "Química",
-    //         "coordenadas": [],
-    //         "nota": "",
-    //         "cor": "#e47263"
-    //     },
-    //     {
-    //         "materia": "Inglês",
-    //         "coordenadas": [],
-    //         "nota": "",
-    //         "cor": "#f5deb3"
-    //     },
-    //     {
-    //         "materia": "teste de materia",
-    //         "coordenadas": [55],
-    //         "nota": "",
-    //         "cor": "red"
-    //     }
-    // ]
+    /*"disciplinas": [
+        {
+            "materia": "Matemática",
+            "coordenadas": ["11", "12", "13", "15", "26"],
+            "nota": "",
+            "cor": "#caeaf5"
+        },
+        {
+            "materia": "Português",
+            "coordenadas": ["12", "13", "23"],
+            "nota": "",
+            "cor": "#0e91bd"
+        },
+        {
+            "materia": "História",
+            "coordenadas": ["41"],
+            "nota": "",
+            "cor": "#9a55b6"
+        },
+        {
+            "materia": "Geografia",
+            "coordenadas": ["51", "56", "57"],
+            "nota": "",
+            "cor": "#e6e22e"
+        },
+        {
+            "materia": "Biologia",
+            "coordenadas": ["16", "17", "25"],
+            "nota": "",
+            "cor": "#20b2aa"
+        },
+        {
+            "materia": "Física",
+            "coordenadas": ["31", "32", "33"],
+            "nota": "",
+            "cor": "#eeb958"
+        },
+        {
+            "materia": "Química",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#e47263"
+        },
+        {
+            "materia": "Inglês",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#f5deb3"
+        },
+        {
+            "materia": "teste de materia",
+            "coordenadas": [55],
+            "nota": "",
+            "cor": "red"
+        }
+    ]*/
 }
 
 /*
@@ -709,18 +709,20 @@ vermelho  #e47263 = Química
 wheat     #f5deb3 = Inglês
 */
 
+
 onload = () => {
     // armazena no localstorage
     localStorage.setItem("data", JSON.stringify(data));
-
+    
     // var data1 = data
     // console.log(data1)
-    // elndo do armazenamento interno
+    // lendo do armazenamento interno
+    
     let data2 = JSON.parse(localStorage.getItem("data"))
     console.log(data2.disciplinas[1])
-
+    
     let xy, materia, x, y, i, j;
-
+    
     for ( i = 0; i < data2.disciplinas.length; i++) {
         materia = data2.disciplinas[i].materia;
         xy = data2.disciplinas[i].coordenadas.length;
@@ -733,9 +735,12 @@ onload = () => {
     }
 }
 
+
+
 onload = showOnScreenFromLocalStorage();
 function showOnScreenFromLocalStorage(){
-    let localStr = JSON.parse(localStorage.getItem("data"))
+    // localStorage.setItem("data", JSON.stringify(data));
+    let localStr = JSON.parse(localStorage.getItem("data"));
 
     let xy, materia, x, y, i, j;
 
