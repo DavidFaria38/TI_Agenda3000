@@ -29,10 +29,19 @@ body {
 	color: #fff;
 	transition: 0.4s; 
 }
+
+/* Botao Darkmode   -   implementado pelo David 09/06/2020*/
+.nav .darkmode{
+	color: whitesmoke;
+	font-size: 25px;
+	cursor: pointer;
+}
+
 .nav .close {            /* Botao para fechar sidebar */
 	position: absolute;
 	top: 40px;
 	right: 22px;
+	padding: 10px;
 	margin-left: 50px;
 	font-size: 30px
 }
@@ -61,14 +70,12 @@ h1 {
 	font-size: 1.8rem;
 	text-align: center;
 	background-color: #1abc9c;
-
 }
 header{
 	text-align: center;
 	font-size: 1rem;
 	background-color:orange;
 }
-
 
 
 @media only screen and (max-width: 768px) {
@@ -94,7 +101,10 @@ header{
 /* ======================================================================= */
 /* ========== (INICIO) formulario para add tarefas a timetable =========== */
 /* ======================================================================= */
-
+/* .bg-modal              = tela em branco
+   .modal-content         = formulario para add tarefas automaticamente (filho de .bg-modal)
+   .addTarefasIndividuais = formulario para add tarefas individuais     (filho de .bg-modal)
+*/
 .bg-modal{
 	width: 100%;
 	height: 100%;
@@ -106,25 +116,25 @@ header{
 	align-items: center;
 	display: none;
 }
-.modal-content{
+.modal-content , .addTarefasIndividuais{
 	width: 600px;
 	height: 400px;
 	background-color: white;
 	border-radius: 4px;
+	position: relative;
 }
-.modal-content .close_btn_form{
+.modal-content .close_btn_form, .addTarefasIndividuais .close_btn_form{
 	margin: 0px 0px 0px 93%;
 	font-size: 50px;
 	transform: rotate(45deg);
 	cursor: pointer;
 }
-.modal-content p{
+.modal-content p, .addTarefasIndividuais p{
 	margin-top: 0px;
 	text-align: center;
 	align-items: center;
 	font-size: 1.4rem;
 }
-
 .modal-content form{
 	font-size: 1.4rem;
 	font-family: Arial, Helvetica, sans-serif;
@@ -149,6 +159,86 @@ header{
 	width: 15%;
 	height: 8%;
 }
+
+
+.addTarefasIndividuais form{
+	font-size: 1.4rem;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 300;
+	align-items: center;
+	position: relative;
+}
+.addTarefasIndividuais select{
+	position: absolute;
+	top: 30px;
+	left: 32%;
+	width: 208px;
+	height: 23px;
+} 
+.addTarefasIndividuais textarea{
+	position: absolute;
+	top: 60px;
+	left: 32%;
+	width: 202px;
+	height: 50px;
+	resize: vertical;
+	min-height: 23px ;
+	max-height: 130px;
+}
+.disciplina_span{
+	position: absolute;
+	top: 28px;
+	left: 14%;
+} 
+.anotacoes_span{
+	position: absolute;
+	top: 60px;
+	left: 12.3%;
+} 
+.addTarefasIndividuais button{
+	position: absolute;
+	bottom: 50px;
+	left: 43%;
+}
+
+@media only screen and ( max-width: 620px ) {
+	.disciplina_span, .anotacoes_span{
+		font-size: 1.4rem;
+	}
+}
+@media only screen and ( max-width: 575px ) {
+	.disciplina_span, .anotacoes_span{
+		font-size: 1.3rem;
+	}
+}
+@media only screen and ( max-width: 542px ) {
+	.disciplina_span, .anotacoes_span{
+		font-size: 1.2rem;
+	}
+}
+@media only screen and ( max-width: 495px ) {
+	.disciplina_span, .anotacoes_span{
+		font-size: 1.1rem;
+	}
+}
+@media only screen and ( max-width: 450px ) {
+	.disciplina_span, .anotacoes_span{
+		font-size: 1rem;
+		margin-top: 3px;
+	}
+}
+@media only screen and ( max-width: 410px ) {
+	.disciplina_span, .anotacoes_span{
+		font-size: 0.9rem;
+	}
+}
+@media only screen and ( max-width: 383px ) {
+	.disciplina_span, .anotacoes_span{
+		margin-top: 5px;
+		font-size: 0.8rem;
+	}
+}
+
 
 /* ======================================================================= */
 /* ============ (FIM) formulario para add tarefas a timetable ============ */
@@ -222,14 +312,12 @@ th, td{
 	min-width: 100px;
 }
 */
-
 @media only screen and ( max-width: 812px ) {
 	.horario > th{           /* formatacao da TableHead de .horario */
 		background-color: gray;
 		text-align: center;
 		height: 50px;
 		min-width: 15px;
-		
 	}
 }
 @media only screen and ( min-width: 813px ) {
@@ -240,13 +328,75 @@ th, td{
 		width: 100px;
 		
 	}
-}
+} 
 
 
 /* ======================================================================= */
 /* ============================ (FIM) Timetable ========================== */
 /* ======================================================================= */
 
+
+/*Felipe modificado */
+/* .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: red;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: red;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+/* .slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} */
+/* - -- -- - - - - - -- - - - - - - -*/
 /* Testes*/
 #col_seg_line_1 {
 	background-color: teal;
