@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans:800');
+
+body {
+	font-family: 'Alegreya Sans', sans-serif;
+	overflow-x: fixed;
+	margin: 0px;
+}
+.nav {
+	height: 100%;
+	width: 0px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: black;
+	opacity: .97;
+	overflow-x: hidden;
+	padding-top: 60px;
+	transition: 0.7s;
+}
+.nav a {
+	display: block;
+	padding: 20px 30px;
+	font-size: 25px;
+	text-decoration: none;
+	color: #ccc;
+}
+.nav a:hover {
+	color: #fff;
+	transition: 0.4s; 
+}
+
+/* Botao Darkmode   -   implementado pelo David 09/06/2020*/
+.nav .darkmode{
+	color: whitesmoke;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.nav .close {            /* Botao para fechar sidebar */
+	position: absolute;
+	top: 40px;
+	right: 22px;
+	padding: 10px;
+	margin-left: 50px;
+	font-size: 30px
+}
+.slide a {
+	color: #000;
+	margin: 10px;
+	font-size: 36px;
+	top: 0;
+	right: 0;
+}
+
+h1 {
+	font-size: 25px;
+}
+#content {
+	transition: margin-left 0.7s;
+	overflow: hidden;
+	width: 100%;
+}
+ #sticky {
+	position: -webkit- sticky;
+	position: sticky;
+	top: 0;
+	right: 50vw;
+	padding: 15px;
+	font-size: 1.8rem;
+	text-align: center;
+	background-color: #1abc9c;
+}
+header{
+	text-align: center;
+	font-size: 1rem;
+	background-color:orange;
+}
+
+
+@media only screen and (max-width: 768px) {
+	/*
+	body {
+		font-size: 1.1rem;
+	}
+	*/
+	nav a{
+		
+		font-size: 100px;
+	}
+	.nav .close {
+	position: absolute;
+	top: 0;
+	right: 22px;
+	margin-left: 100%;
+	font-size: 30px
+	}
+	
+}
+
+/* ======================================================================= */
+/* ========== (INICIO) formulario para add tarefas a timetable =========== */
+/* ======================================================================= */
+
+.bg-modal{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+}
+.modal-content{
+	width: 600px;
+	height: 400px;
+	background-color: white;
+	border-radius: 4px;
+}
+.modal-content .close_btn_form{
+	margin: 0px 0px 0px 93%;
+	font-size: 50px;
+	transform: rotate(45deg);
+	cursor: pointer;
+}
+.modal-content p{
+	margin-top: 0px;
+	text-align: center;
+	align-items: center;
+	font-size: 1.4rem;
+}
+
+.modal-content form{
+	font-size: 1.4rem;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 300;
+	text-align: center;
+}
+.modal-content .materia{
+	margin: 10px 7px auto;
+	padding: 7px;
+}
+.modal-content .peso{
+	margin: 10px 7px auto;
+	padding: 7px;
+}
+.modal-content .turno{
+	margin: 10px 7px auto;
+	padding: 7px;
+	font-size: 1rem;
+}
+.modal-content button{
+	margin: 10% 55% 0px 45%;
+	width: 15%;
+	height: 8%;
+}
+
+/* ======================================================================= */
+/* ============ (FIM) formulario para add tarefas a timetable ============ */
+/* ======================================================================= */
+
+
+
+/* ======================================================================= */
+/* ========================== (INICIO) Timetable ========================= */
+/* ======================================================================= */
+
+table{
+	width: 90%;   
+	box-shadow: 4px 5px rgba(46, 46, 46, 0.61);
+	border-radius: 1%;
+	
+}
+.table{
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;   
+	max-width: 90%;
+	overflow: auto;
+	white-space: nowrap;
+	border: solid 1px black;  
+}
+
+.time{                    /* mantemos horarios da timetable fixos na horizontal */
+	position: sticky;
+	left: 0;
+
+	border: solid 2px black;
+}
+
+table, th, td{
+	border: solid 2px rgb(0, 0, 0);
+    border-collapse: collapse;
+}
+
+.weekDays > th{           /* formatacao da TableHead de .weekDays */
+	background-color: red;
+	padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    height: 50px;
+	min-width: 100px;
+}
+
+.horario > th{           /* formatacao da TableHead de .horario */
+	background-color: gray;
+	color: rgb(39, 38, 38);
+	font-size: 0.8rem;
+	font-weight: bolder;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	height: 50px;
+    min-width: 100px;
+}
+
+.horario td{
+	text-align: center;
+}
+
+/*
+th, td{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+	min-width: 100px;
+}
+*/
+@media only screen and ( max-width: 812px ) {
+	.horario > th{           /* formatacao da TableHead de .horario */
+		background-color: gray;
+		text-align: center;
+		height: 50px;
+		min-width: 15px;
+		
+	}
+}
+@media only screen and ( min-width: 813px ) {
+	.horario > th{           /* formatacao da TableHead de .horario */
+		background-color: gray;
+		text-align: center;
+		height: 100px;
+		width: 100px;
+		
+	}
+} 
+
+
+/* ======================================================================= */
+/* ============================ (FIM) Timetable ========================== */
+/* ======================================================================= */
+
+
+/*Felipe modificado */
+/* .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: red;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: red;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+/* .slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} */
+/* - -- -- - - - - - -- - - - - - - -*/
+/* Testes*/
+#col_seg_line_1 {
+	background-color: teal;
+	
+}

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Agenda 3000</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+  <header>
+    <div id="sticky">Agenda 3000</div>
+  </header>
+
+  <nav>
+    <div id="content">
+
+      <!-- Outside sidebar - Hamburguer -->
+      <span class="slide">
+        <a href="#" onclick="openSlideMenu()">
+          <i class="fas fa-bars"></i>
+        </a>
+      </span>
+
+      <!-- Inside Sidebar  - X  -->
+      <div id="menu" class="nav">
+        <a href="#" class="close" onclick="closeSlideMenu()">
+          <i class="fas fa-times"></i> <!-- JS => add X -->
+        </a>
+        <a href="#">Home</a>
+        <a href="#">Opçōes</a>
+        <a href="#">Configurações</a>
+        <!--MODIFICADO FELIPE VILAS BOAS MARPRATES-->
+        <a class="darkmode" type="checkbox" id="btnDarkMode" >Darkmode</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- button para add novas taferas a timetable -->
+    <span style="font-size: 3rem;
+                 margin-left: 90%;
+                 margin-bottom: 50px;">
+      <i onclick="btnOpenAdd()" class="fas fa-plus"></i>
+    </span>
+    <section>
+      <div class="table">
+        <table>
+          <tr class="weekDays">
+            <td> </td> <!-- Caso for "th" havera um overwrite na width de .horario -->
+            <th>Segunda</th>
+            <th>Terça</th>
+            <th>Quarta</th>
+            <th>Quinta</th>
+            <th>Sexta</th>
+            <th>Sabado</th>
+            <th>Domingo</th>
+          </tr>
+          <tr class="horario manha">
+            <th class="time "><span>7:00 - 8:00</span></th>
+            <td id="11"></td>
+            <td id="12"></td>
+            <td id="13"></td>
+            <td id="14"></td>
+            <td id="15"></td>
+            <td id="16"></td>
+            <td id="17"></td>
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>8:00 - 9:00</span></th>
+            <td id="21"></td>
+            <td id="22"></td>
+            <td id="23"></td>
+            <td id="24"></td>
+            <td id="25"></td>
+            <td id="26"></td>
+            <td id="27"></td>
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>9:00 - 10:00</span></th>
+            <td id="31"></td>
+            <td id="32"></td>
+            <td id="33"></td>
+            <td id="34"></td>
+            <td id="35"></td>
+            <td id="36"></td>
+            <td id="37"></td>
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>10:00 - 11:00</span></th>
+            <td id="41"></td>
+            <td id="42"></td>
+            <td id="43"></td>
+            <td id="44"></td>
+            <td id="45"></td>
+            <td id="46"></td>
+            <td id="47"></td>
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>11:00 - 12:00</span></th>
+            <td id="51"></td>
+            <td id="52"></td>
+            <td id="53"></td>
+            <td id="54"></td>
+            <td id="55"></td>
+            <td id="56"></td>
+            <td id="57"></td>
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>12:00 - 13:00</span></th>
+            <td id="61"></td>
+            <td id="62"></td>
+            <td id="63"></td>
+            <td id="64"></td>
+            <td id="65"></td>
+            <td id="66"></td>
+            <td id="67"></td>
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>13:00 - 14:00</span></th>
+            <td id="71"></td>
+            <td id="72"></td>
+            <td id="73"></td>
+            <td id="74"></td>
+            <td id="75"></td>
+            <td id="76"></td>
+            <td id="77"></td>
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>14:00 - 15:00</span></th>
+            <td id="81"></td>
+            <td id="82"></td>
+            <td id="83"></td>
+            <td id="84"></td>
+            <td id="85"></td>
+            <td id="86"></td>
+            <td id="87"></td>
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>15:00 - 16:00</span></th>
+            <td id="91"></td>
+            <td id="92"></td>
+            <td id="93"></td>
+            <td id="94"></td>
+            <td id="95"></td>
+            <td id="96"></td>
+            <td id="97"></td>
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>16:00 - 17:00</span></th>
+            <td id="101"></td>
+            <td id="102"></td>
+            <td id="103"></td>
+            <td id="104"></td>
+            <td id="105"></td>
+            <td id="106"></td>
+            <td id="107"></td>
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>17:00 - 18:00</span></th>
+            <td id="111"></td>
+            <td id="112"></td>
+            <td id="113"></td>
+            <td id="114"></td>
+            <td id="115"></td>
+            <td id="116"></td>
+            <td id="117"></td>
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>18:00 - 19:00</span></th>
+            <td id="121"></td>
+            <td id="122"></td>
+            <td id="123"></td>
+            <td id="124"></td>
+            <td id="125"></td>
+            <td id="126"></td>
+            <td id="127"></td>
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>19:00 - 20:00</span></th>
+            <td id="131"></td>
+            <td id="132"></td>
+            <td id="133"></td>
+            <td id="134"></td>
+            <td id="135"></td>
+            <td id="136"></td>
+            <td id="137"></td>
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>20:00 - 21:00</span></th>
+            <td id="141"></td>
+            <td id="142"></td>
+            <td id="143"></td>
+            <td id="144"></td>
+            <td id="145"></td>
+            <td id="146"></td>
+            <td id="147"></td>
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>21:00 - 22:00</span></th>
+            <td id="151"></td>
+            <td id="152"></td>
+            <td id="153"></td>
+            <td id="154"></td>
+            <td id="155"></td>
+            <td id="156"></td>
+            <td id="157"></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- Pop-up windown para add tarefas a timetable -->
+    <div class="bg-modal">
+
+      <div class="modal-content">
+        <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
+        <p>Adicionar tarefas</p>
+
+        <form action="#">
+          <!-- Preferencias 1 -->
+          <div class="pref_1">
+            <label for="pref_1">Preferencia 1 :</label>
+            <select class="materia" name="pref_1" id="pref_1">
+              <option value="blank" selected></option>
+              <option value="mat">Matemática</option>
+              <option value="port">Português</option>
+              <option value="hist">História</option>
+              <option value="geo">Geografia</option>
+              <option value="bio">Biologia</option>
+              <option value="fis">Física</option>
+              <option value="qui">Química</option>
+              <option value="ing">Inglês</option>
+            </select>
+            <select class="peso" name="pesoPref_1" id="pesoPref_1">
+              <option value="-1" selected></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+
+          <!-- Preferencias 2 -->
+          <div class="pref_2">
+            <label for="pref_2">Preferencia 2 :</label>
+            <select class="materia" name="pref_2" id="pref_2">
+              <option value="blank" selected></option>
+              <option value="mat">Matemática</option>
+              <option value="port">Português</option>
+              <option value="hist">História</option>
+              <option value="geo">Geografia</option>
+              <option value="bio">Biologia</option>
+              <option value="fis">Física</option>
+              <option value="qui">Química</option>
+              <option value="ing">Inglês</option>
+            </select>
+            <select class="peso" name="pesoPref_2" id="pesoPref_2">
+              <option value="-1" selected></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+
+          <!-- Preferencias 3 -->
+          <div class="pref_3">
+            <label for="pref_3">Preferencia 3 :</label>
+            <select class="materia" name="pref_3" id="pref_3">
+              <option value="blank" selected></option>
+              <option value="mat">Matemática</option>
+              <option value="port">Português</option>
+              <option value="hist">História</option>
+              <option value="geo">Geografia</option>
+              <option value="bio">Biologia</option>
+              <option value="fis">Física</option>
+              <option value="qui">Química</option>
+              <option value="ing">Inglês</option>
+            </select>
+            <select class="peso" name="pesoPref_3" id="pesoPref_3">
+              <option value="-1" selected></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+
+          <div class="turno">
+            <label for="turnoManha">Manha</label>
+            <input type="radio" name="turno" id="turnoManha">
+            <label for="turnoTarde">Tarde</label>
+            <input type="radio" name="turno" id="turnoTarde">
+            <label for="turnoNoite">Noite</label>
+            <input type="radio" name="turno" id="turnoNoite">
+
+            <span id="missingFieldTurno" style="color: red;"></span>
+
+          </div>
+          <!--
+          <p><button onclick="submitAddTarefa()">Enviar</button></p>
+-->
+        </form>
+        <button id="btnSubmit" onclick="submitAddTarefa()"> Confirmar </button>
+
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+
+
+
+  <script src="javaScript.js"></script>
+</body>
+
+</html>
+
+
+<!--
+  <nav>
+    <div id="content">
+
+      
+      <span class="slide">
+        <a href="#" onclick="openSlideMenu()">
+          <i class="fas fa-bars"></i>
+        </a>
+      </span>
+
+      
+      <div id="menu" class="nav">
+        <a href="#" class="close" onclick="closeSlideMenu()">
+          <i class="fas fa-times"></i>
+        </a>
+        <a href="#">Home</a>
+        <a href="#">Opçōes</a>
+        <a href="#">Configurações</a>
+        <a href="#">Lorem</a>
+        <a href="#">lorem</a>
+      </div>
+    </div>
+  </nav>
+-->
