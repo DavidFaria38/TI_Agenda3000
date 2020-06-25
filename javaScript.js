@@ -3,10 +3,10 @@ function openSlideMenu() {
 
     if (screen.width >= '700') {
         document.getElementById('menu').style.width = '250px';
-        //document.getElementById('content').style.marginLeft = '250px';
+
     } else {
         document.getElementById('menu').style.width = '100%';
-        //document.getElementById('content').style.marginLeft = 'auto';
+
     }
 }
 function closeSlideMenu() {
@@ -23,8 +23,8 @@ function closeSlideMenu() {
 function btnOpenAdd() {
     //confirm("click");
     document.querySelector('.bg-modal').style.display = 'flex'
-    document.querySelector('.bg-modal').innerHTML = 
-    `
+    document.querySelector('.bg-modal').innerHTML =
+        `
     <div class="modal-content">
     <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
     <p>Adicionar tarefas</p>
@@ -151,10 +151,13 @@ function quedia() {
 }
 function setMyDayToToday() {
     var diahj = quedia();
-    document.getElementById("diadehoje").innerHTML = diahj;
+    if (document.getElementById("diadehoje") != null) {
+        document.getElementById("diadehoje").innerHTML = diahj;
+    }
     console.log(diahj);
 
 }
+window.onload = setMyDayToToday();
 
 /* ========================================================= */
 /* ======== Funcao para validacao do input do user ========= */
@@ -713,20 +716,20 @@ wheat     #f5deb3 = Inglês
 onload = () => {
     // armazena no localstorage
     localStorage.setItem("data", JSON.stringify(data));
-    
+
     // var data1 = data
     // console.log(data1)
     // lendo do armazenamento interno
-    
+
     let data2 = JSON.parse(localStorage.getItem("data"))
     console.log(data2.disciplinas[1])
-    
+
     let xy, materia, x, y, i, j;
-    
-    for ( i = 0; i < data2.disciplinas.length; i++) {
+
+    for (i = 0; i < data2.disciplinas.length; i++) {
         materia = data2.disciplinas[i].materia;
         xy = data2.disciplinas[i].coordenadas.length;
-        for ( j = 0; j < xy; j++) {
+        for (j = 0; j < xy; j++) {
             x = data2.disciplinas[i].coordenadas[j];
             y = data2.disciplinas[i].cor;
             document.getElementById(`${x}`).innerText = (`${materia}`)
@@ -738,16 +741,16 @@ onload = () => {
 
 
 onload = showOnScreenFromLocalStorage();
-function showOnScreenFromLocalStorage(){
+function showOnScreenFromLocalStorage() {
     // localStorage.setItem("data", JSON.stringify(data));
     let localStr = JSON.parse(localStorage.getItem("data"));
 
     let xy, materia, x, y, i, j;
 
-    for ( i = 0; i < localStr.disciplinas.length; i++) {
+    for (i = 0; i < localStr.disciplinas.length; i++) {
         materia = localStr.disciplinas[i].materia;
         xy = localStr.disciplinas[i].coordenadas.length;
-        for ( j = 0; j < xy; j++) {
+        for (j = 0; j < xy; j++) {
             x = localStr.disciplinas[i].coordenadas[j];
             y = localStr.disciplinas[i].cor;
             document.getElementById(`${x}`).innerText = (`${materia}`)
@@ -796,8 +799,7 @@ function addTarefaIndividual(coord) {
 
     // mostrar em select todas opcoes de materia na memoria local
     let localStr = JSON.parse(localStorage.getItem("data"))
-    for(let i = 0; i < localStr.disciplinas.length; i++)
-    {   
+    for (let i = 0; i < localStr.disciplinas.length; i++) {
         materia = localStr.disciplinas[i].materia;
         idElemento = document.getElementById('disciplina_select');
         elemento = document.createElement('option');
@@ -806,21 +808,21 @@ function addTarefaIndividual(coord) {
     }
 }
 
-function btnSubmit_AddTarefaIndividual( coord ) {
+function btnSubmit_AddTarefaIndividual(coord) {
     let i, lengthCoord;
-    
+
     let disciplina_Form = document.getElementById('disciplina_select').value;
     let anotacoes_Form = document.getElementById('anotacoes').value;
-    
+
     localStr = JSON.parse(localStorage.getItem('data'));
-    
-    for( i = 0; i < localStr.disciplinas.length; i++){
-        if( localStr.disciplinas[i].materia == disciplina_Form){
+
+    for (i = 0; i < localStr.disciplinas.length; i++) {
+        if (localStr.disciplinas[i].materia == disciplina_Form) {
             lengthCoord = localStr.disciplinas[i].coordenadas.length;
-            localStr.disciplinas[i].coordenadas[lengthCoord] = coord; 
+            localStr.disciplinas[i].coordenadas[lengthCoord] = coord;
         }
     }
-    
+
     localStorage.setItem('data', JSON.stringify(localStr));
     showOnScreenFromLocalStorage();
     // clear na tela
