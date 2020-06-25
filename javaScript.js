@@ -142,7 +142,7 @@ function btnCloseAdd() {
 /* ========================================================= */
 /* Funcao para dias da semana */
 /* ========================================================= */
-
+var materias = [];
 function quedia() {
     var d = new Date();
     var n = d.getDay()
@@ -155,6 +155,39 @@ function setMyDayToToday() {
         document.getElementById("diadehoje").innerHTML = diahj;
     }
     console.log(diahj);
+
+}
+function mydayMaterias() {
+    var materiasdehj = [];
+    let d = new Date();
+    let hj = d.getDay() + 1;
+    for (let i = 0; i < data.disciplinas.length; i++) {
+        for (let z = 0; z < data.disciplinas[i].coordenadas.length; z++) {
+            let mydaycord = data.disciplinas[i].coordenadas[z];
+            let x = mydaycord.length - 1;
+            //console.log("cordenadas=" + mydaycord + "size=" + x + "hoje=" + hj);
+            if (mydaycord[x] == hj) {
+                mydaycord = mydaycord.substr(0, x);
+                materiasdehj.push(mydaycord + "," + data.disciplinas[i].materia);
+            }
+        }
+    }
+    return materiasdehj;
+}
+function putMymaterias() {
+    let arrayMyday = mydayMaterias();
+    for (let i = 0; i < arrayMyday.length; i++) {
+        let breakcomma = arrayMyday[i].indexOf(",");
+        let number = arrayMyday[i].substr(0, breakcomma);
+        let sub = arrayMyday[i].substr((breakcomma + 1), arrayMyday[i].length);
+        let color = sub.substr(0, 3);
+        color = color.toLowerCase();
+        color = selecionadorCor(color);
+        number = "My" + number;
+        document.getElementById(number).style.backgroundColor = color;
+        document.getElementById(number).innerText = sub;
+    }
+
 
 }
 window.onload = setMyDayToToday();
@@ -586,7 +619,7 @@ function darkmode() {
 /* ========================================================= */
 
 var data = {
-    "disciplinas": [
+    /*"disciplinas": [
         {
             "materia": "Matemática",
             "coordenadas": [],
@@ -641,8 +674,8 @@ var data = {
             "nota": "",
             "cor": "red"
         }
-    ]
-    /*"disciplinas": [
+    ]*/
+    "disciplinas": [
         {
             "materia": "Matemática",
             "coordenadas": ["11", "12", "13", "15", "26"],
@@ -697,7 +730,7 @@ var data = {
             "nota": "",
             "cor": "red"
         }
-    ]*/
+    ]
 }
 
 /*
@@ -725,6 +758,8 @@ onload = () => {
     console.log(data2.disciplinas[1])
 
     let xy, materia, x, y, i, j;
+    x = 0;
+    y = 0;
 
     for (i = 0; i < data2.disciplinas.length; i++) {
         materia = data2.disciplinas[i].materia;
@@ -732,8 +767,8 @@ onload = () => {
         for (j = 0; j < xy; j++) {
             x = data2.disciplinas[i].coordenadas[j];
             y = data2.disciplinas[i].cor;
-            document.getElementById(`${x}`).innerText = (`${materia}`)
-            document.getElementById(`${x}`).style.backgroundColor = y;
+            //            document.getElementById(`${x}`).innerText = materia;
+            // document.getElementById(`${x}`).style.backgroundColor = y;
         }
     }
 }
@@ -753,8 +788,8 @@ function showOnScreenFromLocalStorage() {
         for (j = 0; j < xy; j++) {
             x = localStr.disciplinas[i].coordenadas[j];
             y = localStr.disciplinas[i].cor;
-            document.getElementById(`${x}`).innerText = (`${materia}`)
-            document.getElementById(`${x}`).style.backgroundColor = y;
+            //   document.getElementById(`${x}`).innerText = materia;
+            //document.getElementById(`${x}`).style.backgroundColor = y;
         }
     }
 }
