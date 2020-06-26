@@ -158,17 +158,20 @@ function setMyDayToToday() {
 
 }
 function mydayMaterias() {
+    let data2 = JSON.parse(localStorage.getItem("data"));
+    console.log(data2);
     var materiasdehj = [];
     let d = new Date();
-    let hj = d.getDay() + 1;
-    for (let i = 0; i < data.disciplinas.length; i++) {
-        for (let z = 0; z < data.disciplinas[i].coordenadas.length; z++) {
-            let mydaycord = data.disciplinas[i].coordenadas[z];
+    let hj = d.getDay();
+    for (let i = 0; i < data2.disciplinas.length; i++) {
+        for (let z = 0; z < data2.disciplinas[i].coordenadas.length; z++) {
+            let mydaycord = "" + data2.disciplinas[i].coordenadas[z];
             let x = mydaycord.length - 1;
-            //console.log("cordenadas=" + mydaycord + "size=" + x + "hoje=" + hj);
+            // console.log("mydaycord = " + mydaycord)
+            console.log("cordenadas= " + mydaycord + " lenght= " + x + " hoje= " + hj);
             if (mydaycord[x] == hj) {
                 mydaycord = mydaycord.substr(0, x);
-                materiasdehj.push(mydaycord + "," + data.disciplinas[i].materia);
+                materiasdehj.push(mydaycord + "," + data2.disciplinas[i].materia);
             }
         }
     }
@@ -182,7 +185,7 @@ function putMymaterias() {
         let sub = arrayMyday[i].substr((breakcomma + 1), arrayMyday[i].length);
         let color = sub.substr(0, 3);
         color = color.toLowerCase();
-        color = selecionadorCor(color);
+        color = selecionadorCor(color); // Trocar esta funcao por uma outra mais eficiente
         number = "My" + number;
         document.getElementById(number).style.backgroundColor = color;
         document.getElementById(number).innerText = sub;
@@ -190,7 +193,14 @@ function putMymaterias() {
 
 
 }
-window.onload = setMyDayToToday();
+// window.onload = setMyDayToToday();
+
+// load se myday.html estiver sendo exibida
+if (window.location.pathname == '/myday.html') {
+    setMyDayToToday();
+    putMymaterias();
+}
+
 
 /* ========================================================= */
 /* ======== Funcao para validacao do input do user ========= */
@@ -289,20 +299,22 @@ function selecionadorCor(pref) {
     let color;
     if (pref == 'mat')
         color = "#caeaf5"
-    else if (pref == 'port')
+    else if (pref == 'por')
         color = "#0e91bd"
-    else if (pref == 'hist')
+    else if (pref == 'his')
         color = "#9a55b6"
     else if (pref == 'geo')
         color = "#e6e22e"
     else if (pref == 'bio')
         color = "#20b2aa"
-    else if (pref == 'fis')
+    else if (pref == 'fís')
         color = "#eeb958"
-    else if (pref == 'qui')
+    else if (pref == 'quí')
         color = "#e47263"
     else if (pref == 'ing')
         color = "#f5deb3"
+    else if (pref == 'tes')
+        color = "red"
 
     return (color);
 }
@@ -748,14 +760,14 @@ wheat     #f5deb3 = Inglês
 
 onload = () => {
     // armazena no localstorage
-    localStorage.setItem("data", JSON.stringify(data));
+    // localStorage.setItem("data", JSON.stringify(data));
 
     // var data1 = data
     // console.log(data1)
     // lendo do armazenamento interno
 
-    let data2 = JSON.parse(localStorage.getItem("data"))
-    console.log(data2.disciplinas[1])
+    let data2 = JSON.parse(localStorage.getItem("data"));
+    console.log("data= " + data2.disciplinas[1])
 
     let xy, materia, x, y, i, j;
     x = 0;
@@ -788,8 +800,10 @@ function showOnScreenFromLocalStorage() {
         for (j = 0; j < xy; j++) {
             x = localStr.disciplinas[i].coordenadas[j];
             y = localStr.disciplinas[i].cor;
-            //   document.getElementById(`${x}`).innerText = materia;
-            //document.getElementById(`${x}`).style.backgroundColor = y;
+            if(document.getElementById(`${x}`) != null){
+                document.getElementById(`${x}`).innerText = materia;
+                document.getElementById(`${x}`).style.backgroundColor = y;
+            }
         }
     }
 }
