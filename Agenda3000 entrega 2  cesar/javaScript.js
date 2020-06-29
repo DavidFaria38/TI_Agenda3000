@@ -3,10 +3,10 @@ function openSlideMenu() {
 
     if (screen.width >= '700') {
         document.getElementById('menu').style.width = '250px';
-        //document.getElementById('content').style.marginLeft = '250px';
+
     } else {
         document.getElementById('menu').style.width = '100%';
-        //document.getElementById('content').style.marginLeft = 'auto';
+
     }
 }
 function closeSlideMenu() {
@@ -23,8 +23,8 @@ function closeSlideMenu() {
 function btnOpenAdd() {
     //confirm("click");
     document.querySelector('.bg-modal').style.display = 'flex'
-    document.querySelector('.bg-modal').innerHTML = 
-    `
+    document.querySelector('.bg-modal').innerHTML =
+        `
     <div class="modal-content">
     <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
     <p>Adicionar tarefas</p>
@@ -139,6 +139,67 @@ function btnCloseAdd() {
 /* ======================= FIM ============================= */
 /* ========================================================= */
 
+/* ========================================================= */
+/* Funcao para dias da semana */
+/* ========================================================= */
+var materias = [];
+function quedia() {
+    var d = new Date();
+    var n = d.getDay()
+    var dias = ["Domingo", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado"];
+    return dias[n]
+}
+function setMyDayToToday() {
+    var diahj = quedia();
+    if (document.getElementById("diadehoje") != null) {
+        document.getElementById("diadehoje").innerHTML = diahj;
+    }
+    console.log(diahj);
+
+}
+function mydayMaterias() {
+    let data2 = JSON.parse(localStorage.getItem("data"));
+    console.log(data2);
+    var materiasdehj = [];
+    let d = new Date();
+    let hj = d.getDay();
+    for (let i = 0; i < data2.disciplinas.length; i++) {
+        for (let z = 0; z < data2.disciplinas[i].coordenadas.length; z++) {
+            let mydaycord = "" + data2.disciplinas[i].coordenadas[z];
+            let x = mydaycord.length - 1;
+            // console.log("mydaycord = " + mydaycord)
+            console.log("cordenadas= " + mydaycord + " lenght= " + x + " hoje= " + hj);
+            if (mydaycord[x] == hj) {
+                mydaycord = mydaycord.substr(0, x);
+                materiasdehj.push(mydaycord + "," + data2.disciplinas[i].materia);
+            }
+        }
+    }
+    return materiasdehj;
+}
+function putMymaterias() {
+    let arrayMyday = mydayMaterias();
+    for (let i = 0; i < arrayMyday.length; i++) {
+        let breakcomma = arrayMyday[i].indexOf(",");
+        let number = arrayMyday[i].substr(0, breakcomma);
+        let sub = arrayMyday[i].substr((breakcomma + 1), arrayMyday[i].length);
+        let color = sub.substr(0, 3);
+        color = color.toLowerCase();
+        color = selecionadorCor(color); // Trocar esta funcao por uma outra mais eficiente
+        number = "My" + number;
+        document.getElementById(number).style.backgroundColor = color;
+        document.getElementById(number).innerText = sub;
+    }
+
+
+}
+// window.onload = setMyDayToToday();
+
+// load se myday.html estiver sendo exibida
+if (window.location.pathname == '/myday.html') {
+    setMyDayToToday();
+    putMymaterias();
+}
 
 
 /* ========================================================= */
@@ -238,20 +299,22 @@ function selecionadorCor(pref) {
     let color;
     if (pref == 'mat')
         color = "#caeaf5"
-    else if (pref == 'port')
+    else if (pref == 'por')
         color = "#0e91bd"
-    else if (pref == 'hist')
+    else if (pref == 'his')
         color = "#9a55b6"
     else if (pref == 'geo')
         color = "#e6e22e"
     else if (pref == 'bio')
         color = "#20b2aa"
-    else if (pref == 'fis')
+    else if (pref == 'fís')
         color = "#eeb958"
-    else if (pref == 'qui')
+    else if (pref == 'quí')
         color = "#e47263"
     else if (pref == 'ing')
         color = "#f5deb3"
+    else if (pref == 'tes')
+        color = "red"
 
     return (color);
 }
@@ -539,7 +602,7 @@ function submitAddTarefa() {
 /*felipe darkmode*/
 /*David alterou*/
 
-document.getElementById('btnDarkMode').addEventListener('click', darkmode)
+// document.getElementById('btnDarkMode').addEventListener('click', darkmode)
 
 var islight = 0;
 function darkmode() {
@@ -568,7 +631,7 @@ function darkmode() {
 /* ========================================================= */
 
 var data = {
-    "disciplinas": [
+    /*"disciplinas": [
         {
             "materia": "Matemática",
             "coordenadas": [],
@@ -623,63 +686,63 @@ var data = {
             "nota": "",
             "cor": "red"
         }
+    ]*/
+    "disciplinas": [
+        {
+            "materia": "Matemática",
+            "coordenadas": ["11", "12", "13", "15", "26"],
+            "nota": "",
+            "cor": "#caeaf5"
+        },
+        {
+            "materia": "Português",
+            "coordenadas": ["12", "13", "23"],
+            "nota": "",
+            "cor": "#0e91bd"
+        },
+        {
+            "materia": "História",
+            "coordenadas": ["41"],
+            "nota": "",
+            "cor": "#9a55b6"
+        },
+        {
+            "materia": "Geografia",
+            "coordenadas": ["51", "56", "57"],
+            "nota": "",
+            "cor": "#e6e22e"
+        },
+        {
+            "materia": "Biologia",
+            "coordenadas": ["16", "17", "25"],
+            "nota": "",
+            "cor": "#20b2aa"
+        },
+        {
+            "materia": "Física",
+            "coordenadas": ["31", "32", "33"],
+            "nota": "",
+            "cor": "#eeb958"
+        },
+        {
+            "materia": "Química",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#e47263"
+        },
+        {
+            "materia": "Inglês",
+            "coordenadas": [],
+            "nota": "",
+            "cor": "#f5deb3"
+        },
+        {
+            "materia": "teste de materia",
+            "coordenadas": [55],
+            "nota": "",
+            "cor": "red"
+        }
     ]
-    // "disciplinas": [
-    //     {
-    //         "materia": "Matemática",
-    //         "coordenadas": ["11", "12", "13", "15", "26"],
-    //         "nota": "",
-    //         "cor": "#caeaf5"
-    //     },
-    //     {
-    //         "materia": "Português",
-    //         "coordenadas": ["12", "13", "23"],
-    //         "nota": "",
-    //         "cor": "#0e91bd"
-    //     },
-    //     {
-    //         "materia": "História",
-    //         "coordenadas": ["41"],
-    //         "nota": "",
-    //         "cor": "#9a55b6"
-    //     },
-    //     {
-    //         "materia": "Geografia",
-    //         "coordenadas": ["51", "56", "57"],
-    //         "nota": "",
-    //         "cor": "#e6e22e"
-    //     },
-    //     {
-    //         "materia": "Biologia",
-    //         "coordenadas": ["16", "17", "25"],
-    //         "nota": "",
-    //         "cor": "#20b2aa"
-    //     },
-    //     {
-    //         "materia": "Física",
-    //         "coordenadas": ["31", "32", "33"],
-    //         "nota": "",
-    //         "cor": "#eeb958"
-    //     },
-    //     {
-    //         "materia": "Química",
-    //         "coordenadas": [],
-    //         "nota": "",
-    //         "cor": "#e47263"
-    //     },
-    //     {
-    //         "materia": "Inglês",
-    //         "coordenadas": [],
-    //         "nota": "",
-    //         "cor": "#f5deb3"
-    //     },
-    //     {
-    //         "materia": "teste de materia",
-    //         "coordenadas": [55],
-    //         "nota": "",
-    //         "cor": "red"
-    //     }
-    // ]
 }
 
 /*
@@ -694,44 +757,53 @@ vermelho  #e47263 = Química
 wheat     #f5deb3 = Inglês
 */
 
+
 onload = () => {
     // armazena no localstorage
-    localStorage.setItem("data", JSON.stringify(data));
+    // localStorage.setItem("data", JSON.stringify(data));
 
     // var data1 = data
     // console.log(data1)
-    // elndo do armazenamento interno
-    let data2 = JSON.parse(localStorage.getItem("data"))
-    console.log(data2.disciplinas[1])
+    // lendo do armazenamento interno
+
+    let data2 = JSON.parse(localStorage.getItem("data"));
+    console.log("data= " + data2.disciplinas[1])
 
     let xy, materia, x, y, i, j;
+    x = 0;
+    y = 0;
 
-    for ( i = 0; i < data2.disciplinas.length; i++) {
+    for (i = 0; i < data2.disciplinas.length; i++) {
         materia = data2.disciplinas[i].materia;
         xy = data2.disciplinas[i].coordenadas.length;
-        for ( j = 0; j < xy; j++) {
+        for (j = 0; j < xy; j++) {
             x = data2.disciplinas[i].coordenadas[j];
             y = data2.disciplinas[i].cor;
-            document.getElementById(`${x}`).innerText = (`${materia}`)
-            document.getElementById(`${x}`).style.backgroundColor = y;
+            //            document.getElementById(`${x}`).innerText = materia;
+            // document.getElementById(`${x}`).style.backgroundColor = y;
         }
     }
 }
 
+
+
 onload = showOnScreenFromLocalStorage();
-function showOnScreenFromLocalStorage(){
-    let localStr = JSON.parse(localStorage.getItem("data"))
+function showOnScreenFromLocalStorage() {
+    // localStorage.setItem("data", JSON.stringify(data));
+    let localStr = JSON.parse(localStorage.getItem("data"));
 
     let xy, materia, x, y, i, j;
 
-    for ( i = 0; i < localStr.disciplinas.length; i++) {
+    for (i = 0; i < localStr.disciplinas.length; i++) {
         materia = localStr.disciplinas[i].materia;
         xy = localStr.disciplinas[i].coordenadas.length;
-        for ( j = 0; j < xy; j++) {
+        for (j = 0; j < xy; j++) {
             x = localStr.disciplinas[i].coordenadas[j];
             y = localStr.disciplinas[i].cor;
-            document.getElementById(`${x}`).innerText = (`${materia}`)
-            document.getElementById(`${x}`).style.backgroundColor = y;
+            if(document.getElementById(`${x}`) != null){
+                document.getElementById(`${x}`).innerText = materia;
+                document.getElementById(`${x}`).style.backgroundColor = y;
+            }
         }
     }
 }
@@ -776,8 +848,7 @@ function addTarefaIndividual(coord) {
 
     // mostrar em select todas opcoes de materia na memoria local
     let localStr = JSON.parse(localStorage.getItem("data"))
-    for(let i = 0; i < localStr.disciplinas.length; i++)
-    {   
+    for (let i = 0; i < localStr.disciplinas.length; i++) {
         materia = localStr.disciplinas[i].materia;
         idElemento = document.getElementById('disciplina_select');
         elemento = document.createElement('option');
@@ -786,21 +857,21 @@ function addTarefaIndividual(coord) {
     }
 }
 
-function btnSubmit_AddTarefaIndividual( coord ) {
+function btnSubmit_AddTarefaIndividual(coord) {
     let i, lengthCoord;
-    
+
     let disciplina_Form = document.getElementById('disciplina_select').value;
     let anotacoes_Form = document.getElementById('anotacoes').value;
-    
+
     localStr = JSON.parse(localStorage.getItem('data'));
-    
-    for( i = 0; i < localStr.disciplinas.length; i++){
-        if( localStr.disciplinas[i].materia == disciplina_Form){
+
+    for (i = 0; i < localStr.disciplinas.length; i++) {
+        if (localStr.disciplinas[i].materia == disciplina_Form) {
             lengthCoord = localStr.disciplinas[i].coordenadas.length;
-            localStr.disciplinas[i].coordenadas[lengthCoord] = coord; 
+            localStr.disciplinas[i].coordenadas[lengthCoord] = coord;
         }
     }
-    
+
     localStorage.setItem('data', JSON.stringify(localStr));
     showOnScreenFromLocalStorage();
     // clear na tela

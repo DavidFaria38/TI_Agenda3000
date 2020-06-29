@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Agenda 3000</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+  <header>
+    <div id="sticky">Agenda 3000</div>
+  </header>
+
+
+  <nav>
+    <div id="content">
+
+      <!-- Outside sidebar - Hamburguer -->
+      <span class="slide">
+        <a href="#" onclick="openSlideMenu()">
+          <i class="fas fa-bars"></i>
+        </a>
+      </span>
+
+      <!-- Inside Sidebar  - X  -->
+      <div id="menu" class="nav">
+        <a href="#" class="close" onclick="closeSlideMenu()">
+          <i class="fas fa-times"></i> <!-- JS => add X -->
+        </a>
+        <a href="index.html">Home</a>
+        <a href="#">Opçōes</a>
+        <a href="#">Configurações</a>
+        <a href="myday.html">Myday</a>
+        <a href="#">lorem</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- button para add novas taferas a timetable -->
+
+    <section>
+      <div class="table">
+        <table>
+          <tr class="weekDays">
+            <td> </td> <!-- Caso for "th" havera um overwrite na width de .horario -->
+            <th>
+              <h2 id="diadehoje"></h2>
+            </th>
+
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>7:00 - 8:00</span></th>
+            <td id="My1"></td>
+
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>8:00 - 9:00</span></th>
+            <td id="My2"></td>
+
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>9:00 - 10:00</span></th>
+            <td id="My3"></td>
+
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>10:00 - 11:00</span></th>
+            <td id="My4"></td>
+
+          </tr>
+          <tr class="horario manha">
+            <th class="time"><span>11:00 - 12:00</span></th>
+            <td id="My5"></td>
+
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>12:00 - 13:00</span></th>
+            <td id="My6"></td>
+
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>13:00 - 14:00</span></th>
+            <td id="My7"></td>
+
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>14:00 - 15:00</span></th>
+            <td id="My8"></td>
+
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>15:00 - 16:00</span></th>
+            <td id="My9"></td>
+
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>16:00 - 17:00</span></th>
+            <td id="My10"></td>
+
+          </tr>
+          <tr class="horario tarde">
+            <th class="time"><span>17:00 - 18:00</span></th>
+            <td id="My11"></td>
+
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>18:00 - 19:00</span></th>
+            <td id="My12"></td>
+
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>19:00 - 20:00</span></th>
+            <td id="My13"></td>
+
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>20:00 - 21:00</span></th>
+            <td id="My15"></td>
+
+          </tr>
+          <tr class="horario noite">
+            <th class="time"><span>21:00 - 22:00</span></th>
+            <td id="My16"></td>
+
+          </tr>
+        </table>
+      </div>
+    </section>
+
+
+
+
+    </div>
+
+    </div>
+
+  </main>
+
+
+
+
+  <script src="javaScript.js"></script>
+</body>
+
+</html>
+
+
+<!--
+  <nav>
+    <div id="content">
+
+      
+      <span class="slide">
+        <a href="#" onclick="openSlideMenu()">
+          <i class="fas fa-bars"></i>
+        </a>
+      </span>
+
+      
+      <div id="menu" class="nav">
+        <a href="#" class="close" onclick="closeSlideMenu()">
+          <i class="fas fa-times"></i>
+        </a>
+        <a href="#">Home</a>
+        <a href="#">Opçōes</a>
+        <a href="#">Configurações</a>
+        <a href="#">Lorem</a>
+        <a href="#">lorem</a>
+      </div>
+    </div>
+  </nav>
+-->
