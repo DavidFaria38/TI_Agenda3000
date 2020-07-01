@@ -5,7 +5,7 @@ function openSlideMenu() {
         document.getElementById('menu').style.width = '250px';
 
     } else {
-        document.getElementById('menu').style.width = '100%';
+        document.getElementById('menu').style.width = '90%';
 
     }
 }
@@ -23,112 +23,110 @@ function closeSlideMenu() {
 function btnOpenAdd() {
     //confirm("click");
     document.querySelector('.bg-modal').style.display = 'flex'
-    document.querySelector('.bg-modal').innerHTML =
-        `
-    <div class="modal-content">
+    document.querySelector('.bg-modal').innerHTML =`
     <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
-    <p>Adicionar tarefas</p>
-    
-    <form action="#">
-    <!-- Preferencias 1 -->
-    <div class="pref_1">
-    <label for="pref_1">Preferencia 1 :</label>
-    <select class="materia" name="pref_1" id="pref_1">
-    <option value="blank" selected></option>
-    <option value="mat">Matemática</option>
-    <option value="port">Português</option>
-    <option value="hist">História</option>
-    <option value="geo">Geografia</option>
-    <option value="bio">Biologia</option>
-    <option value="fis">Física</option>
-    <option value="qui">Química</option>
-    <option value="ing">Inglês</option>
-    </select>
-    <select class="peso" name="pesoPref_1" id="pesoPref_1">
-    <option value="-1" selected></option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    </select>
-    </div>
-    
-    <!-- Preferencias 2 -->
-    <div class="pref_2">
-    <label for="pref_2">Preferencia 2 :</label>
-    <select class="materia" name="pref_2" id="pref_2">
-    <option value="blank" selected></option>
-    <option value="mat">Matemática</option>
-    <option value="port">Português</option>
-    <option value="hist">História</option>
-    <option value="geo">Geografia</option>
-    <option value="bio">Biologia</option>
-    <option value="fis">Física</option>
-    <option value="qui">Química</option>
-    <option value="ing">Inglês</option>
-    </select>
-    <select class="peso" name="pesoPref_2" id="pesoPref_2">
-    <option value="-1" selected></option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    </select>
-    </div>
-    
-    <!-- Preferencias 3 -->
-    <div class="pref_3">
-    <label for="pref_3">Preferencia 3 :</label>
-    <select class="materia" name="pref_3" id="pref_3">
-    <option value="blank" selected></option>
-    <option value="mat">Matemática</option>
-    <option value="port">Português</option>
-    <option value="hist">História</option>
-    <option value="geo">Geografia</option>
-    <option value="bio">Biologia</option>
-    <option value="fis">Física</option>
-    <option value="qui">Química</option>
-    <option value="ing">Inglês</option>
-    </select>
-    <select class="peso" name="pesoPref_3" id="pesoPref_3">
-    <option value="-1" selected></option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    </select>
-    </div>
-    
-    <div class="turno">
-    <label for="turnoManha">Manha</label>
-    <input type="radio" name="turno" id="turnoManha">
-    <label for="turnoTarde">Tarde</label>
-    <input type="radio" name="turno" id="turnoTarde">
-    <label for="turnoNoite">Noite</label>
-    <input type="radio" name="turno" id="turnoNoite">
-    
-    <span id="missingFieldTurno" style="color: red;"></span>
-    
-    </div>
-    </form>
-    <button id="btnSubmit" onclick="submitAddTarefa()"> Confirmar </button>
-    
-    </div>`
+        <p>Adicionar tarefas</p>
+
+        <form action="#">
+          <!-- Preferencias 1 -->
+          <div class="pref_1">
+            <label for="pref_1">Preferencia 1 :</label>
+            <select class="materia" name="pref_1" id="pref_1">
+              <option value="blank" selected></option>
+              <option value="mat">Matemática</option>
+              <option value="port">Português</option>
+              <option value="hist">História</option>
+              <option value="geo">Geografia</option>
+              <option value="bio">Biologia</option>
+              <option value="fis">Física</option>
+              <option value="qui">Química</option>
+              <option value="ing">Inglês</option>
+            </select>
+            <select class="peso" name="pesoPref_1" id="pesoPref_1">
+              <option value="-1" selected></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+
+          <!-- Preferencias 2 -->
+          <div class="pref_2">
+            <label for="pref_2">Preferencia 2 :</label>
+            <select class="materia" name="pref_2" id="pref_2">
+              <option value="blank" selected></option>
+              <option value="mat">Matemática</option>
+              <option value="port">Português</option>
+              <option value="hist">História</option>
+              <option value="geo">Geografia</option>
+              <option value="bio">Biologia</option>
+              <option value="fis">Física</option>
+              <option value="qui">Química</option>
+              <option value="ing">Inglês</option>
+            </select>
+            <select class="peso" name="pesoPref_2" id="pesoPref_2">
+              <option value="-1" selected></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+
+          <!-- Preferencias 3 -->
+          <div class="pref_3">
+            <label for="pref_3">Preferencia 3 :</label>
+            <select class="materia" name="pref_3" id="pref_3">
+              <option value="blank" selected></option>
+              <option value="mat">Matemática</option>
+              <option value="port">Português</option>
+              <option value="hist">História</option>
+              <option value="geo">Geografia</option>
+              <option value="bio">Biologia</option>
+              <option value="fis">Física</option>
+              <option value="qui">Química</option>
+              <option value="ing">Inglês</option>
+            </select>
+            <select class="peso" name="pesoPref_3" id="pesoPref_3">
+              <option value="-1" selected></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+
+          <div class="turno">
+            <label for="turnoManha">Manha</label>
+            <input type="radio" name="turno" id="turnoManha">
+            <label for="turnoTarde">Tarde</label>
+            <input type="radio" name="turno" id="turnoTarde">
+            <label for="turnoNoite">Noite</label>
+            <input type="radio" name="turno" id="turnoNoite">
+
+            <span id="missingFieldTurno" style="color: red;"></span>
+
+          </div>
+        </form>
+        <button id="btnSubmit" onclick="submitAddTarefa()"> Confirmar </button>
+
+      </div>`
 }
 function btnCloseAdd() {
     document.querySelector('.bg-modal').style.display = 'none'
@@ -139,8 +137,10 @@ function btnCloseAdd() {
 /* ======================= FIM ============================= */
 /* ========================================================= */
 
+
+
 /* ========================================================= */
-/* Funcao para dias da semana */
+/* ================= Inicio - Janela MyDay =================*/
 /* ========================================================= */
 var materias = [];
 function quedia() {
@@ -200,6 +200,11 @@ if (window.location.pathname == '/myday.html') {
     setMyDayToToday();
     putMymaterias();
 }
+
+/* ========================================================= */
+/* =================== Fim - Janela MyDay ==================*/
+/* ========================================================= */
+
 
 
 /* ========================================================= */
@@ -333,6 +338,7 @@ wheat     #f5deb3 = Inglês
 /* ========================================================= */
 /* ======================= FIM ============================= */
 /* ========================================================= */
+
 
 
 /* ========================================================= */
@@ -524,6 +530,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
 /* ========================================================= */
 
 
+
 /* ========================================================= */
 /* ========== Configuracoes de peso das materias =========== */
 /* ========================================================= */
@@ -598,9 +605,9 @@ function submitAddTarefa() {
 /* ========================================================= */
 /* ================== Dardmode function ==================== */
 /* ========================================================= */
-
 /*felipe darkmode*/
 /*David alterou*/
+// nao esta funciona ainda
 
 // document.getElementById('btnDarkMode').addEventListener('click', darkmode)
 
@@ -631,7 +638,7 @@ function darkmode() {
 /* ========================================================= */
 
 var data = {
-    /*"disciplinas": [
+    "disciplinas": [
         {
             "materia": "Matemática",
             "coordenadas": [],
@@ -686,8 +693,10 @@ var data = {
             "nota": "",
             "cor": "red"
         }
-    ]*/
-    "disciplinas": [
+    ]
+    // exemplo de local storage com dados dentro
+    // ps. nao enviar fazer commit com esse exemplo ligado
+    /*"disciplinas": [
         {
             "materia": "Matemática",
             "coordenadas": ["11", "12", "13", "15", "26"],
@@ -742,7 +751,7 @@ var data = {
             "nota": "",
             "cor": "red"
         }
-    ]
+    ]*/
 }
 
 /*
@@ -760,7 +769,7 @@ wheat     #f5deb3 = Inglês
 
 onload = () => {
     // armazena no localstorage
-    // localStorage.setItem("data", JSON.stringify(data));
+    localStorage.setItem("data", JSON.stringify(data));
 
     // var data1 = data
     // console.log(data1)
@@ -779,7 +788,7 @@ onload = () => {
         for (j = 0; j < xy; j++) {
             x = data2.disciplinas[i].coordenadas[j];
             y = data2.disciplinas[i].cor;
-            //            document.getElementById(`${x}`).innerText = materia;
+            // document.getElementById(`${x}`).innerText = materia;
             // document.getElementById(`${x}`).style.backgroundColor = y;
         }
     }
@@ -807,8 +816,6 @@ function showOnScreenFromLocalStorage() {
         }
     }
 }
-
-
 /* ========================================================= */
 /* ============= FIM - Armazenamento Local ================= */
 /* ========================================================= */
@@ -818,13 +825,10 @@ function showOnScreenFromLocalStorage() {
 /* ========================================================= */
 /* =============== Adicao tarefa individual ================ */
 /* ========================================================= */
-
-
-
 function addTarefaIndividual(coord) {
     let materia, idElemento, elemento;
     //alert('id = ' + `${id}`)
-    document.querySelector('.bg-modal').style.display = 'flex'
+    document.querySelector('.bg-modal').style.display = 'flex';
     document.querySelector('.bg-modal').innerHTML = `
      <div class="addTarefasIndividuais">
         <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
@@ -877,7 +881,145 @@ function btnSubmit_AddTarefaIndividual(coord) {
     // clear na tela
     btnCloseAdd();
 }
-
 /* ========================================================= */
 /* ============== FIM - tarefa individual ================== */
+/* ========================================================= */
+
+
+
+/* ========================================================= */
+/* === Inicio - Adicao/remocao de itens do local storage === */
+/* ========================================================= */
+
+// valida se local storage possui parametro item
+function ValidacaoInputItemLStrg(item){
+    let result = true;
+    let localStr = JSON.parse(localStorage.getItem('data'));
+    if(item != ''){
+        for(let i = 0; i < localStr.disciplinas.length; i++){
+            let materia = localStr.disciplinas[i].materia;
+            if(item == materia){
+                result = false;
+                alert(`Agenda3000 já possui item ${item}`);
+            }
+        }
+    }else{
+        alert('Por favor preencha a caixa de entrada');
+        result = false;
+    }
+    return result;
+}
+
+function manipulacaoItensLocalStorage() {
+    // fecha sidebar
+    closeSlideMenu();
+
+    let materia, idElemento, elemento;
+    document.querySelector('.bg-modal').style.display = 'flex';
+    document.querySelector('.bg-modal').innerHTML = `
+    <div class="manipulacaoItensLocalStorage addTarefasIndividuais">
+       <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
+       <p>Manipulação de Disciplinas</p>
+
+        <div class="elements_addItemLStrg">
+            <form action="#">
+                <span class="disciplinaMan_span">Disciplina:</span>
+                <select class="disciplinaMan_select" name="disciplina" id="disciplina_select">
+                    <option value="blank" placeholder="Disciplina" selected></option>
+                </select>
+            </form>
+            <button type="button" class="btn btn-success addItemLStrg" onclick="window_addItemLStrg()">Adicionar</button>
+            <button type="button" class="btn btn-danger remItemLStrg" onclick="remItemLStrg()">Remover</button>
+        </div>
+
+     </div>`
+
+    // mostrar em select todas opcoes de materia na memoria local
+    let localStr = JSON.parse(localStorage.getItem("data"))
+    for (let i = 0; i < localStr.disciplinas.length; i++) {
+        materia = localStr.disciplinas[i].materia;
+        idElemento = document.getElementById('disciplina_select');
+        elemento = document.createElement('option');
+        elemento.innerHTML = `<option value="${materia}">${materia}</option>`;
+        idElemento.add(elemento)
+    }
+}
+
+document.getElementById('configDisciplinas').addEventListener('click', manipulacaoItensLocalStorage);
+
+// remove item do local storage
+function remItemLStrg(){
+    let materia;
+    let item = document.getElementById('disciplina_select').value;
+
+    if(item != 'blank'){
+        let localStr = JSON.parse(localStorage.getItem("data"))
+        for (let i = 0; i < localStr.disciplinas.length; i++) {
+            materia = localStr.disciplinas[i].materia;
+            let x = localStr.disciplinas;
+            if(materia == item)
+                x.splice(i, 1);
+            }
+        localStorage.setItem('data', JSON.stringify(localStr));
+        
+        // clear na tela
+        btnCloseAdd();
+        // refresh na tela, removendo itens retirados da timetable
+        showOnScreenFromLocalStorage();
+        alert(`Item "${item}" foi removido. \nQualquer informação contida nele foi apagada permanentemente.`)
+    }
+    else{
+        document.getElementById('disciplina_select').style.border = 'solid red 2px';
+    }
+}
+
+function addItemLStrg(){
+    item = document.getElementById('disciplina_input').value;
+    //cor  = document.getElementById('disciplina_input');
+    
+    if(ValidacaoInputItemLStrg(item) == true){
+        let inputBox = document.getElementById('disciplina_input');
+        inputBox.style.border = 'solid green 2px';
+
+        let localStr = JSON.parse(localStorage.getItem('data'));
+        let novoItem = {
+            "materia": item,
+            "coordenadas": [],
+            "nota": "",
+            "cor": "purple"
+        }
+        let len = localStr.disciplinas.length;
+        localStr.disciplinas[len] = novoItem;
+
+        localStorage.setItem('data', JSON.stringify(localStr));
+
+        // clear na tela
+        btnCloseAdd();
+        // refresh na tela, removendo itens retirados da timetable
+        showOnScreenFromLocalStorage();
+    }else{
+        let inputBox = document.getElementById('disciplina_input');
+        inputBox.style.border = 'solid red 2px';
+    }
+}
+
+function window_addItemLStrg(){
+    let form = document.querySelector('.manipulacaoItensLocalStorage .elements_addItemLStrg');
+    
+    form.innerHTML = '';
+    form.innerHTML = `
+    <div class="elements_addItemLStrg">
+        <form action="#">
+            <span class="disciplinaMan_span">Nova Disciplina:</span>
+            <input type="text" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+        </form>
+        <button type="button" class="btn btn-success addItemLStrg" onclick="addItemLStrg()">Adicionar</button>
+    </div>`;
+    let btnAdd = document.querySelector('.manipulacaoItensLocalStorage .addItemLStrg');
+    btnAdd.style.left = '40%';
+}
+
+
+/* ========================================================= */
+/* ===== Fim - Adicao/remocao de itens do local storage ==== */
 /* ========================================================= */
