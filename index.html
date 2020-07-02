@@ -9,223 +9,29 @@
 
 </head>
 
-<body>
-
-
-  <header>
-    <div id="sticky">Agenda 3000</div>
-  </header>
-
-
-  <nav>
-    <div id="content">
-
-      <!-- Outside sidebar - Hamburguer -->
-      <span class="slide">
-        <a href="#" onclick="openSlideMenu()">
-          <i class="fas fa-bars"></i>
-        </a>
-      </span>
-
-      <!-- Inside Sidebar  - X  -->
-      <div id="menu" class="nav">
-        <a href="#" class="close" onclick="closeSlideMenu()">
-          <i class="fas fa-times"></i> <!-- JS => add X -->
-        </a>
-        <a href="index.html">Home</a>
-        <a href="#">Opçōes</a>
-        <a id="configDisciplinas">Manipular Disciplinas</a>
-        <a href="myday.html">MyDay</a>
+<body class="main_PagInit">
+  <main>
+    <div class="pagina_inicial">
+      <div class="box_maxWidth">
+        <div class="pInit_logo">
+          <p>Agenda 3000</p>
+          <img src="https://i.pinimg.com/originals/db/c7/17/dbc7177b431b8e4d7d5a5006e9afa073.png" alt="Logo Agenda3000">
+        </div>
+        <div class="box_organize">
+          <p>Organize-se</p>
+        </div>
+        <div class="box_intrucoes">
+          <span>
+            <a href="myWeek.html">Começar</a>
+          </span>
+          </a>
+        </div>
+        <div class="box_footer">
+          <span>Projeto TI - Puc Minas</span>
+        </div>
       </div>
     </div>
-  </nav>
-
-  <main>
-
-    <!-- button para add novas taferas a timetable -->
-    <!--<span style="font-size: 3rem;
-                 margin-left: 90%;
-                 margin-bottom: 50px;">
-      <i onclick="btnOpenAdd()" class="fas fa-plus"></i>
-    </span>-->
-    <section>
-      <div class="table" id="table">
-        <!-- <table>
-          <tr class="weekDays">
-            <td> </td> 
-        <th>Segunda</th>
-        <th>Terça</th>
-        <th>Quarta</th>
-        <th>Quinta</th>
-        <th>Sexta</th>
-        <th>Sabado</th>
-        <th>Domingo</th>
-        <tr class="horario manha">
-          <th class="time "><span>7:00 - 8:00</span></th>
-          <td id="11" onclick="add_rem_TarefaIndividual(11)"></td>
-          <td id="12" onclick="add_rem_TarefaIndividual(12)"></td>
-          <td id="13" onclick="add_rem_TarefaIndividual(13)"></td>
-          <td id="14" onclick="add_rem_TarefaIndividual(14)"></td>
-          <td id="15" onclick="add_rem_TarefaIndividual(15)"></td>
-          <td id="16" onclick="add_rem_TarefaIndividual(16)"></td>
-          <td id="17" onclick="add_rem_TarefaIndividual(17)"></td>
-        </tr>
-        <tr class="horario manha">
-          <th class="time"><span>8:00 - 9:00</span></th>
-          <td id="21" onclick="add_rem_TarefaIndividual(21)"></td>
-          <td id="22" onclick="add_rem_TarefaIndividual(22)"></td>
-          <td id="23" onclick="add_rem_TarefaIndividual(23)"></td>
-          <td id="24" onclick="add_rem_TarefaIndividual(24)"></td>
-          <td id="25" onclick="add_rem_TarefaIndividual(25)"></td>
-          <td id="26" onclick="add_rem_TarefaIndividual(26)"></td>
-          <td id="27" onclick="add_rem_TarefaIndividual(27)"></td>
-        </tr>
-        <tr class="horario manha">
-          <th class="time"><span>9:00 - 10:00</span></th>
-          <td id="31" onclick="add_rem_TarefaIndividual(31)"></td>
-          <td id="32" onclick="add_rem_TarefaIndividual(32)"></td>
-          <td id="33" onclick="add_rem_TarefaIndividual(33)"></td>
-          <td id="34" onclick="add_rem_TarefaIndividual(34)"></td>
-          <td id="35" onclick="add_rem_TarefaIndividual(35)"></td>
-          <td id="36" onclick="add_rem_TarefaIndividual(36)"></td>
-          <td id="37" onclick="add_rem_TarefaIndividual(37)"></td>
-        </tr>
-        <tr class="horario manha">
-          <th class="time"><span>10:00 - 11:00</span></th>
-          <td id="41" onclick="add_rem_TarefaIndividual(41)"></td>
-          <td id="42" onclick="add_rem_TarefaIndividual(42)"></td>
-          <td id="43" onclick="add_rem_TarefaIndividual(43)"></td>
-          <td id="44" onclick="add_rem_TarefaIndividual(44)"></td>
-          <td id="45" onclick="add_rem_TarefaIndividual(45)"></td>
-          <td id="46" onclick="add_rem_TarefaIndividual(46)"></td>
-          <td id="47" onclick="add_rem_TarefaIndividual(47)"></td>
-        </tr>
-        <tr class="horario manha">
-          <th class="time"><span>11:00 - 12:00</span></th>
-          <td id="51" onclick="add_rem_TarefaIndividual(51)"></td>
-          <td id="52" onclick="add_rem_TarefaIndividual(52)"></td>
-          <td id="53" onclick="add_rem_TarefaIndividual(53)"></td>
-          <td id="54" onclick="add_rem_TarefaIndividual(54)"></td>
-          <td id="55" onclick="add_rem_TarefaIndividual(55)"></td>
-          <td id="56" onclick="add_rem_TarefaIndividual(56)"></td>
-          <td id="57" onclick="add_rem_TarefaIndividual(57)"></td>
-        </tr>
-        <tr class="horario tarde">
-          <th class="time"><span>12:00 - 13:00</span></th>
-          <td id="61" onclick="add_rem_TarefaIndividual(61)"></td>
-          <td id="62" onclick="add_rem_TarefaIndividual(62)"></td>
-          <td id="63" onclick="add_rem_TarefaIndividual(63)"></td>
-          <td id="64" onclick="add_rem_TarefaIndividual(64)"></td>
-          <td id="65" onclick="add_rem_TarefaIndividual(65)"></td>
-          <td id="66" onclick="add_rem_TarefaIndividual(66)"></td>
-          <td id="67" onclick="add_rem_TarefaIndividual(67)"></td>
-        </tr>
-        <tr class="horario tarde">
-          <th class="time"><span>13:00 - 14:00</span></th>
-          <td id="71" onclick="add_rem_TarefaIndividual(71)"></td>
-          <td id="72" onclick="add_rem_TarefaIndividual(72)"></td>
-          <td id="73" onclick="add_rem_TarefaIndividual(73)"></td>
-          <td id="74" onclick="add_rem_TarefaIndividual(74)"></td>
-          <td id="75" onclick="add_rem_TarefaIndividual(75)"></td>
-          <td id="76" onclick="add_rem_TarefaIndividual(76)"></td>
-          <td id="77" onclick="add_rem_TarefaIndividual(77)"></td>
-        </tr>
-        <tr class="horario tarde">
-          <th class="time"><span>14:00 - 15:00</span></th>
-          <td id="81" onclick="add_rem_TarefaIndividual(81)"></td>
-          <td id="82" onclick="add_rem_TarefaIndividual(82)"></td>
-          <td id="83" onclick="add_rem_TarefaIndividual(83)"></td>
-          <td id="84" onclick="add_rem_TarefaIndividual(84)"></td>
-          <td id="85" onclick="add_rem_TarefaIndividual(85)"></td>
-          <td id="86" onclick="add_rem_TarefaIndividual(86)"></td>
-          <td id="87" onclick="add_rem_TarefaIndividual(87)"></td>
-        </tr>
-        <tr class="horario tarde">
-          <th class="time"><span>15:00 - 16:00</span></th>
-          <td id="91" onclick="add_rem_TarefaIndividual(91)"></td>
-          <td id="92" onclick="add_rem_TarefaIndividual(92)"></td>
-          <td id="93" onclick="add_rem_TarefaIndividual(93)"></td>
-          <td id="94" onclick="add_rem_TarefaIndividual(94)"></td>
-          <td id="95" onclick="add_rem_TarefaIndividual(95)"></td>
-          <td id="96" onclick="add_rem_TarefaIndividual(96)"></td>
-          <td id="97" onclick="add_rem_TarefaIndividual(97)"></td>
-        </tr>
-        <tr class="horario tarde">
-          <th class="time"><span>16:00 - 17:00</span></th>
-          <td id="101" onclick="add_rem_TarefaIndividual(101)"></td>
-          <td id="102" onclick="add_rem_TarefaIndividual(102)"></td>
-          <td id="103" onclick="add_rem_TarefaIndividual(103)"></td>
-          <td id="104" onclick="add_rem_TarefaIndividual(104)"></td>
-          <td id="105" onclick="add_rem_TarefaIndividual(105)"></td>
-          <td id="106" onclick="add_rem_TarefaIndividual(106)"></td>
-          <td id="107" onclick="add_rem_TarefaIndividual(107)"></td>
-        </tr>
-        <tr class="horario tarde">
-          <th class="time"><span>17:00 - 18:00</span></th>
-          <td id="111" onclick="add_rem_TarefaIndividual(111)"></td>
-          <td id="112" onclick="add_rem_TarefaIndividual(112)"></td>
-          <td id="113" onclick="add_rem_TarefaIndividual(113)"></td>
-          <td id="114" onclick="add_rem_TarefaIndividual(114)"></td>
-          <td id="115" onclick="add_rem_TarefaIndividual(115)"></td>
-          <td id="116" onclick="add_rem_TarefaIndividual(116)"></td>
-          <td id="117" onclick="add_rem_TarefaIndividual(117)"></td>
-        </tr>
-        <tr class="horario noite">
-          <th class="time"><span>18:00 - 19:00</span></th>
-          <td id="121" onclick="add_rem_TarefaIndividual(121)"></td>
-          <td id="122" onclick="add_rem_TarefaIndividual(122)"></td>
-          <td id="123" onclick="add_rem_TarefaIndividual(123)"></td>
-          <td id="124" onclick="add_rem_TarefaIndividual(124)"></td>
-          <td id="125" onclick="add_rem_TarefaIndividual(125)"></td>
-          <td id="126" onclick="add_rem_TarefaIndividual(126)"></td>
-          <td id="127" onclick="add_rem_TarefaIndividual(127)"></td>
-        </tr>
-        <tr class="horario noite">
-          <th class="time"><span>19:00 - 20:00</span></th>
-          <td id="131" onclick="add_rem_TarefaIndividual(131)"></td>
-          <td id="132" onclick="add_rem_TarefaIndividual(132)"></td>
-          <td id="133" onclick="add_rem_TarefaIndividual(133)"></td>
-          <td id="134" onclick="add_rem_TarefaIndividual(134)"></td>
-          <td id="135" onclick="add_rem_TarefaIndividual(135)"></td>
-          <td id="136" onclick="add_rem_TarefaIndividual(136)"></td>
-          <td id="137" onclick="add_rem_TarefaIndividual(137)"></td>
-        </tr>
-        <tr class="horario noite">
-          <th class="time"><span>20:00 - 21:00</span></th>
-          <td id="141" onclick="add_rem_TarefaIndividual(141)"></td>
-          <td id="142" onclick="add_rem_TarefaIndividual(142)"></td>
-          <td id="143" onclick="add_rem_TarefaIndividual(143)"></td>
-          <td id="144" onclick="add_rem_TarefaIndividual(144)"></td>
-          <td id="145" onclick="add_rem_TarefaIndividual(145)"></td>
-          <td id="146" onclick="add_rem_TarefaIndividual(146)"></td>
-          <td id="147" onclick="add_rem_TarefaIndividual(147)"></td>
-        </tr>
-        <tr class="horario noite">
-          <th class="time"><span>21:00 - 22:00</span></th>
-          <td id="151" onclick="add_rem_TarefaIndividual(151)"></td>
-          <td id="152" onclick="add_rem_TarefaIndividual(152)"></td>
-          <td id="153" onclick="add_rem_TarefaIndividual(153)"></td>
-          <td id="154" onclick="add_rem_TarefaIndividual(154)"></td>
-          <td id="155" onclick="add_rem_TarefaIndividual(155)"></td>
-          <td id="156" onclick="add_rem_TarefaIndividual(156)"></td>
-          <td id="157" onclick="add_rem_TarefaIndividual(157)"></td>
-        </tr>
-        </table>-->
-      </div>
-    </section>
-
-
-    <!-- Pop-up windown para add tarefas a timetable -->
-    <div class="bg-modal"></div>
-
-    <!-- Botoa flutuante para adicao de tarefas-->
-    <span style="font-size: 3rem;
-    margin-left: 90%;
-    margin-bottom: 50px;">
-      <button onclick="btnOpenAdd()" id="stickybutton">+</button>
-    </span>
   </main>
-
 
   <script src="javaScript.js"></script>
 </body>

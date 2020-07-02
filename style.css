@@ -113,6 +113,100 @@ header{
 	
 }
 
+
+
+/* ======================================================================= */
+/* ======================= (INICIO) Pagina Inicial ======================= */
+/* ======================================================================= */
+
+.main_PagInit{
+	background-color: #13CE66;
+}
+.pagina_inicial{
+	background-color: #13CE66;
+	width: 100vw;
+	height: 100%;
+	text-align: center;
+}
+.pagina_inicial .box_maxWidth{
+	display: block;
+	margin: 0px auto;
+	max-width: 600px;
+	max-height: 100vh;
+	height: 100vh;
+}
+
+.pInit_logo{
+	padding: 1vh 0 0 0;
+	box-shadow: 0px 25px #0d8f48a6;
+}
+.pInit_logo p{
+	margin: 5vh 0 0vh;
+	font-size: 4rem;
+	white-space: nowrap;
+}
+.pInit_logo img{
+	max-width: 250px;
+	margin-top: 1vh;
+}
+.pagina_inicial .box_organize p{
+	margin: 0px;
+	padding: 3.5vh 0px 1vh;
+	font-size: 2.5rem;
+	font-family: 'Times New Roman', Times, serif;
+	font-weight: 500;
+	box-shadow: 0px 20px #0d8f48c2;
+}
+.box_intrucoes{
+	margin: 18vh 0px 0px;
+	padding: 0px 0px 7vh;
+	box-shadow: 0px 20px #0d8f48c2;
+}
+.box_intrucoes a{
+	color: rgb(228, 224, 224);
+	background-color: #127c42e7;
+	padding: 1vh 3vw;
+	font-size: 2rem;
+	font-family: 'Times New Roman', Times, serif;
+	border-radius: 5px ;
+	text-decoration: none;
+}
+.box_intrucoes a:hover{
+	color: white;
+	background-color: rgb(23, 148, 79);
+	padding: 1.1vh 3.1vw;
+	border: solid rgb(23, 148, 79) 4px;
+	transition: 0.5s;
+}
+
+.pagina_inicial .box_footer{
+	margin: 4vh 0px 0px;
+	font-size: 1.5rem;
+	font-family: 'Times New Roman', Times, serif;
+	font-weight: 50;
+}
+
+@media only screen and ( max-width: 350px ) {
+	.pInit_logo p{
+		font-size: 2rem;
+	}
+	.pagina_inicial .box_organize p{
+		font-size: 1.5rem;
+	}
+	.box_intrucoes span{
+		font-size: 1rem;
+	}
+	.pagina_inicial .box_footer{
+		font-size: 1rem;
+	}
+}
+
+/* ======================================================================= */
+/* ======================== (FIM) Pagina Inicial ========================= */
+/* ======================================================================= */
+
+
+
 /* ======================================================================= */
 /* ========== (INICIO) formulario para add tarefas a timetable =========== */
 /* ======================================================================= */
