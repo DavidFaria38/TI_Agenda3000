@@ -634,6 +634,146 @@ function darkmode() {
 
 
 /* ========================================================= */
+/* =========== Inicio - Visualizacao de materias =========== */
+/* ========================================================= */
+
+function getIdCoord(coord) {
+    let idObj = -1;
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    for (let i = 0; i < localStrg.disciplinas.length; i++) {
+        for (let j = 0; j < localStrg.disciplinas[i].coordenadas.length; j++)
+            if (localStrg.disciplinas[i].coordenadas[j] == coord)
+            idObj = j;
+    }
+    return idObj;
+}
+
+function showDisciplinaIndividual(coord, idMateria) {
+
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let idNota = getIdCoord(coord);
+
+    let disciplina = localStrg.disciplinas[idMateria];
+    // alert(`idMateria = ${idMateria} \nidNota = ${idNota} \ncoord = ${coord}`)
+
+    let janela = document.querySelector('.bg-modal');
+    janela.style.display = 'flex';
+    janela.innerHTML = `
+    <div class="viewDisciplina">
+        <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
+
+        <div class="box_nomeMateria">${disciplina.materia}</div>
+          <span class="span_tagAnotacoes">Anotações:</span>
+          <div class="content_anotacoes">${disciplina.nota[idNota]}</div>
+        <div class="span_tagTarefas"><span>Tarefas:</span></div>
+        
+        <div class="box_tarefas">
+          
+        </div>
+        <div class="btnViewDisciplina">
+          <i class="fas fa-times btnAddTarefa" onclick="addNewTarefa(${coord}, ${idMateria})"></i>
+          <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
+        </div>
+      </div>
+    `;
+    showTarefasCB(coord, idMateria);
+}
+
+function showTarefasCB(coord, idMateria) {
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let idTarefa = getIdCoord(coord)
+    let tarefas = '';
+
+    if (idTarefa != 0) {
+        let tarefaArray = localStrg.disciplinas[idMateria].tarefa[idTarefa];
+        for(let i = 0; i < tarefaArray.length; i++){
+            tarefas = tarefas + `
+            <div class="item_tarefa">
+                <div class="nome_itemTarefa">${tarefaArray[i]}</div>
+                <span class="checkBox_itemTarefa">
+                <input type="checkbox" name="cBItem" id="cBItem">
+                </span>
+            </div>`;
+        }
+        document.querySelector('.viewDisciplina .box_tarefas').innerHTML = tarefas;
+    }
+}
+
+function addTarefaCB(coord, idMateria){
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let idTarefa = getIdCoord(coord);
+    
+    let tarefa = document.querySelector('.viewDisciplina .addNewTarefa').value;
+    let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
+    tarefaArray[tarefaArray.length] = tarefa;
+    
+    console.log(localStrg);
+    // localStorage.setItem('data', JSON.stringify(localStrg));
+}
+
+function remTarefaCB(coord, idMateria){
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let idTarefa = getIdCoord(coord);
+    
+    let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
+    
+    tarefaArray.splice(idTarefa, 1);
+    
+    console.log(localStrg);
+    // localStorage.setItem('data', JSON.stringify(localStrg));
+}
+
+// function submit_addNewTarefa(coord, idMateria){
+//     let localStrg = JSON.parse(localStorage.getItem('data'));
+//     let nameTarefa = document.querySelector('.box_input_addTarefa input').value;
+
+    
+//     let disciplina = localStrg.disciplinas[idMateria];
+//     let idTarefa = getIdCoord(coord);
+    
+//     if(idTarefa != -1){
+//         if(disciplina.tarefa[idTarefa] == undefined){
+//             disciplina.tarefa[idTarefa][0] = nameTarefa;
+//             disciplina.tarefa_value[0] = false;
+//         }else{
+//             disciplina.tarefa[idTarefa][disciplina.tarefa[idTarefa].length] = nameTarefa;
+//             disciplina.tarefa_value[idTarefa] = false;
+//         }
+//     }else{
+//         let lenTarefa = disciplina.tarefa.length;
+//         disciplina.tarefa[lenTarefa] = nameTarefa;
+//         disciplina.tarefa_value[lenTarefa] = false;
+//     }
+    
+    
+//     console.log(disciplina);
+// }
+
+function addNewTarefa(coord, idMateria){
+    let janela = document.querySelector('.bg-modal');
+    janela.innerHTML = `
+    <div class="viewDisciplina">
+        <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
+        <div class="box_nomeMateria">Adicione tarefa</div>
+        <div class="box_input_addTarefa">
+            <div class="input_nameAddTarefa">Tarefa:</div>
+            <input type="text" name="input_addTarefa" id="input_addTarefa" placeholder="Nome tarefa">
+        </div>
+        <div class="btnViewDisciplina">
+            <i class="fas fa-times btnAddTarefa" onclick="submit_addNewTarefa(${coord}, ${idMateria})"></i>
+            <i class="fas fa-times btnRemTarefa"></i>
+        </div>
+    </div>`
+}
+
+/* ========================================================= */
+/* ============= Fim - Visualizacao de materias ============ */
+/* ========================================================= */
+
+
+
+
+/* ========================================================= */
 /* ================= Armazenamento Local =================== */
 /* ========================================================= */
 
@@ -641,57 +781,67 @@ var data = {
     "disciplinas": [
         {
             "materia": "Matemática",
-            "coordenadas": [],
-            "nota": "",
+            "coordenadas": [11],
+            "nota": ["Juliana = massive JACU"],
+            "tarefa": [["olamundo como esta?", "deixa de ser chato", "pq juliana nao deixa de ser jacu?", "fore shadow?", "onde estao todos?", "so queria que alguem me pagasse um acai"]],
+            "tarefa_value": [],
             "cor": "#caeaf5"
         },
         {
             "materia": "Português",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "#0e91bd"
         },
         {
             "materia": "História",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "#9a55b6"
         },
         {
             "materia": "Geografia",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "#e6e22e"
         },
         {
             "materia": "Biologia",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "#20b2aa"
         },
         {
             "materia": "Física",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "#eeb958"
         },
         {
             "materia": "Química",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "#e47263"
         },
         {
             "materia": "Inglês",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "#f5deb3"
-        },
-        {
-            "materia": "teste de materia",
-            "coordenadas": [],
-            "nota": "",
-            "cor": "red"
         }
     ]
     // exemplo de local storage com dados dentro
@@ -700,55 +850,55 @@ var data = {
         {
             "materia": "Matemática",
             "coordenadas": ["11", "12", "13", "15", "26"],
-            "nota": "",
+            "nota": [],
             "cor": "#caeaf5"
         },
         {
             "materia": "Português",
             "coordenadas": ["12", "13", "23"],
-            "nota": "",
+            "nota": [],
             "cor": "#0e91bd"
         },
         {
             "materia": "História",
             "coordenadas": ["41"],
-            "nota": "",
+            "nota": [],
             "cor": "#9a55b6"
         },
         {
             "materia": "Geografia",
             "coordenadas": ["51", "56", "57"],
-            "nota": "",
+            "nota": [],
             "cor": "#e6e22e"
         },
         {
             "materia": "Biologia",
             "coordenadas": ["16", "17", "25"],
-            "nota": "",
+            "nota": [],
             "cor": "#20b2aa"
         },
         {
             "materia": "Física",
             "coordenadas": ["31", "32", "33"],
-            "nota": "",
+            "nota": [],
             "cor": "#eeb958"
         },
         {
             "materia": "Química",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
             "cor": "#e47263"
         },
         {
             "materia": "Inglês",
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
             "cor": "#f5deb3"
         },
         {
             "materia": "teste de materia",
             "coordenadas": [55],
-            "nota": "",
+            "nota": [],
             "cor": "red"
         }
     ]*/
@@ -983,13 +1133,13 @@ function showOnScreenFromLocalStorage() {
 }
 
 // se pagina estiver em pagina myweek.html mostre as disciplinas
-function isWindown(){
+function isWindown() {
     let windowPath = location.pathname;
     switch (windowPath) {
         case '/myWeek.html':
             showOnScreenFromLocalStorage();
             break;
-    
+
         default:
             break;
     }
@@ -1005,29 +1155,11 @@ onload = isWindown();
 /* ========================================================= */
 /* =============== Adicao tarefa individual ================ */
 /* ========================================================= */
-function btnSubmit_AddTarefaIndividual(coord) {
-    let i, lengthCoord;
 
-    let disciplina_Form = document.getElementById('disciplina_select').value;
-    let anotacoes_Form = document.getElementById('anotacoes').value;
-
-    localStr = JSON.parse(localStorage.getItem('data'));
-
-    for (i = 0; i < localStr.disciplinas.length; i++) {
-        if (localStr.disciplinas[i].materia == disciplina_Form) {
-            lengthCoord = localStr.disciplinas[i].coordenadas.length;
-            localStr.disciplinas[i].coordenadas[lengthCoord] = coord;
-        }
-    }
-
-    localStorage.setItem('data', JSON.stringify(localStr));
-    showOnScreenFromLocalStorage();
-    // clear na tela
-    btnCloseAdd();
-}
 function addTarefaIndividual(coord) {
     let materia, idElemento, elemento;
     //alert('id = ' + `${id}`)
+    document.querySelector('body').style.overflow = 'hidden';
     document.querySelector('.bg-modal').style.display = 'flex';
     document.querySelector('.bg-modal').innerHTML = `
      <div class="addTarefasIndividuais">
@@ -1042,7 +1174,6 @@ function addTarefaIndividual(coord) {
               <option value="blank" placeholder="Disciplina" selected></option>
             </select>
  
-        
             <span class="anotacoes_span"> Anotações: </span>
             <textarea name="anotacoes" id="anotacoes" rows="3" placeholder="Anotações"></textarea>
         
@@ -1061,30 +1192,56 @@ function addTarefaIndividual(coord) {
     }
 }
 
+function btnSubmit_AddTarefaIndividual(coord) {
+    let i, lengthCoord;
 
-function btnSubmit_RemTarefaIndividual(coord, materiaIn) {
+    let disciplina_Form = document.getElementById('disciplina_select').value;
+    let anotacoes_Form = document.getElementById('anotacoes').value;
 
-    console.log(coord + "," + materiaIn);
-    let localStr = JSON.parse(localStorage.getItem("data"));
-    let i_removeCoord = localStr.disciplinas[materiaIn].coordenadas.indexOf(coord);
-    localStr.disciplinas[materiaIn].coordenadas.splice(i_removeCoord, 1);
+    localStr = JSON.parse(localStorage.getItem('data'));
+
+    for (i = 0; i < localStr.disciplinas.length; i++) {
+        if (localStr.disciplinas[i].materia == disciplina_Form) {
+            lengthCoord = localStr.disciplinas[i].coordenadas.length;
+            localStr.disciplinas[i].coordenadas[lengthCoord] = coord;
+            localStr.disciplinas[i].nota[lengthCoord] = anotacoes_Form;
+        }
+    }
+
     localStorage.setItem('data', JSON.stringify(localStr));
     showOnScreenFromLocalStorage();
-
-
+    // clear na tela
+    btnCloseAdd();
 }
+
+/* ao prescionar botao remove tarefa */
+function btnSubmit_RemTarefaIndividual(coord, materiaIn) {
+
+    // console.log(coord + "," + materiaIn);
+    let localStr = JSON.parse(localStorage.getItem("data"));
+    let i_removeItem = localStr.disciplinas[materiaIn].coordenadas.indexOf(coord);
+    localStr.disciplinas[materiaIn].coordenadas.splice(i_removeItem, 1);
+    localStr.disciplinas[materiaIn].nota.splice(i_removeItem, 1);
+    localStorage.setItem('data', JSON.stringify(localStr));
+    showOnScreenFromLocalStorage();
+    btnCloseAdd();
+}
+/* Funcao intermediaria, confirmacao se usuario deseja deletar disciplina */
 function remTarefaIndividual(coord, materiaIn) {
-    btnSubmit_RemTarefaIndividual(coord, materiaIn);
+    let resposta = confirm('Deseja deletar materia?')
+    if (resposta == true) {
+        btnSubmit_RemTarefaIndividual(coord, materiaIn);
+    }
 }
 
 function add_rem_TarefaIndividual(coord) {
-    let materiaAR;
+    let idMateria;
     let localStr = JSON.parse(localStorage.getItem("data"));
     let valorMateria = false;
     for (let i = 0; i < localStr.disciplinas.length; i++) {
         let disciplinaVerification = localStr.disciplinas[i].coordenadas;
         if (disciplinaVerification.indexOf(coord) != -1) {
-            materiaAR = i;
+            idMateria = i;
             valorMateria = true;
         }
     }
@@ -1092,7 +1249,8 @@ function add_rem_TarefaIndividual(coord) {
     if (valorMateria == false) {
         addTarefaIndividual(coord);
     } else {
-        remTarefaIndividual(coord, materiaAR);
+        showDisciplinaIndividual(coord, idMateria)
+        // remTarefaIndividual(coord, materiaAR);
     }
 }
 /* ========================================================= */
@@ -1196,10 +1354,13 @@ function addItemLStrg() {
         inputBox.style.border = 'solid green 2px';
 
         let localStr = JSON.parse(localStorage.getItem('data'));
+        /* Template para add novo item ao local storage */
         let novoItem = {
             "materia": item,
             "coordenadas": [],
-            "nota": "",
+            "nota": [],
+            "tarefa": [],
+            "tarefa_value": [],
             "cor": "purple"
         }
         let len = localStr.disciplinas.length;
@@ -1233,7 +1394,17 @@ function window_addItemLStrg() {
     btnAdd.style.left = '40%';
 }
 
+/* remover botao do side menu */
+function delete_localStorage() {
+    localStorage.clear();
+    localStorage.setItem('data', JSON.stringify(data));
+    showOnScreenFromLocalStorage();
+}
 
+document.querySelector('#del_localStorage').addEventListener('click', delete_localStorage)
 /* ========================================================= */
 /* ===== Fim - Adicao/remocao de itens do local storage ==== */
 /* ========================================================= */
+
+
+
