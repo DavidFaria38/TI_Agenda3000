@@ -359,20 +359,25 @@ function submitAddTarefa() {
         btnCloseAdd()
 
         // Verificacao do turno
-        // K = primeiro horario de cada turno
         if (tManha){
             turno = 1,
-            k = 11
+            valInit = 1
+            valEnd = 6
+
             console.log('passou manha')
         }
         else if (tTarde){
             turno = 2,
-            k = 61
+            valInit = 7
+            valEnd = 10
+
             console.log('passou tarde')
         }
         else if (tNoite){
             turno = 3
-            k = 121
+            valInit = 11
+            valEnd = 15
+
             console.log('passou noite')
         }
 
@@ -386,7 +391,7 @@ function submitAddTarefa() {
         var porcentagem3 = 1/(pesoTotal/peso3);
 
         //3.Aplicando as porcentagens calculadas anteriormente sobre o numero de slots disponiveis
-        var slotsTotal = 20;//Alteravel
+        var slotsTotal = 25;//Alteravel
         var slots1 = Math.round(slotsTotal*porcentagem1);
         var slots2 = Math.round(slotsTotal*porcentagem2);
         var slots3 = Math.round(slotsTotal*porcentagem3);
@@ -397,102 +402,91 @@ function submitAddTarefa() {
         var cordenadas2 = [];
         var cordenadas3 = [];
         
-
-        for(let i = 0; i < slots1 - 1; ++i){
-            // let rand = Math.cil(Math.random()*6);
-            for(let j = 1; j <= 14; j++ ){     // horarios
-                for(let h = 1; h <= 7; h++ ){  // dias da semana
-                    cordenadas1[i] = `${j}${h}`
+        let count1 = 0, count2 = 0, count3 = 0;
+        for(let i = valInit; i <= valEnd; i++){
+            for(let j = 1; j <= 7; j++){
+                if(j == 6 ){                               // se for sabado tem 2/3 de chance de nao ter nenhuma materia no slot
+                    if(1 > Math.ceil(Math.random() * 3)){
+                        let rand = Math.floor(Math.random() * 10);
+                        if(rand <= 3 && slots1 != count1){
+                            cordenadas1[count1] = `${i}${j}`
+                            count1++;
+                        }
+                        else if (rand > 3 && rand <= 6 && slots2 != count2) {
+                            cordenadas2[count2] = `${i}${j}`
+                            count2++;
+                        }                
+                        else if (rand > 6 && rand <= 9 && slots3 != count3) {
+                            cordenadas3[count3] = `${i}${j}`
+                            count3++;
+                        }  
+                    }
+                } // end if sabado
+                else if(j == 7 ){                               // se for domingo tem 1/3 de chance de nao ter nenhuma materia no slot
+                    if(2 > Math.ceil(Math.random() * 3)){
+                        let rand = Math.floor(Math.random() * 10);
+                        if(rand <= 3 && slots1 != count1){
+                            cordenadas1[count1] = `${i}${j}`
+                            count1++;
+                        }
+                        else if (rand > 3 && rand <= 6 && slots2 != count2) {
+                            cordenadas2[count2] = `${i}${j}`
+                            count2++;
+                        }                
+                        else if (rand > 6 && rand <= 9 && slots3 != count3) {
+                            cordenadas3[count3] = `${i}${j}`
+                            count3++;
+                        }  
+                    }
+                } // end if do final de semana
+                else{
+                    let rand = Math.ceil(Math.random() * 10);
+                    if(rand <= 3 && slots1 != count1){
+                        cordenadas1[count1] = `${i}${j}`
+                        count1++;
+                    }
+                    else if (rand > 3 && rand <= 6 && slots2 != count2) {
+                        cordenadas2[count2] = `${i}${j}`
+                        count2++;
+                    }                
+                    else if (rand > 6 && rand <= 9 && slots3 != count3) {
+                        cordenadas3[count3] = `${i}${j}`
+                        count3++;
+                    }                
                 }
             }
-        }
-        for(let i = 0; i < slots2 - 1; ++i){
-            // let rand = Math.cil(Math.random()*6);
-            for(let j = 1; j <= 14; j++ ){     // horarios
-                for(let h = 1; h <= 7; h++ ){  // dias da semana
-                }
-            }
-            cordenadas2[i] = `${x}${y}`
-        }
-        for(let i = 0; i < slots3 - 1; ++i){
-            // let rand = Math.cil(Math.random()*6);
-            for(let j = 1; j <= 14; j++ ){     // horarios
-                for(let h = 1; h <= 7; h++ ){  // dias da semana
-                    cordenadas3[i] = `${j}${h}`
-                }
-            }
-        }
-
+        } // end for para adicao de materia
 
         
-
-
-        //5.Calculos das cordenadas da primeira materia
-        // for(let i = 0; i < slots1 - 1; ++i){
-        //     cordenadas1[i] = k;
-        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
-        //     {
-        //         k = k + 4;
-        //     }
-        //     else
-        //     {
-        //         ++k;
-        //     }
-        // }
-        // //6.Calculos das cordenadas da segunda materia
-        // for(let i = 0; i < slots2 - 1; ++i){
-        //     cordenadas2[i] = k;
-        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
-        //     {
-        //         k = k + 4;
-        //     }
-        //     else
-        //     {
-        //         ++k;
-        //     }
-        // }
-        // //7.Calculos das cordenadas da terceira materia
-        // for(let i = 0; i < slots3 - 1; ++i){
-        //     cordenadas3[i] = k;
-        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
-        //     {
-        //         k = k + 4;
-        //     }
-        //     else
-        //     {
-        //         ++k;
-        //     }
-        // }
         //8.Local para colocar o codigo do local storage:
+        /* Coloca no local storage as coordenadas */
+        for(let j = 0; j < localStrg.disciplinas.length; j++){
+            if(localStrg.disciplinas[j].materia == jsPref_1){
+                for(let h = 0; h < cordenadas1.length; h++){
+                    let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                    localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
+                    console.log('coord 1 = ' + cordenadas1[h])
+                }
+            }
+            if(localStrg.disciplinas[j].materia == jsPref_2){
+                for(let h = 0; h < cordenadas2.length; h++){
+                    let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                    localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
+                    console.log('coord 2 = ' + cordenadas2[h])
+                }
+            }
+            if(localStrg.disciplinas[j].materia == jsPref_3){
+                for(let h = 0; h < cordenadas3.length; h++){
+                    let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                    localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
+                    console.log('coord 3 = ' + cordenadas3[h])
+                }
+            }
+            console.log("entrou no for amigo")
+        }
+        
+        localStorage.setItem('data', JSON.stringify(localStrg))
     }
-
-    /* Coloca no local storage as coordenadas */
-    for(let j = 0; j < localStrg.disciplinas.length; j++){
-        if(localStrg.disciplinas[j].materia == jsPref_1){
-            for(let h = 0; h < cordenadas1.length; h++){
-                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
-                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
-                console.log('coord 1 = ' + cordenadas1[h])
-            }
-        }
-        if(localStrg.disciplinas[j].materia == jsPref_2){
-            for(let h = 0; h < cordenadas2.length; h++){
-                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
-                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
-                console.log('coord 2 = ' + cordenadas2[h])
-            }
-        }
-        if(localStrg.disciplinas[j].materia == jsPref_3){
-            for(let h = 0; h < cordenadas3.length; h++){
-                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
-                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
-                console.log('coord 3 = ' + cordenadas3[h])
-            }
-        }
-        console.log("entrou no for amigo")
-    }
-
-    localStorage.setItem('data', JSON.stringify(localStrg))
 
     console.log("jsPref_1 = " + jsPref_1);
     console.log("jsPref_2 = " + jsPref_2);
@@ -1064,10 +1058,6 @@ function isWindown() {
             setMyDayToToday();
             putMymaterias();
             break;
-        case '/myday.html':
-            setMyDayToToday();
-            putMymaterias();
-            break;
         case '/configuracao.html':
             configDisciplinas();
             break;
@@ -1434,6 +1424,3 @@ function delete_localStorage() {
 /* ========================================================= */
 /* ===== Fim - Adicao/remocao de itens do local storage ==== */
 /* ========================================================= */
-
-
-
