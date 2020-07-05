@@ -1380,7 +1380,7 @@ function pagConfig_window_addItemLStrg() {
        <div class="elements_addItemLStrg">
             <form action="#">
                 <span class="disciplinaMan_span">Nova Disciplina:</span>
-                <input type="text" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+                <input type="text" autocomplete="off" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
             </form>
             <button type="button" class="btn btn-success addItemLStrg" onclick="addItemLStrg()">Adicionar</button>
         </div>
@@ -1525,7 +1525,7 @@ function window_addItemLStrg() {
     <div class="elements_addItemLStrg">
         <form action="#">
             <span class="disciplinaMan_span">Nova Disciplina:</span>
-            <input type="text" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+            <input type="text"  autocomplete="off" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
         </form>
         <button type="button" class="btn btn-success addItemLStrg" onclick="addItemLStrg()">Adicionar</button>
     </div>`;
