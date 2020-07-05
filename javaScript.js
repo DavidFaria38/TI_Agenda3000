@@ -1,3 +1,28 @@
+/* ========================================================= */
+/* ===================== (INICIO) PWA ===================== */
+/* ========================================================= */
+
+if("serviceWorker" in navigator){
+    navigator.serviceWorker.register('sw.js').then(registration =>{
+        console.log("SW Registered!");
+        console.log(registration);
+    }).catch(error => {
+        console.log("SW Registered Failed!");
+        console,log(error);
+    })
+
+
+}else{
+    alert("PWA not supported")
+}
+
+/* ========================================================= */
+/* ==================== (FIM) PWA ========================== */
+/* ========================================================= */
+
+
+
+
 
 function openSlideMenu() {
 
@@ -13,8 +38,6 @@ function closeSlideMenu() {
     document.getElementById('menu').style.width = '0px';
     document.getElementById('content').style.marginLeft = '0px';
 }
-
-
 
 
 /* ========================================================= */
@@ -193,13 +216,10 @@ function putMymaterias() {
 
 
 }
-// window.onload = setMyDayToToday();
 
 // load se myday.html estiver sendo exibida
-if (window.location.pathname == '/myday.html') {
-    setMyDayToToday();
-    putMymaterias();
-}
+// funcao esta no final de Armazenamento local
+
 
 /* ========================================================= */
 /* =================== Fim - Janela MyDay ==================*/
@@ -636,7 +656,7 @@ function darkmode() {
 /* ========================================================= */
 /* =========== Inicio - Visualizacao de materias =========== */
 /* ========================================================= */
-
+/*funcao tarefa foi descarada */
 function getIdCoord(coord) {
     let idObj = -1;
     let localStrg = JSON.parse(localStorage.getItem('data'));
@@ -646,6 +666,27 @@ function getIdCoord(coord) {
             idObj = j;
     }
     return idObj;
+}
+
+function editNotas(idMateria, idNota) {
+    let content_anotacoes = document.querySelector('.content_anotacoes').innerText;
+    
+    document.querySelector('.content_anotacoes').style.display = 'none';
+    document.querySelector('.editNotas').style.display = 'block';
+    
+    document.querySelector('.editNotas textarea').innerText = content_anotacoes;
+    console.log('foi')
+}
+
+function savealteracoes(idMateria, idNota) {
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let content_anotacoes = document.querySelector('.editNotas textarea').value;
+
+    localStrg.disciplinas[idMateria].nota[idNota] = content_anotacoes;
+
+    localStorage.setItem('data', JSON.stringify(localStrg));
+    console.log(localStrg);
+    btnCloseAdd();
 }
 
 function showDisciplinaIndividual(coord, idMateria) {
@@ -664,107 +705,115 @@ function showDisciplinaIndividual(coord, idMateria) {
 
         <div class="box_nomeMateria">${disciplina.materia}</div>
           <span class="span_tagAnotacoes">Anotações:</span>
-          <div class="content_anotacoes">${disciplina.nota[idNota]}</div>
-        <div class="span_tagTarefas"><span>Tarefas:</span></div>
+          <div class="content_anotacoes" onclick="editNotas(${idMateria},${idNota})">${disciplina.nota[idNota]}</div>
+          <div class="editNotas">
+            <textarea name="editNotas" id="editNotas" cols="30" rows="10"></textarea>
+            <button class="btn_savealteracoes" onclick="savealteracoes(${idMateria},${idNota})">Salvar alterações</button>
+          </div>
+      </div>`;
+    //   janela.innerHTML = `
+    // <div class="viewDisciplina">
+    //     <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
+
+    //     <div class="box_nomeMateria">${disciplina.materia}</div>
+    //       <span class="span_tagAnotacoes">Anotações:</span>
+    //       <div class="content_anotacoes">${disciplina.nota[idNota]}</div>
+    //     <div class="span_tagTarefas"><span>Tarefas:</span></div>
         
-        <div class="box_tarefas">
+    //     <div class="box_tarefas">
           
-        </div>
-        <div class="btnViewDisciplina">
-          <i class="fas fa-times btnAddTarefa" onclick="addNewTarefa(${coord}, ${idMateria})"></i>
-          <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
-        </div>
-      </div>
-    `;
-    showTarefasCB(coord, idMateria);
+    //     </div>
+    //     <div class="btnViewDisciplina">
+    //       <i class="fas fa-times btnAddTarefa" onclick="addNewTarefa(${coord}, ${idMateria})"></i>
+    //       <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
+    //     </div>
+    //   </div>`;
+    // showTarefasCB(coord, idMateria);
 }
 
-function showTarefasCB(coord, idMateria) {
-    let localStrg = JSON.parse(localStorage.getItem('data'));
-    let idTarefa = getIdCoord(coord)
-    let tarefas = '';
+// function showTarefasCB(coord, idMateria) {
+//     let localStrg = JSON.parse(localStorage.getItem('data'));
+//     let idTarefa = getIdCoord(coord)
+//     let tarefas = '';
 
-    if (idTarefa != 0) {
-        let tarefaArray = localStrg.disciplinas[idMateria].tarefa[idTarefa];
-        for(let i = 0; i < tarefaArray.length; i++){
-            tarefas = tarefas + `
-            <div class="item_tarefa">
-                <div class="nome_itemTarefa">${tarefaArray[i]}</div>
-                <span class="checkBox_itemTarefa">
-                <input type="checkbox" name="cBItem" id="cBItem">
-                </span>
-            </div>`;
-        }
-        document.querySelector('.viewDisciplina .box_tarefas').innerHTML = tarefas;
-    }
-}
+//     if (true) {
+//         let tarefaArray = localStrg.disciplinas[idMateria].tarefa[idTarefa];
+//         for(let i = 0; i < tarefaArray.length; i++){
+//             console.log(1)
+//             tarefas = tarefas + `
+//             <div class="item_tarefa">
+//                 <div class="nome_itemTarefa">${tarefaArray[i]}</div>
+//                 <span class="checkBox_itemTarefa">
+//                 <input type="checkbox" name="cBItem" id="cBItem">
+//                 </span>
+//             </div>`;
+//         }
+//         document.querySelector('.viewDisciplina .box_tarefas').innerHTML = tarefas;
+//     }
+// }
 
-function addTarefaCB(coord, idMateria){
-    let localStrg = JSON.parse(localStorage.getItem('data'));
-    let idTarefa = getIdCoord(coord);
+// function addTarefaCB(coord, idMateria){
+//     let localStrg = JSON.parse(localStorage.getItem('data'));
+//     let idTarefa = getIdCoord(coord);
     
-    let tarefa = document.querySelector('.viewDisciplina .addNewTarefa').value;
-    let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
-    tarefaArray[tarefaArray.length] = tarefa;
+//     let tarefa = document.querySelector('.viewDisciplina .addNewTarefa').value;
+//     let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
+//     tarefaArray[tarefaArray.length] = tarefa;
     
-    console.log(localStrg);
-    // localStorage.setItem('data', JSON.stringify(localStrg));
-}
+//     console.log(localStrg);
+//     // localStorage.setItem('data', JSON.stringify(localStrg));
+// }
 
-function remTarefaCB(coord, idMateria){
-    let localStrg = JSON.parse(localStorage.getItem('data'));
-    let idTarefa = getIdCoord(coord);
+// function remTarefaCB(coord, idMateria){
+//     let localStrg = JSON.parse(localStorage.getItem('data'));
+//     let idTarefa = getIdCoord(coord);
     
-    let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
+//     let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
     
-    tarefaArray.splice(idTarefa, 1);
+//     tarefaArray.splice(idTarefa, 1);
     
-    console.log(localStrg);
-    // localStorage.setItem('data', JSON.stringify(localStrg));
-}
+//     console.log(localStrg);
+//     // localStorage.setItem('data', JSON.stringify(localStrg));
+// }
 
-// function submit_addNewTarefa(coord, idMateria){
+// function submit_addNewTarefa(coord, indexMateria){
 //     let localStrg = JSON.parse(localStorage.getItem('data'));
 //     let nameTarefa = document.querySelector('.box_input_addTarefa input').value;
 
     
-//     let disciplina = localStrg.disciplinas[idMateria];
-//     let idTarefa = getIdCoord(coord);
+//     let disciplina = localStrg.disciplinas[indexMateria];
+//     let indexTarefa = getIdCoord(coord);
     
-//     if(idTarefa != -1){
-//         if(disciplina.tarefa[idTarefa] == undefined){
-//             disciplina.tarefa[idTarefa][0] = nameTarefa;
-//             disciplina.tarefa_value[0] = false;
-//         }else{
-//             disciplina.tarefa[idTarefa][disciplina.tarefa[idTarefa].length] = nameTarefa;
-//             disciplina.tarefa_value[idTarefa] = false;
-//         }
-//     }else{
-//         let lenTarefa = disciplina.tarefa.length;
-//         disciplina.tarefa[lenTarefa] = nameTarefa;
-//         disciplina.tarefa_value[lenTarefa] = false;
-//     }
+//     let len = disciplina.tarefa[indexTarefa];
+
+//     localStrg.disciplinas[indexMateria].tarefa[indexTarefa][len] = nameTarefa;
+//     localStrg.disciplinas[indexMateria].tarefa_state[indexTarefa][len] = false;
     
-    
-//     console.log(disciplina);
+//     console.log( JSON.stringify(localStrg.disciplinas[indexMateria]));
+//     console.log(localStrg.disciplinas[indexMateria]);
+
+//     alert(localStrg)
+//     localStorage.clear();
+//     localStorage.setItem("data", JSON.stringify(localStrg));
+//     btnCloseAdd();
 // }
 
-function addNewTarefa(coord, idMateria){
-    let janela = document.querySelector('.bg-modal');
-    janela.innerHTML = `
-    <div class="viewDisciplina">
-        <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
-        <div class="box_nomeMateria">Adicione tarefa</div>
-        <div class="box_input_addTarefa">
-            <div class="input_nameAddTarefa">Tarefa:</div>
-            <input type="text" name="input_addTarefa" id="input_addTarefa" placeholder="Nome tarefa">
-        </div>
-        <div class="btnViewDisciplina">
-            <i class="fas fa-times btnAddTarefa" onclick="submit_addNewTarefa(${coord}, ${idMateria})"></i>
-            <i class="fas fa-times btnRemTarefa"></i>
-        </div>
-    </div>`
-}
+// function addNewTarefa(coord, idMateria){
+//     let janela = document.querySelector('.bg-modal');
+//     janela.innerHTML = `
+//     <div class="viewDisciplina">
+//         <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
+//         <div class="box_nomeMateria">Adicione tarefa</div>
+//         <div class="box_input_addTarefa">
+//             <div class="input_nameAddTarefa">Tarefa:</div>
+//             <input type="text" name="input_addTarefa" id="input_addTarefa" placeholder="Nome tarefa">
+//         </div>
+//         <div class="btnViewDisciplina">
+//             <i class="fas fa-times btnAddTarefa" onclick="submit_addNewTarefa(${coord}, ${idMateria})"></i>
+//             <i class="fas fa-times btnRemTarefa"></i>
+//         </div>
+//     </div>`
+// }
 
 /* ========================================================= */
 /* ============= Fim - Visualizacao de materias ============ */
@@ -781,10 +830,10 @@ var data = {
     "disciplinas": [
         {
             "materia": "Matemática",
-            "coordenadas": [11],
-            "nota": ["Juliana = massive JACU"],
-            "tarefa": [["olamundo como esta?", "deixa de ser chato", "pq juliana nao deixa de ser jacu?", "fore shadow?", "onde estao todos?", "so queria que alguem me pagasse um acai"]],
-            "tarefa_value": [],
+            "coordenadas": [],
+            "nota": [],
+            "tarefa": [],
+            "tarefa_state": [],
             "cor": "#caeaf5"
         },
         {
@@ -792,7 +841,7 @@ var data = {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "#0e91bd"
         },
         {
@@ -800,7 +849,7 @@ var data = {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "#9a55b6"
         },
         {
@@ -808,7 +857,7 @@ var data = {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "#e6e22e"
         },
         {
@@ -816,7 +865,7 @@ var data = {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "#20b2aa"
         },
         {
@@ -824,7 +873,7 @@ var data = {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "#eeb958"
         },
         {
@@ -832,7 +881,7 @@ var data = {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "#e47263"
         },
         {
@@ -840,7 +889,7 @@ var data = {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "#f5deb3"
         }
     ]
@@ -917,33 +966,13 @@ wheat     #f5deb3 = Inglês
 */
 
 
-onload = () => {
-    // armazena no localstorage
-    localStorage.setItem("data", JSON.stringify(data));
-
-    // var data1 = data
-    // console.log(data1)
-    // lendo do armazenamento interno
-
-    let data2 = JSON.parse(localStorage.getItem("data"));
-    console.log("data= " + data2.disciplinas[1])
-
-    let xy, materia, x, y, i, j;
-    x = 0;
-    y = 0;
-
-    for (i = 0; i < data2.disciplinas.length; i++) {
-        materia = data2.disciplinas[i].materia;
-        xy = data2.disciplinas[i].coordenadas.length;
-        for (j = 0; j < xy; j++) {
-            x = data2.disciplinas[i].coordenadas[j];
-            y = data2.disciplinas[i].cor;
-            // document.getElementById(`${x}`).innerText = materia;
-            // document.getElementById(`${x}`).style.backgroundColor = y;
-        }
+function setLocalStorage(){
+    let isThere_localStr = localStorage.getItem("data");
+    if (isThere_localStr == null) {
+        localStorage.setItem("data", JSON.stringify(data));
+        console.log('Local Storare SET');
     }
 }
-
 
 function showTable() {
     let table = document.getElementById('table');
@@ -1135,9 +1164,22 @@ function showOnScreenFromLocalStorage() {
 // se pagina estiver em pagina myweek.html mostre as disciplinas
 function isWindown() {
     let windowPath = location.pathname;
+    setLocalStorage();
+    console.log("URL da Pagina = " + windowPath);
     switch (windowPath) {
         case '/myWeek.html':
             showOnScreenFromLocalStorage();
+            break;
+        case '/myday.html':
+            setMyDayToToday();
+            putMymaterias();
+            break;
+        case '/myday.html':
+            setMyDayToToday();
+            putMymaterias();
+            break;
+        case '/configuracao.html':
+            configDisciplinas();
             break;
 
         default:
@@ -1198,18 +1240,23 @@ function btnSubmit_AddTarefaIndividual(coord) {
     let disciplina_Form = document.getElementById('disciplina_select').value;
     let anotacoes_Form = document.getElementById('anotacoes').value;
 
-    localStr = JSON.parse(localStorage.getItem('data'));
-
+    
+    let localStr = JSON.parse(localStorage.getItem('data'));
+    
     for (i = 0; i < localStr.disciplinas.length; i++) {
         if (localStr.disciplinas[i].materia == disciplina_Form) {
             lengthCoord = localStr.disciplinas[i].coordenadas.length;
+
+            /* dando todos esses elementos o mesmo index de que as coordenadas */
             localStr.disciplinas[i].coordenadas[lengthCoord] = coord;
             localStr.disciplinas[i].nota[lengthCoord] = anotacoes_Form;
+            // localStr.disciplinas[i].tarefa[lengthCoord] = lengthCoord;
+            // localStr.disciplinas[i].tarefa_state[lengthCoord] = lengthCoord;
         }
     }
 
     localStorage.setItem('data', JSON.stringify(localStr));
-    showOnScreenFromLocalStorage();
+    isWindown();
     // clear na tela
     btnCloseAdd();
 }
@@ -1223,7 +1270,7 @@ function btnSubmit_RemTarefaIndividual(coord, materiaIn) {
     localStr.disciplinas[materiaIn].coordenadas.splice(i_removeItem, 1);
     localStr.disciplinas[materiaIn].nota.splice(i_removeItem, 1);
     localStorage.setItem('data', JSON.stringify(localStr));
-    showOnScreenFromLocalStorage();
+    isWindown();
     btnCloseAdd();
 }
 /* Funcao intermediaria, confirmacao se usuario deseja deletar disciplina */
@@ -1317,7 +1364,99 @@ function manipulacaoItensLocalStorage() {
     }
 }
 
-document.getElementById('configDisciplinas').addEventListener('click', manipulacaoItensLocalStorage);
+// event listener desabilitado, para reativa ir no sidemenu no html e retirar comentario
+// tag <a id="manipulacaoItensLocalStorage">
+//document.getElementById('configDisciplinas').addEventListener('click', manipulacaoItensLocalStorage);
+
+// Adiciona item do local storage
+function pagConfig_window_addItemLStrg() {
+    
+    document.querySelector('.bg-modal').style.display = 'flex';
+    document.querySelector('.bg-modal').innerHTML = `
+    <div class="manipulacaoItensLocalStorage addTarefasIndividuais">
+       <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
+       <p>Manipulação de Disciplinas</p>
+
+       <div class="elements_addItemLStrg">
+            <form action="#">
+                <span class="disciplinaMan_span">Nova Disciplina:</span>
+                <input type="text" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+            </form>
+            <button type="button" class="btn btn-success addItemLStrg" onclick="addItemLStrg()">Adicionar</button>
+        </div>
+
+     </div>`
+
+    let btnAdd = document.querySelector('.manipulacaoItensLocalStorage .addItemLStrg');
+    btnAdd.style.left = '40%';
+}
+
+
+// remove item do local storage
+function pagConfig_remItemLStrg(nameMateria) {
+    let indexMateria;
+
+    let result = confirm(`Deseja remover "${nameMateria}" \nQualquer informação contida nele foi apagada permanentemente."`);
+    if (result != false) {
+        let localStrg = JSON.parse(localStorage.getItem("data"))
+        for (let i = 0; i < localStrg.disciplinas.length; i++) {
+            indexMateria = localStrg.disciplinas[i].materia.indexOf(nameMateria);
+            if(indexMateria != -1){
+                localStrg.disciplinas.splice(i, 1)
+            }
+        }
+        localStorage.setItem('data', JSON.stringify(localStrg));
+
+        // refresh na tela
+        configDisciplinas();
+    }
+    
+}
+
+function configDisciplinas(){
+    let localStrg = JSON.parse(localStorage.getItem("data"))
+    let itens_disciplinas = '';
+    box_disciplinas = document.querySelector('.box_disciplinas');
+    
+    for(let i = 0; i < localStrg.disciplinas.length; i++){
+        let materia = localStrg.disciplinas[i].materia;
+
+        itens_disciplinas += `
+        <div class="item_disciplina">
+            <span type="button" data-toggle="collapse" data-target="#box_dataItem${i}" aria-expanded="false" aria-controls="box_dataItem${i}">
+                ${materia}
+            </span>
+            <button type="button" class="btn btn-danger" onclick="pagConfig_remItemLStrg('${materia}')">Remover</button>
+
+            <div class="box_dataItem collapse" id="box_dataItem${i}">
+                <div class="card card-body dataItem">
+                    <span class="tag_anotacao">Anotações:</span>
+                    <span class="anotacao"></span>
+                    
+                </div>
+            </div>
+        </div>`;
+    }
+
+    box_disciplinas.innerHTML = itens_disciplinas;
+
+    for(let i = 0; i < localStrg.disciplinas.length; i++){
+        let notas_disciplinas = document.querySelector(`.item_disciplina #box_dataItem${i} .dataItem .anotacao`);
+        let notas = '';
+        if(localStrg.disciplinas[i].nota.length != 0){
+            for(let j = 0; j < localStrg.disciplinas[i].nota.length; j++){
+                LStrg_nota = localStrg.disciplinas[i].nota[j];
+                notas = notas + `<p>${LStrg_nota}</p>`;
+            }
+        }else{
+            notas = `<p class="span_semAnotacao">Nenhuma anotação.</p>`;
+        }
+        // console.log(localStrg.disciplinas[i].materia + " = " + notas);
+        notas_disciplinas.innerHTML = notas;
+    }
+}
+
+
 
 // remove item do local storage
 function remItemLStrg() {
@@ -1337,7 +1476,7 @@ function remItemLStrg() {
         // clear na tela
         btnCloseAdd();
         // refresh na tela, removendo itens retirados da timetable
-        showOnScreenFromLocalStorage();
+        isWindown();
         alert(`Item "${item}" foi removido. \nQualquer informação contida nele foi apagada permanentemente.`)
     }
     else {
@@ -1360,7 +1499,7 @@ function addItemLStrg() {
             "coordenadas": [],
             "nota": [],
             "tarefa": [],
-            "tarefa_value": [],
+            "tarefa_state": [],
             "cor": "purple"
         }
         let len = localStr.disciplinas.length;
@@ -1371,7 +1510,7 @@ function addItemLStrg() {
         // clear na tela
         btnCloseAdd();
         // refresh na tela, removendo itens retirados da timetable
-        showOnScreenFromLocalStorage();
+        isWindown();
     } else {
         let inputBox = document.getElementById('disciplina_input');
         inputBox.style.border = 'solid red 2px';
@@ -1398,10 +1537,10 @@ function window_addItemLStrg() {
 function delete_localStorage() {
     localStorage.clear();
     localStorage.setItem('data', JSON.stringify(data));
-    showOnScreenFromLocalStorage();
+    isWindown();
 }
 
-document.querySelector('#del_localStorage').addEventListener('click', delete_localStorage)
+// document.querySelector('#del_localStorage').addEventListener('click', delete_localStorage)
 /* ========================================================= */
 /* ===== Fim - Adicao/remocao de itens do local storage ==== */
 /* ========================================================= */

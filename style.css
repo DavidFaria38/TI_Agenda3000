@@ -5,7 +5,7 @@ body {
 	overflow-x: fixed;
 	margin: 0px;
 }
-.nav {
+.nav_bar {
 	height: 100%;
 	width: 0px;
 	position: fixed;
@@ -18,27 +18,27 @@ body {
 	padding-top: 60px;
 	transition: 0.7s;
 }
-.nav a {
+.nav_bar a {
 	display: block;
 	padding: 20px 30px;
 	font-size: 25px;
 	text-decoration: none;
 	color: #ccc;
 }
-.nav a:hover {
+.nav_bar a:hover {
 	color: #fff;
 	transition: 0.4s; 
 	cursor: pointer;
 }
 
 /* Botao Darkmode   -   implementado pelo David 09/06/2020*/
-.nav .darkmode{
+.nav_bar .darkmode{
 	color: whitesmoke;
 	font-size: 25px;
 	cursor: pointer;
 }
 
-.nav .close {            /* Botao para fechar sidebar */
+.nav_bar .close {            /* Botao para fechar sidebar */
 	position: absolute;
 	top: 40px;
 	right: 0px;
@@ -99,11 +99,11 @@ header{
 		font-size: 1.1rem;
 	}
 	*/
-	nav a{
+	nav_bar a{
 		
 		font-size: 100px;
 	}
-	.nav .close {
+	.nav_bar .close {
 	position: absolute;
 	top: 0;
 	right: 22px;
@@ -268,6 +268,46 @@ header{
 	height: 10vh;                   
 }
 
+.editNotas{
+	display: none;
+}
+#editNotas{
+	background-color: #a3a2a238;
+	margin: 48px auto 50px;
+	padding: 5px;
+	font-size: 1.1rem;
+	font-family: 'Times New Roman', Times, serif;
+	text-align: left;
+	overflow: auto;
+	border: solid black 1px;
+	border-radius: 2px;
+	box-shadow: 2px 1px rgba(128, 128, 128, 0.37);
+	
+	resize: vertical; 
+	max-height: 15vh;
+	min-height: 7vh;
+	width: 25rem;                  
+	height: 10vh; 
+}
+.btn_savealteracoes{
+	background-color: #13ce67b6;
+	margin: 15vh auto;
+	padding: 10px 15px;
+	font-size: 1rem;
+	font-weight: 600;
+	border: solid #13CE66 1px;
+	border-radius: 5px;
+	
+	/* position: absolute; */
+	bottom: 10vh;
+}
+.btn_savealteracoes:hover{
+	background-color: #13ce67e5;
+	border: solid #1ece6d 1px;
+	transition: 0.5s;
+}
+
+
 
 .viewDisciplina .box_tarefas{                          /* Tarefas de cada disciplina */
 	/* background-color: #ccc; */
@@ -413,6 +453,10 @@ header{
 		/* padding: 10px 50vw 10px 0px;  */
 	}
 	
+	#editNotas{
+		width: 86vw;
+	}
+
 	/* Janela para adicao de uma nova tarefa */
 	.box_input_addTarefa{
 		width: 75vw;
@@ -760,11 +804,11 @@ th, td{
 		font-size: 1.1rem;
 	}
 	*/
-	nav a{
+	nav_bar a{
 		
 		font-size: 100px;
 	}
-	.nav .close {
+	.nav_bar .close {
 	position: absolute;
 	top: 0;
 	right: 22px;
@@ -778,4 +822,72 @@ th, td{
 /* ============================ (FIM) Timetable ========================== */
 /* ======================================================================= */
 
-/* Testes*/
+
+
+/* ======================================================================= */
+/* ==================== (INICIO) Pagina configuracoes ==================== */
+/* ======================================================================= */
+
+.box_config{
+	background-color: #1abc9c2c;
+	margin: 25px auto ; 
+	padding: 10px;
+	width: 90vw;
+}
+.manipular_disciplinas{
+	position: relative;
+}
+.btn_configItem{
+	background-color: rgba(255, 0, 0, 0);
+	margin-left: 10px;
+	padding: 0px 25px;
+	font-size: 1.5rem;
+	border: solid 1px black;
+}
+.btn_configItem:hover{
+	background-color: #1abc9c8c;
+	transition: 0.5s;
+}
+.manipular_disciplinas .btn_Icon_addDisciplina{
+	transform: rotate(45deg);
+}
+.manipular_disciplinas .btn_addDisciplina{
+	padding: 8px 17px;
+	position: absolute;
+	right: 10px;
+}
+.item_disciplina{
+	border: solid black 1px;
+	margin: 10px;
+	padding: 10px 10px;
+	position: relative;
+}
+.item_disciplina span{
+	padding: 10px;
+	font-size: 1.5rem;
+}
+.item_disciplina .anotacao{
+	color: rgba(58, 58, 58, 0.815);
+	padding: 10px;
+	font-size: 1.1rem;
+	border: solid rgba(0, 0, 0, 0.212) 1px;
+}
+.item_disciplina .span_semAnotacao{
+	color: rgba(0, 0, 0, 0.514);
+	font-size: 1rem;
+}
+.item_disciplina button{
+	margin: 1vh 0px 0px auto;
+	padding: 5px 10px;
+	font-size: 1rem;
+	
+	position: absolute;
+	right: 10px;
+}
+
+
+
+
+/* ======================================================================= */
+/* ====================== (FIM) Pagina configuracoes ===================== */
+/* ======================================================================= */
