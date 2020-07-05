@@ -1,29 +1,3 @@
-/* ========================================================= */
-/* ===================== (INICIO) PWA ===================== */
-/* ========================================================= */
-
-if("serviceWorker" in navigator){
-    navigator.serviceWorker.register('sw.js').then(registration =>{
-        console.log("SW Registered!");
-        console.log(registration);
-    }).catch(error => {
-        console.log("SW Registered Failed!");
-        console,log(error);
-    })
-
-
-}else{
-    alert("PWA not supported")
-}
-
-/* ========================================================= */
-/* ==================== (FIM) PWA ========================== */
-/* ========================================================= */
-
-
-
-
-
 function openSlideMenu() {
 
     if (screen.width >= '700') {
@@ -44,7 +18,10 @@ function closeSlideMenu() {
 /* Funcao para abrir e fechar pop-up screen para add tarefas */
 /* ========================================================= */
 function btnOpenAdd() {
-    //confirm("click");
+    
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let select = `<option value="blank" selected></option>`;
+    let peso = `<option value="-1" selected></option>`;
     document.querySelector('.bg-modal').style.display = 'flex'
     document.querySelector('.bg-modal').innerHTML = `
     <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
@@ -56,26 +33,9 @@ function btnOpenAdd() {
             <label for="pref_1">Preferencia 1 :</label>
             <select class="materia" name="pref_1" id="pref_1">
               <option value="blank" selected></option>
-              <option value="mat">Matemática</option>
-              <option value="port">Português</option>
-              <option value="hist">História</option>
-              <option value="geo">Geografia</option>
-              <option value="bio">Biologia</option>
-              <option value="fis">Física</option>
-              <option value="qui">Química</option>
-              <option value="ing">Inglês</option>
             </select>
             <select class="peso" name="pesoPref_1" id="pesoPref_1">
               <option value="-1" selected></option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
             </select>
           </div>
 
@@ -84,26 +44,9 @@ function btnOpenAdd() {
             <label for="pref_2">Preferencia 2 :</label>
             <select class="materia" name="pref_2" id="pref_2">
               <option value="blank" selected></option>
-              <option value="mat">Matemática</option>
-              <option value="port">Português</option>
-              <option value="hist">História</option>
-              <option value="geo">Geografia</option>
-              <option value="bio">Biologia</option>
-              <option value="fis">Física</option>
-              <option value="qui">Química</option>
-              <option value="ing">Inglês</option>
             </select>
             <select class="peso" name="pesoPref_2" id="pesoPref_2">
               <option value="-1" selected></option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
             </select>
           </div>
 
@@ -112,26 +55,9 @@ function btnOpenAdd() {
             <label for="pref_3">Preferencia 3 :</label>
             <select class="materia" name="pref_3" id="pref_3">
               <option value="blank" selected></option>
-              <option value="mat">Matemática</option>
-              <option value="port">Português</option>
-              <option value="hist">História</option>
-              <option value="geo">Geografia</option>
-              <option value="bio">Biologia</option>
-              <option value="fis">Física</option>
-              <option value="qui">Química</option>
-              <option value="ing">Inglês</option>
             </select>
             <select class="peso" name="pesoPref_3" id="pesoPref_3">
               <option value="-1" selected></option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
             </select>
           </div>
 
@@ -149,7 +75,30 @@ function btnOpenAdd() {
         </form>
         <button id="btnSubmit" onclick="submitAddTarefa()"> Confirmar </button>
 
-      </div>`
+      </div>`;
+
+    for(let i = 0; i < localStrg.disciplinas.length; i++){
+        let materia = localStrg.disciplinas[i].materia;
+        select = select + `<option value="${materia}" selected>${materia}</option>`
+    }
+
+    for(let j = 1; j <= 5; j++)
+        peso = peso + `<option value="${j}">${j}</option>`
+
+    document.querySelector('#pref_1').innerHTML = select
+    document.querySelector('#pref_2').innerHTML = select
+    document.querySelector('#pref_3').innerHTML = select
+    document.querySelector('#pesoPref_1').innerHTML = peso
+    document.querySelector('#pesoPref_2').innerHTML = peso
+    document.querySelector('#pesoPref_3').innerHTML = peso
+    // peso = peso + `<option value="${i}" selected>$</option>`
+
+
+
+
+
+
+
 }
 function btnCloseAdd() {
     document.querySelector('.bg-modal').style.display = 'none'
@@ -182,19 +131,22 @@ function setMyDayToToday() {
 }
 function mydayMaterias() {
     let data2 = JSON.parse(localStorage.getItem("data"));
-    console.log(data2);
+    //console.log(data2);
     var materiasdehj = [];
     let d = new Date();
     let hj = d.getDay();
+    if (hj == 0) {
+        hj = 7
+    }
     for (let i = 0; i < data2.disciplinas.length; i++) {
         for (let z = 0; z < data2.disciplinas[i].coordenadas.length; z++) {
             let mydaycord = "" + data2.disciplinas[i].coordenadas[z];
             let x = mydaycord.length - 1;
             // console.log("mydaycord = " + mydaycord)
-            console.log("cordenadas= " + mydaycord + " lenght= " + x + " hoje= " + hj);
+            //console.log("cordenadas= " + mydaycord + " lenght= " + x + " hoje= " + hj);
             if (mydaycord[x] == hj) {
                 mydaycord = mydaycord.substr(0, x);
-                materiasdehj.push(mydaycord + "," + data2.disciplinas[i].materia);
+                materiasdehj.push(mydaycord + "," + data2.disciplinas[i].materia + "," + data2.disciplinas[i].cor);
             }
         }
     }
@@ -203,12 +155,13 @@ function mydayMaterias() {
 function putMymaterias() {
     let arrayMyday = mydayMaterias();
     for (let i = 0; i < arrayMyday.length; i++) {
+        //console.log(arrayMyday[i]);
         let breakcomma = arrayMyday[i].indexOf(",");
-        let number = arrayMyday[i].substr(0, breakcomma);
-        let sub = arrayMyday[i].substr((breakcomma + 1), arrayMyday[i].length);
-        let color = sub.substr(0, 3);
-        color = color.toLowerCase();
-        color = selecionadorCor(color); // Trocar esta funcao por uma outra mais eficiente
+        let lastBreakcomma = arrayMyday[i].lastIndexOf(",");
+        let number = arrayMyday[i].substring(0, breakcomma);
+        let sub = arrayMyday[i].substring((breakcomma + 1), lastBreakcomma);
+        let color = arrayMyday[i].substring((lastBreakcomma + 1), arrayMyday[i].length);
+        //console.log(number + "," + sub + "," + color);
         number = "My" + number;
         document.getElementById(number).style.backgroundColor = color;
         document.getElementById(number).innerText = sub;
@@ -321,6 +274,8 @@ function validarInput() {
 /* ========= Seleciona a cor dependendo da materia ========= */
 /* ========================================================= */
 function selecionadorCor(pref) {
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+
     let color;
     if (pref == 'mat')
         color = "#caeaf5"
@@ -364,187 +319,8 @@ wheat     #f5deb3 = Inglês
 /* ========================================================= */
 /* ====== Funcao para organizar o peso da preferencia ====== */
 /* ========================================================= */
-function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
-    var selector, i;
-    console.log(`${a} > ${b} > ${c} | ${turno}`)
 
-    if (turno == 1) {
 
-        document.getElementById('1a').innerHTML = a;
-        document.getElementById('1a').style.backgroundColor = c1;
-        document.getElementById('2a').innerHTML = a;
-        document.getElementById('2a').style.backgroundColor = c1;
-        document.getElementById('3a').innerHTML = b;
-        document.getElementById('3a').style.backgroundColor = c2;
-        document.getElementById('4a').innerHTML = b;
-        document.getElementById('4a').style.backgroundColor = c2;
-        document.getElementById('5a').innerHTML = c;
-        document.getElementById('5a').style.backgroundColor = c3;
-
-        document.getElementById('1b').innerHTML = b;
-        document.getElementById('1b').style.backgroundColor = c2;
-        document.getElementById('2b').innerHTML = b;
-        document.getElementById('2b').style.backgroundColor = c2;
-        document.getElementById('3b').innerHTML = a;
-        document.getElementById('3b').style.backgroundColor = c1;
-        document.getElementById('4b').innerHTML = a;
-        document.getElementById('4b').style.backgroundColor = c1;
-        document.getElementById('5b').innerHTML = c;
-        document.getElementById('5b').style.backgroundColor = c3;
-
-        document.getElementById('1c').innerHTML = a;
-        document.getElementById('1c').style.backgroundColor = c1;
-        document.getElementById('2c').innerHTML = a;
-        document.getElementById('2c').style.backgroundColor = c1;
-        document.getElementById('3c').innerHTML = b;
-        document.getElementById('3c').style.backgroundColor = c2;
-        document.getElementById('4c').innerHTML = b;
-        document.getElementById('4c').style.backgroundColor = c2;
-        document.getElementById('5c').innerHTML = c;
-        document.getElementById('5c').style.backgroundColor = c3;
-
-        document.getElementById('1d').innerHTML = b;
-        document.getElementById('1d').style.backgroundColor = c2;
-        document.getElementById('2d').innerHTML = b;
-        document.getElementById('2d').style.backgroundColor = c2;
-        document.getElementById('3d').innerHTML = a;
-        document.getElementById('3d').style.backgroundColor = c1;
-        document.getElementById('4d').innerHTML = a;
-        document.getElementById('4d').style.backgroundColor = c1;
-        document.getElementById('5d').innerHTML = c;
-        document.getElementById('5d').style.backgroundColor = c3;
-
-        document.getElementById('1e').innerHTML = a;
-        document.getElementById('1e').style.backgroundColor = c1;
-        document.getElementById('2e').innerHTML = a;
-        document.getElementById('2e').style.backgroundColor = c1;
-        document.getElementById('3e').innerHTML = b;
-        document.getElementById('3e').style.backgroundColor = c2;
-        document.getElementById('4e').innerHTML = b;
-        document.getElementById('4e').style.backgroundColor = c2;
-        document.getElementById('5e').innerHTML = c;
-        document.getElementById('5e').style.backgroundColor = c3;
-
-        console.log('turno selecionado MANHA');
-    }
-    if (turno == 2) {
-        document.getElementById('6a').innerHTML = a;
-        document.getElementById('6a').style.backgroundColor = c1;
-        document.getElementById('7a').innerHTML = a;
-        document.getElementById('7a').style.backgroundColor = c1;
-        document.getElementById('8a').innerHTML = b;
-        document.getElementById('8a').style.backgroundColor = c2;
-        document.getElementById('9a').innerHTML = b;
-        document.getElementById('9a').style.backgroundColor = c2;
-        document.getElementById('10a').innerHTML = c;
-        document.getElementById('10a').style.backgroundColor = c3;
-
-        document.getElementById('6b').innerHTML = b;
-        document.getElementById('6b').style.backgroundColor = c2;
-        document.getElementById('7b').innerHTML = b;
-        document.getElementById('7b').style.backgroundColor = c2;
-        document.getElementById('8b').innerHTML = a;
-        document.getElementById('8b').style.backgroundColor = c1;
-        document.getElementById('9b').innerHTML = a;
-        document.getElementById('9b').style.backgroundColor = c1;
-        document.getElementById('10b').innerHTML = c;
-        document.getElementById('10b').style.backgroundColor = c3;
-
-        document.getElementById('6c').innerHTML = a;
-        document.getElementById('6c').style.backgroundColor = c1;
-        document.getElementById('7c').innerHTML = a;
-        document.getElementById('7c').style.backgroundColor = c1;
-        document.getElementById('8c').innerHTML = b;
-        document.getElementById('8c').style.backgroundColor = c2;
-        document.getElementById('9c').innerHTML = b;
-        document.getElementById('9c').style.backgroundColor = c2;
-        document.getElementById('10c').innerHTML = c;
-        document.getElementById('10c').style.backgroundColor = c3;
-
-        document.getElementById('6d').innerHTML = b;
-        document.getElementById('6d').style.backgroundColor = c2;
-        document.getElementById('7d').innerHTML = b;
-        document.getElementById('7d').style.backgroundColor = c2;
-        document.getElementById('8d').innerHTML = a;
-        document.getElementById('8d').style.backgroundColor = c1;
-        document.getElementById('9d').innerHTML = a;
-        document.getElementById('9d').style.backgroundColor = c1;
-        document.getElementById('10d').innerHTML = c;
-        document.getElementById('10d').style.backgroundColor = c3;
-
-        document.getElementById('6e').innerHTML = a;
-        document.getElementById('6e').style.backgroundColor = c1;
-        document.getElementById('7e').innerHTML = a;
-        document.getElementById('7e').style.backgroundColor = c1;
-        document.getElementById('8e').innerHTML = b;
-        document.getElementById('8e').style.backgroundColor = c2;
-        document.getElementById('9e').innerHTML = b;
-        document.getElementById('9e').style.backgroundColor = c2;
-        document.getElementById('10e').innerHTML = c;
-        document.getElementById('10e').style.backgroundColor = c3;
-
-        console.log('turno selecionado TARDE');
-    }
-    if (turno == 3) {
-        document.getElementById('11a').innerHTML = a;
-        document.getElementById('11a').style.backgroundColor = c1;
-        document.getElementById('12a').innerHTML = a;
-        document.getElementById('12a').style.backgroundColor = c1;
-        document.getElementById('13a').innerHTML = b;
-        document.getElementById('13a').style.backgroundColor = c2;
-        document.getElementById('14a').innerHTML = b;
-        document.getElementById('14a').style.backgroundColor = c2;
-        document.getElementById('15a').innerHTML = c;
-        document.getElementById('15a').style.backgroundColor = c3;
-
-        document.getElementById('11b').innerHTML = b;
-        document.getElementById('11b').style.backgroundColor = c2;
-        document.getElementById('12b').innerHTML = b;
-        document.getElementById('12b').style.backgroundColor = c2;
-        document.getElementById('13b').innerHTML = a;
-        document.getElementById('13b').style.backgroundColor = c1;
-        document.getElementById('14b').innerHTML = a;
-        document.getElementById('14b').style.backgroundColor = c1;
-        document.getElementById('15b').innerHTML = c;
-        document.getElementById('15b').style.backgroundColor = c3;
-
-        document.getElementById('11c').innerHTML = a;
-        document.getElementById('11c').style.backgroundColor = c1;
-        document.getElementById('12c').innerHTML = a;
-        document.getElementById('12c').style.backgroundColor = c1;
-        document.getElementById('13c').innerHTML = b;
-        document.getElementById('13c').style.backgroundColor = c2;
-        document.getElementById('14c').innerHTML = b;
-        document.getElementById('14c').style.backgroundColor = c2;
-        document.getElementById('15c').innerHTML = c;
-        document.getElementById('15c').style.backgroundColor = c3;
-
-        document.getElementById('11d').innerHTML = b;
-        document.getElementById('11d').style.backgroundColor = c2;
-        document.getElementById('12d').innerHTML = b;
-        document.getElementById('12d').style.backgroundColor = c2;
-        document.getElementById('13d').innerHTML = a;
-        document.getElementById('13d').style.backgroundColor = c1;
-        document.getElementById('14d').innerHTML = a;
-        document.getElementById('14d').style.backgroundColor = c1;
-        document.getElementById('15d').innerHTML = c;
-        document.getElementById('15d').style.backgroundColor = c3;
-
-        document.getElementById('11e').innerHTML = a;
-        document.getElementById('11e').style.backgroundColor = c1;
-        document.getElementById('12e').innerHTML = a;
-        document.getElementById('12e').style.backgroundColor = c1;
-        document.getElementById('13e').innerHTML = b;
-        document.getElementById('13e').style.backgroundColor = c2;
-        document.getElementById('14e').innerHTML = b;
-        document.getElementById('14e').style.backgroundColor = c2;
-        document.getElementById('15e').innerHTML = c;
-        document.getElementById('15e').style.backgroundColor = c3;
-
-        console.log('turno selecionado NOITE');
-    }
-
-}
 /* ========================================================= */
 /* ======================= FIM ============================= */
 /* ========================================================= */
@@ -556,6 +332,7 @@ function actionAddTarefa(a, c1, b, c2, c, c3, turno) {
 /* ========================================================= */
 function submitAddTarefa() {
 
+    let localStrg = JSON.parse(localStorage.getItem('data'));
     /* Definicao das variaveis a serem usadas */
     let jsPref_1 = document.getElementById('pref_1').value;
     let jsPref_2 = document.getElementById('pref_2').value;
@@ -571,8 +348,7 @@ function submitAddTarefa() {
     let cor1 = selecionadorCor(jsPref_1);
     let cor2 = selecionadorCor(jsPref_2);
     let cor3 = selecionadorCor(jsPref_3);
-
-    //actionAddTarefa("hist", "#caeaf5", "mat", "#0e91bd ", "port", "#f5deb3", 1);
+    var k;
 
 
     if (validarInput() == false) {
@@ -583,38 +359,152 @@ function submitAddTarefa() {
         btnCloseAdd()
 
         // Verificacao do turno
-        if (tManha)
-            turno = 1
-        else if (tTarde)
-            turno = 2
-        else if (tNoite)
+        // K = primeiro horario de cada turno
+        if (tManha){
+            turno = 1,
+            k = 11
+            console.log('passou manha')
+        }
+        else if (tTarde){
+            turno = 2,
+            k = 61
+            console.log('passou tarde')
+        }
+        else if (tNoite){
             turno = 3
+            k = 121
+            console.log('passou noite')
+        }
 
         // Verificacao do peso 
-        if (peso1 > peso2 && peso2 > peso3)
-            actionAddTarefa(jsPref_1, cor1, jsPref_2, cor2, jsPref_3, cor3, turno)
+        //1.Utizando o parseInt para transformar os pesos em integrers para os calculos
+        var pesoTotal = parseInt(peso1) + parseInt(peso2) + parseInt(peso3);
 
-        else if (peso2 > peso1 && peso1 > peso3)
-            actionAddTarefa(jsPref_2, cor2, jsPref_1, cor1, jsPref_3, cor3, turno)
+        //2.Calculando a porcentagem dos pesos individuais pelo peso total
+        var porcentagem1 = 1/(pesoTotal/peso1);
+        var porcentagem2 = 1/(pesoTotal/peso2);
+        var porcentagem3 = 1/(pesoTotal/peso3);
 
-        else if (peso3 > peso1 && peso1 > peso2)
-            actionAddTarefa(jsPref_3, cor3, jsPref_1, cor1, jsPref_2, cor2, turno)
+        //3.Aplicando as porcentagens calculadas anteriormente sobre o numero de slots disponiveis
+        var slotsTotal = 20;//Alteravel
+        var slots1 = Math.round(slotsTotal*porcentagem1);
+        var slots2 = Math.round(slotsTotal*porcentagem2);
+        var slots3 = Math.round(slotsTotal*porcentagem3);
+        //OBS.Math.round pode causar um aumento ou diminuiçao de 1 slot
 
-        else if (peso1 > peso3 && peso3 > peso2)
-            actionAddTarefa(jsPref_1, cor1, jsPref_3, cor3, jsPref_2, cor2, turno)
+        //4.Armazenamento das coordenadas
+        var cordenadas1 = [];
+        var cordenadas2 = [];
+        var cordenadas3 = [];
+        
 
-        else if (peso2 > peso3 && peso3 > peso1)
-            actionAddTarefa(jsPref_2, cor2, jsPref_3, cor3, jsPref_1, cor1, turno)
+        for(let i = 0; i < slots1 - 1; ++i){
+            // let rand = Math.cil(Math.random()*6);
+            for(let j = 1; j <= 14; j++ ){     // horarios
+                for(let h = 1; h <= 7; h++ ){  // dias da semana
+                    cordenadas1[i] = `${j}${h}`
+                }
+            }
+        }
+        for(let i = 0; i < slots2 - 1; ++i){
+            // let rand = Math.cil(Math.random()*6);
+            for(let j = 1; j <= 14; j++ ){     // horarios
+                for(let h = 1; h <= 7; h++ ){  // dias da semana
+                }
+            }
+            cordenadas2[i] = `${x}${y}`
+        }
+        for(let i = 0; i < slots3 - 1; ++i){
+            // let rand = Math.cil(Math.random()*6);
+            for(let j = 1; j <= 14; j++ ){     // horarios
+                for(let h = 1; h <= 7; h++ ){  // dias da semana
+                    cordenadas3[i] = `${j}${h}`
+                }
+            }
+        }
 
-        else if (peso3 > peso2 && peso2 > peso1)
-            actionAddTarefa(jsPref_3, cor3, jsPref_2, cor2, jsPref_1, cor1, turno)
+
+        
+
+
+        //5.Calculos das cordenadas da primeira materia
+        // for(let i = 0; i < slots1 - 1; ++i){
+        //     cordenadas1[i] = k;
+        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
+        //     {
+        //         k = k + 4;
+        //     }
+        //     else
+        //     {
+        //         ++k;
+        //     }
+        // }
+        // //6.Calculos das cordenadas da segunda materia
+        // for(let i = 0; i < slots2 - 1; ++i){
+        //     cordenadas2[i] = k;
+        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
+        //     {
+        //         k = k + 4;
+        //     }
+        //     else
+        //     {
+        //         ++k;
+        //     }
+        // }
+        // //7.Calculos das cordenadas da terceira materia
+        // for(let i = 0; i < slots3 - 1; ++i){
+        //     cordenadas3[i] = k;
+        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
+        //     {
+        //         k = k + 4;
+        //     }
+        //     else
+        //     {
+        //         ++k;
+        //     }
+        // }
+        //8.Local para colocar o codigo do local storage:
     }
 
-    console.log(`================================`);
-    console.log("cor1 =" + cor1);
-    console.log(`cor2 = ${cor2}`);
-    console.log(`cor3 = ${cor3}`);
-    console.log(`================================`);
+    /* Coloca no local storage as coordenadas */
+    for(let j = 0; j < localStrg.disciplinas.length; j++){
+        if(localStrg.disciplinas[j].materia == jsPref_1){
+            for(let h = 0; h < cordenadas1.length; h++){
+                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
+                console.log('coord 1 = ' + cordenadas1[h])
+            }
+        }
+        if(localStrg.disciplinas[j].materia == jsPref_2){
+            for(let h = 0; h < cordenadas2.length; h++){
+                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
+                console.log('coord 2 = ' + cordenadas2[h])
+            }
+        }
+        if(localStrg.disciplinas[j].materia == jsPref_3){
+            for(let h = 0; h < cordenadas3.length; h++){
+                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
+                console.log('coord 3 = ' + cordenadas3[h])
+            }
+        }
+        console.log("entrou no for amigo")
+    }
+
+    localStorage.setItem('data', JSON.stringify(localStrg))
+
+    console.log("jsPref_1 = " + jsPref_1);
+    console.log("jsPref_2 = " + jsPref_2);
+    console.log("jsPref_3 = " + jsPref_3);
+    console.log("Coord 1 = " + cordenadas1);
+    console.log("Coord 2 = " + cordenadas2);
+    console.log("Coord 3 = " + cordenadas3);
+    // console.log(`================================`);
+    // console.log("cor1 =" + cor1);
+    // console.log(`cor2 = ${cor2}`);
+    // console.log(`cor3 = ${cor3}`);
+    // console.log(`================================`);
 }
 /* ========================================================= */
 /* ================ FIM - Config peso ====================== */
