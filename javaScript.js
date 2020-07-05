@@ -24,6 +24,7 @@ function btnOpenAdd() {
     let peso = `<option value="-1" selected></option>`;
     document.querySelector('.bg-modal').style.display = 'flex'
     document.querySelector('.bg-modal').innerHTML = `
+    <div class="modal-content">
     <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
         <p>Adicionar tarefas</p>
 
@@ -409,15 +410,15 @@ function submitAddTarefa() {
                     if(1 > Math.ceil(Math.random() * 3)){
                         let rand = Math.floor(Math.random() * 10);
                         if(rand <= 3 && slots1 != count1){
-                            cordenadas1[count1] = `${i}${j}`
+                            cordenadas1[count1] = parseInt(`${i}${j}`)
                             count1++;
                         }
                         else if (rand > 3 && rand <= 6 && slots2 != count2) {
-                            cordenadas2[count2] = `${i}${j}`
+                            cordenadas2[count2] = parseInt(`${i}${j}`)
                             count2++;
                         }                
                         else if (rand > 6 && rand <= 9 && slots3 != count3) {
-                            cordenadas3[count3] = `${i}${j}`
+                            cordenadas3[count3] = parseInt(`${i}${j}`)
                             count3++;
                         }  
                     }
@@ -426,15 +427,15 @@ function submitAddTarefa() {
                     if(2 > Math.ceil(Math.random() * 3)){
                         let rand = Math.floor(Math.random() * 10);
                         if(rand <= 3 && slots1 != count1){
-                            cordenadas1[count1] = `${i}${j}`
+                            cordenadas1[count1] = parseInt(`${i}${j}`)
                             count1++;
                         }
                         else if (rand > 3 && rand <= 6 && slots2 != count2) {
-                            cordenadas2[count2] = `${i}${j}`
+                            cordenadas2[count2] = parseInt(`${i}${j}`)
                             count2++;
                         }                
                         else if (rand > 6 && rand <= 9 && slots3 != count3) {
-                            cordenadas3[count3] = `${i}${j}`
+                            cordenadas3[count3] = parseInt(`${i}${j}`)
                             count3++;
                         }  
                     }
@@ -442,15 +443,15 @@ function submitAddTarefa() {
                 else{
                     let rand = Math.ceil(Math.random() * 10);
                     if(rand <= 3 && slots1 != count1){
-                        cordenadas1[count1] = `${i}${j}`
+                        cordenadas1[count1] = parseInt(`${i}${j}`)
                         count1++;
                     }
                     else if (rand > 3 && rand <= 6 && slots2 != count2) {
-                        cordenadas2[count2] = `${i}${j}`
+                        cordenadas2[count2] = parseInt(`${i}${j}`)
                         count2++;
                     }                
                     else if (rand > 6 && rand <= 9 && slots3 != count3) {
-                        cordenadas3[count3] = `${i}${j}`
+                        cordenadas3[count3] = parseInt(`${i}${j}`)
                         count3++;
                     }                
                 }
@@ -465,6 +466,7 @@ function submitAddTarefa() {
                 for(let h = 0; h < cordenadas1.length; h++){
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
+                    localStrg.disciplinas[j].nota[lenCoord] = '';
                     console.log('coord 1 = ' + cordenadas1[h])
                 }
             }
@@ -472,6 +474,7 @@ function submitAddTarefa() {
                 for(let h = 0; h < cordenadas2.length; h++){
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
+                    localStrg.disciplinas[j].nota[lenCoord] = '';
                     console.log('coord 2 = ' + cordenadas2[h])
                 }
             }
@@ -479,6 +482,7 @@ function submitAddTarefa() {
                 for(let h = 0; h < cordenadas3.length; h++){
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
+                    localStrg.disciplinas[j].nota[lenCoord] = '';
                     console.log('coord 3 = ' + cordenadas3[h])
                 }
             }
@@ -556,21 +560,25 @@ function editNotas(idMateria, idNota) {
     let content_anotacoes = document.querySelector('.content_anotacoes').innerText;
     
     document.querySelector('.content_anotacoes').style.display = 'none';
-    document.querySelector('.editNotas').style.display = 'block';
+    document.querySelector('.editNotas').style.display = 'flex';
+    document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'inline';
     
     document.querySelector('.editNotas textarea').innerText = content_anotacoes;
-    console.log('foi')
 }
 
 function savealteracoes(idMateria, idNota) {
-    let localStrg = JSON.parse(localStorage.getItem('data'));
-    let content_anotacoes = document.querySelector('.editNotas textarea').value;
+    let resposta = confirm('Deseja salvar as alterações?')
+    if (resposta == true) {
 
-    localStrg.disciplinas[idMateria].nota[idNota] = content_anotacoes;
-
-    localStorage.setItem('data', JSON.stringify(localStrg));
-    console.log(localStrg);
-    btnCloseAdd();
+        let localStrg = JSON.parse(localStorage.getItem('data'));
+        let content_anotacoes = document.querySelector('.editNotas textarea').value;
+        
+        localStrg.disciplinas[idMateria].nota[idNota] = content_anotacoes;
+        
+        localStorage.setItem('data', JSON.stringify(localStrg));
+        console.log(localStrg);
+        btnCloseAdd();
+    }
 }
 
 function showDisciplinaIndividual(coord, idMateria) {
@@ -592,27 +600,13 @@ function showDisciplinaIndividual(coord, idMateria) {
           <div class="content_anotacoes" onclick="editNotas(${idMateria},${idNota})">${disciplina.nota[idNota]}</div>
           <div class="editNotas">
             <textarea name="editNotas" id="editNotas" cols="30" rows="10"></textarea>
-            <button class="btn_savealteracoes" onclick="savealteracoes(${idMateria},${idNota})">Salvar alterações</button>
           </div>
+            <div class="btnViewDisciplina">
+          <i class="fas fas fa-check btn_savealteracoes" onclick="savealteracoes(${idMateria},${idNota})"></i>
+          <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
+        </div>
       </div>`;
-    //   janela.innerHTML = `
-    // <div class="viewDisciplina">
-    //     <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
-
-    //     <div class="box_nomeMateria">${disciplina.materia}</div>
-    //       <span class="span_tagAnotacoes">Anotações:</span>
-    //       <div class="content_anotacoes">${disciplina.nota[idNota]}</div>
-    //     <div class="span_tagTarefas"><span>Tarefas:</span></div>
-        
-    //     <div class="box_tarefas">
-          
-    //     </div>
-    //     <div class="btnViewDisciplina">
-    //       <i class="fas fa-times btnAddTarefa" onclick="addNewTarefa(${coord}, ${idMateria})"></i>
-    //       <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
-    //     </div>
-    //   </div>`;
-    // showTarefasCB(coord, idMateria);
+    document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'none';
 }
 
 // function showTarefasCB(coord, idMateria) {
@@ -1255,12 +1249,15 @@ function pagConfig_window_addItemLStrg() {
     document.querySelector('.bg-modal').innerHTML = `
     <div class="manipulacaoItensLocalStorage addTarefasIndividuais">
        <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
-       <p>Manipulação de Disciplinas</p>
+       <p>Adição de Disciplina</p>
 
        <div class="elements_addItemLStrg">
             <form action="#">
                 <span class="disciplinaMan_span">Nova Disciplina:</span>
                 <input type="text" autocomplete="off" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+                <span class="disciplinaManCor_span">Cor:</span>
+                <input type="text" autocomplete="off" class="disciplinaManCor_text" id="disciplinaCor_input" placeholder=" Cor em RGB/Hexadecimal">
+
             </form>
             <button type="button" class="btn btn-success addItemLStrg" onclick="addItemLStrg()">Adicionar</button>
         </div>
@@ -1293,6 +1290,45 @@ function pagConfig_remItemLStrg(nameMateria) {
     
 }
 
+function saveEdit(indexItem){
+    let localStrg = JSON.parse(localStorage.getItem("data"))
+    let name = document.getElementById('disciplina_input').value
+    let color = document.getElementById('disciplinaCor_input').value
+
+    localStrg.disciplinas[indexItem].materia = name;
+    localStrg.disciplinas[indexItem].cor = color
+
+    localStorage.setItem('data', JSON.stringify(localStrg));
+    location.reload();
+}
+
+function editItem(indexItem){
+    let localStrg = JSON.parse(localStorage.getItem("data"))
+
+    document.querySelector('.bg-modal').style.display = 'flex';
+    document.querySelector('.bg-modal').innerHTML = `
+    <div class="manipulacaoItensLocalStorage addTarefasIndividuais">
+       <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
+       <p>Edição de Disciplina</p>
+
+       <div class="elements_addItemLStrg">
+            <form action="#">
+                <span class="disciplinaMan_span">Nome Disciplina:</span>
+                <input type="text" autocomplete="off" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+                <span class="disciplinaManCor_span">Cor:</span>
+                <input type="text" autocomplete="off" class="disciplinaManCor_text" id="disciplinaCor_input" placeholder=" Cor em RGB/Hexadecimal">
+
+            </form>
+            <button type="button" class="btn btn-success addItemLStrg" onclick="saveEdit(${indexItem})">Salvar</button>
+        </div>
+     </div>`
+    let btnAdd = document.querySelector('.manipulacaoItensLocalStorage .addItemLStrg');
+    btnAdd.style.left = '40%';
+
+    document.getElementById('disciplina_input').value = localStrg.disciplinas[indexItem].materia
+    document.getElementById('disciplinaCor_input').value = localStrg.disciplinas[indexItem].cor
+}
+
 function configDisciplinas(){
     let localStrg = JSON.parse(localStorage.getItem("data"))
     let itens_disciplinas = '';
@@ -1300,10 +1336,11 @@ function configDisciplinas(){
     
     for(let i = 0; i < localStrg.disciplinas.length; i++){
         let materia = localStrg.disciplinas[i].materia;
+        let cor = localStrg.disciplinas[i].cor;
 
         itens_disciplinas += `
         <div class="item_disciplina">
-            <span type="button" data-toggle="collapse" data-target="#box_dataItem${i}" aria-expanded="false" aria-controls="box_dataItem${i}">
+            <span type="button" class="collapse_nameMateria" data-toggle="collapse" data-target="#box_dataItem${i}" aria-expanded="false" aria-controls="box_dataItem${i}" style="background-color: ${cor}">
                 ${materia}
             </span>
             <button type="button" class="btn btn-danger" onclick="pagConfig_remItemLStrg('${materia}')">Remover</button>
@@ -1311,6 +1348,7 @@ function configDisciplinas(){
             <div class="box_dataItem collapse" id="box_dataItem${i}">
                 <div class="card card-body dataItem">
                     <span class="tag_anotacao">Anotações:</span>
+                        <span class="btn_editColor" onclick="editItem(${i})">Editar</span>
                     <span class="anotacao"></span>
                     
                 </div>
@@ -1364,10 +1402,23 @@ function remItemLStrg() {
     }
 }
 
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
 function addItemLStrg() {
     item = document.getElementById('disciplina_input').value;
-    //cor  = document.getElementById('disciplina_input');
-
+    color = document.getElementById('disciplinaCor_input').value;
+    if(color == ''){
+        color = getRandomColor();
+    };
     if (ValidacaoInputItemLStrg(item) == true) {
         let inputBox = document.getElementById('disciplina_input');
         inputBox.style.border = 'solid green 2px';
@@ -1380,7 +1431,7 @@ function addItemLStrg() {
             "nota": [],
             "tarefa": [],
             "tarefa_state": [],
-            "cor": "purple"
+            "cor": color
         }
         let len = localStr.disciplinas.length;
         localStr.disciplinas[len] = novoItem;
