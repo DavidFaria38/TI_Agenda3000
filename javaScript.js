@@ -20,7 +20,8 @@ function scrollUP(){
 /* ========================================================= */
 /* Funcao para abrir e fechar pop-up screen para add tarefas */
 /* ========================================================= */
-function btnOpenAdd() {    
+
+function btnOpenAdd() {
     let localStrg = JSON.parse(localStorage.getItem('data'));
     let select = `<option value="blank" selected></option>`;
     let peso = `<option value="-1" selected></option>`;
@@ -80,12 +81,12 @@ function btnOpenAdd() {
 
       </div>`;
 
-    for(let i = 0; i < localStrg.disciplinas.length; i++){
+    for (let i = 0; i < localStrg.disciplinas.length; i++) {
         let materia = localStrg.disciplinas[i].materia;
         select = select + `<option value="${materia}" selected>${materia}</option>`
     }
 
-    for(let j = 1; j <= 5; j++)
+    for (let j = 1; j <= 5; j++)
         peso = peso + `<option value="${j}">${j}</option>`
 
     document.querySelector('#pref_1').innerHTML = select
@@ -151,8 +152,47 @@ function mydayMaterias() {
     }
     return materiasdehj;
 }
+function removeElementsByClass(className) {
+    var elements = document.getElementsByClassName(className);
+    while (elements.length > 0) {
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
+function eraseMymaterias(arrayRemove) {
+    var elements = document.getElementsByClassName("horario");
+    var tfarray = [];
+    var todoasMatvazias = true;
+    for (let i = 0; i < 15; i++) {
+        if (arrayRemove.indexOf("" + (i + 1)) == -1) {
+            tfarray.push(true);
+        } else {
+            tfarray.push(false);
+            todoasMatvazias = false
+        }
+    }
+    var end = false;
+    console.log(tfarray + "," + arrayRemove);
+    if (!todoasMatvazias) {
+        while (end == false) {
+            end = true;
+            for (let i = 0; i < tfarray.length; i++) {
+                if (tfarray[i] == true && end == true) {
+                    tfarray.splice(i, 1);
+                    elements[i].remove();
+                    end = false
+                }
+            }
+
+        }
+    } else {
+        document.querySelector('main').innerHTML = `<div style="	text-align: center;"><h1>ops... parece que você não tem matéria hoje.</h1></div>`;
+        // removeElementsByClass("horario");
+        // removeElementsByClass("weekDays");
+    }
+}
 function putMymaterias() {
     let arrayMyday = mydayMaterias();
+    let arrayRemove = [];
     for (let i = 0; i < arrayMyday.length; i++) {
         //console.log(arrayMyday[i]);
         let breakcomma = arrayMyday[i].indexOf(",");
@@ -161,10 +201,12 @@ function putMymaterias() {
         let sub = arrayMyday[i].substring((breakcomma + 1), lastBreakcomma);
         let color = arrayMyday[i].substring((lastBreakcomma + 1), arrayMyday[i].length);
         //console.log(number + "," + sub + "," + color);
+        arrayRemove.push(number);
         number = "My" + number;
         document.getElementById(number).style.backgroundColor = color;
         document.getElementById(number).innerText = sub;
     }
+    eraseMymaterias(arrayRemove);
 
 
 }
@@ -395,21 +437,25 @@ function submitAddTarefa() {
         btnCloseAdd()
 
         // Verificacao do turno
+
         if (tManha){
             turno = 1,
             valInit = 1
             valEnd = 6
             clearTurno(valInit, valEnd)
+
             console.log('passou manha')
         }
-        else if (tTarde){
+        else if (tTarde) {
             turno = 2,
+
             valInit = 7
             valEnd = 10
             clearTurno(valInit, valEnd)
+
             console.log('passou tarde')
         }
-        else if (tNoite){
+        else if (tNoite) {
             turno = 3
             valInit = 11
             valEnd = 15
@@ -424,22 +470,25 @@ function submitAddTarefa() {
         var pesoTotal = parseInt(peso1) + parseInt(peso2) + parseInt(peso3);
 
         //2.Calculando a porcentagem dos pesos individuais pelo peso total
-        var porcentagem1 = 1/(pesoTotal/peso1);
-        var porcentagem2 = 1/(pesoTotal/peso2);
-        var porcentagem3 = 1/(pesoTotal/peso3);
+        var porcentagem1 = 1 / (pesoTotal / peso1);
+        var porcentagem2 = 1 / (pesoTotal / peso2);
+        var porcentagem3 = 1 / (pesoTotal / peso3);
 
         //3.Aplicando as porcentagens calculadas anteriormente sobre o numero de slots disponiveis
+
         var slotsTotal = 25;//Alteravel
         var slots1 = Math.round(slotsTotal*porcentagem1);
         var slots2 = Math.round(slotsTotal*porcentagem2);
         var slots3 = Math.round(slotsTotal*porcentagem3);
+
+
         //OBS.Math.round pode causar um aumento ou diminuiçao de 1 slot
 
         //4.Armazenamento das coordenadas
         var cordenadas1 = [];
         var cordenadas2 = [];
         var cordenadas3 = [];
-        
+
         let count1 = 0, count2 = 0, count3 = 0;
         for(let i = valInit; i <= valEnd; i++){
             for(let j = 1; j <= 7; j++){
@@ -522,6 +571,7 @@ function submitAddTarefa() {
                     localStrg.disciplinas[j].nota[lenCoord] = '';
                     // console.log('coord 3 = ' + cordenadas3[h])
                 }
+
             }
         }
         
@@ -588,18 +638,21 @@ function getIdCoord(coord) {
     for (let i = 0; i < localStrg.disciplinas.length; i++) {
         for (let j = 0; j < localStrg.disciplinas[i].coordenadas.length; j++)
             if (localStrg.disciplinas[i].coordenadas[j] == coord)
-            idObj = j;
+                idObj = j;
     }
     return idObj;
 }
 
 function editNotas(idMateria, idNota) {
     let content_anotacoes = document.querySelector('.content_anotacoes').innerText;
-    
+
     document.querySelector('.content_anotacoes').style.display = 'none';
+
     document.querySelector('.editNotas').style.display = 'flex';
     document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'inline';
     
+
+
     document.querySelector('.editNotas textarea').innerText = content_anotacoes;
 }
 
@@ -637,15 +690,37 @@ function showDisciplinaIndividual(coord, idMateria) {
           <div class="content_anotacoes" onclick="editNotas(${idMateria},${idNota})">${disciplina.nota[idNota]}</div>
           <div class="editNotas">
             <textarea name="editNotas" id="editNotas" cols="30" rows="10"></textarea>
+
           </div>
             <div class="btnViewDisciplina">
           <i class="fas fas fa-check btn_savealteracoes" onclick="savealteracoes(${idMateria},${idNota})"></i>
           <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
         </div>
       </div>`;
+
     document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'none';
 
     scrollUP();
+
+    //   janela.innerHTML = `
+    // <div class="viewDisciplina">
+    //     <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
+
+    //     <div class="box_nomeMateria">${disciplina.materia}</div>
+    //       <span class="span_tagAnotacoes">Anotações:</span>
+    //       <div class="content_anotacoes">${disciplina.nota[idNota]}</div>
+    //     <div class="span_tagTarefas"><span>Tarefas:</span></div>
+
+    //     <div class="box_tarefas">
+
+    //     </div>
+    //     <div class="btnViewDisciplina">
+    //       <i class="fas fa-times btnAddTarefa" onclick="addNewTarefa(${coord}, ${idMateria})"></i>
+    //       <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
+    //     </div>
+    //   </div>`;
+    // showTarefasCB(coord, idMateria);
+
 }
 
 // function showTarefasCB(coord, idMateria) {
@@ -672,11 +747,11 @@ function showDisciplinaIndividual(coord, idMateria) {
 // function addTarefaCB(coord, idMateria){
 //     let localStrg = JSON.parse(localStorage.getItem('data'));
 //     let idTarefa = getIdCoord(coord);
-    
+
 //     let tarefa = document.querySelector('.viewDisciplina .addNewTarefa').value;
 //     let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
 //     tarefaArray[tarefaArray.length] = tarefa;
-    
+
 //     console.log(localStrg);
 //     // localStorage.setItem('data', JSON.stringify(localStrg));
 // }
@@ -684,11 +759,11 @@ function showDisciplinaIndividual(coord, idMateria) {
 // function remTarefaCB(coord, idMateria){
 //     let localStrg = JSON.parse(localStorage.getItem('data'));
 //     let idTarefa = getIdCoord(coord);
-    
+
 //     let tarefaArray = localStrg.disciplina[idMateria].tarefa[idTarefa];
-    
+
 //     tarefaArray.splice(idTarefa, 1);
-    
+
 //     console.log(localStrg);
 //     // localStorage.setItem('data', JSON.stringify(localStrg));
 // }
@@ -697,15 +772,15 @@ function showDisciplinaIndividual(coord, idMateria) {
 //     let localStrg = JSON.parse(localStorage.getItem('data'));
 //     let nameTarefa = document.querySelector('.box_input_addTarefa input').value;
 
-    
+
 //     let disciplina = localStrg.disciplinas[indexMateria];
 //     let indexTarefa = getIdCoord(coord);
-    
+
 //     let len = disciplina.tarefa[indexTarefa];
 
 //     localStrg.disciplinas[indexMateria].tarefa[indexTarefa][len] = nameTarefa;
 //     localStrg.disciplinas[indexMateria].tarefa_state[indexTarefa][len] = false;
-    
+
 //     console.log( JSON.stringify(localStrg.disciplinas[indexMateria]));
 //     console.log(localStrg.disciplinas[indexMateria]);
 
@@ -883,7 +958,7 @@ wheat     #f5deb3 = Inglês
 */
 
 
-function setLocalStorage(){
+function setLocalStorage() {
     let isThere_localStr = localStorage.getItem("data");
     if (isThere_localStr == null) {
         localStorage.setItem("data", JSON.stringify(data));
@@ -1155,9 +1230,9 @@ function btnSubmit_AddTarefaIndividual(coord) {
     let disciplina_Form = document.getElementById('disciplina_select').value;
     let anotacoes_Form = document.getElementById('anotacoes').value;
 
-    
+
     let localStr = JSON.parse(localStorage.getItem('data'));
-    
+
     for (i = 0; i < localStr.disciplinas.length; i++) {
         if (localStr.disciplinas[i].materia == disciplina_Form) {
             lengthCoord = localStr.disciplinas[i].coordenadas.length;
@@ -1215,6 +1290,25 @@ function add_rem_TarefaIndividual(coord) {
         // remTarefaIndividual(coord, materiaAR);
     }
 }
+function add_rem_TarefaIndividual_Turno(coord) {
+    let idMateria;
+    let localStr = JSON.parse(localStorage.getItem("data"));
+    let valorMateria = false;
+    for (let i = 0; i < localStr.disciplinas.length; i++) {
+        let disciplinaVerification = localStr.disciplinas[i].coordenadas;
+        if (disciplinaVerification.indexOf(coord) != -1) {
+            idMateria = i;
+            valorMateria = true;
+        }
+    }
+    console.log("valor = " + valorMateria)
+    if (valorMateria == false) {
+        addTarefaIndividual(coord);
+    } else {
+        showDisciplinaIndividual(coord, idMateria)
+        // remTarefaIndividual(coord, materiaAR);
+    }
+}
 /* ========================================================= */
 /* ============== FIM - tarefa individual ================== */
 /* ========================================================= */
@@ -1225,6 +1319,10 @@ function add_rem_TarefaIndividual(coord) {
 /* === Inicio - Adicao/remocao de itens do local storage === */
 /* ========================================================= */
 
+
+function removeTurno(turno) {
+
+}
 // valida se local storage possui parametro item
 function ValidacaoInputItemLStrg(item) {
     let result = true;
@@ -1287,7 +1385,7 @@ function manipulacaoItensLocalStorage() {
 
 // Adiciona item do local storage
 function pagConfig_window_addItemLStrg() {
-    
+
     document.querySelector('.bg-modal').style.display = 'flex';
     document.querySelector('.bg-modal').innerHTML = `
     <div class="manipulacaoItensLocalStorage addTarefasIndividuais">
@@ -1323,7 +1421,7 @@ function pagConfig_remItemLStrg(nameMateria) {
         let localStrg = JSON.parse(localStorage.getItem("data"))
         for (let i = 0; i < localStrg.disciplinas.length; i++) {
             indexMateria = localStrg.disciplinas[i].materia.indexOf(nameMateria);
-            if(indexMateria != -1){
+            if (indexMateria != -1) {
                 localStrg.disciplinas.splice(i, 1)
             }
         }
@@ -1332,8 +1430,9 @@ function pagConfig_remItemLStrg(nameMateria) {
         // refresh na tela
         configDisciplinas();
     }
-    
+
 }
+
 
 function saveEdit(indexItem){
     let localStrg = JSON.parse(localStorage.getItem("data"))
@@ -1377,11 +1476,13 @@ function editItem(indexItem){
 }
 
 function configDisciplinas(){
+
+
     let localStrg = JSON.parse(localStorage.getItem("data"))
     let itens_disciplinas = '';
     box_disciplinas = document.querySelector('.box_disciplinas');
-    
-    for(let i = 0; i < localStrg.disciplinas.length; i++){
+
+    for (let i = 0; i < localStrg.disciplinas.length; i++) {
         let materia = localStrg.disciplinas[i].materia;
         let cor = localStrg.disciplinas[i].cor;
 
@@ -1405,15 +1506,15 @@ function configDisciplinas(){
 
     box_disciplinas.innerHTML = itens_disciplinas;
 
-    for(let i = 0; i < localStrg.disciplinas.length; i++){
+    for (let i = 0; i < localStrg.disciplinas.length; i++) {
         let notas_disciplinas = document.querySelector(`.item_disciplina #box_dataItem${i} .dataItem .anotacao`);
         let notas = '';
-        if(localStrg.disciplinas[i].nota.length != 0){
-            for(let j = 0; j < localStrg.disciplinas[i].nota.length; j++){
+        if (localStrg.disciplinas[i].nota.length != 0) {
+            for (let j = 0; j < localStrg.disciplinas[i].nota.length; j++) {
                 LStrg_nota = localStrg.disciplinas[i].nota[j];
                 notas = notas + `<p>${LStrg_nota}</p>`;
             }
-        }else{
+        } else {
             notas = `<p class="span_semAnotacao">Nenhuma anotação.</p>`;
         }
         // console.log(localStrg.disciplinas[i].materia + " = " + notas);
