@@ -18,7 +18,6 @@ function closeSlideMenu() {
 /* Funcao para abrir e fechar pop-up screen para add tarefas */
 /* ========================================================= */
 function btnOpenAdd() {
-    
     let localStrg = JSON.parse(localStorage.getItem('data'));
     let select = `<option value="blank" selected></option>`;
     let peso = `<option value="-1" selected></option>`;
@@ -93,18 +92,12 @@ function btnOpenAdd() {
     document.querySelector('#pesoPref_2').innerHTML = peso
     document.querySelector('#pesoPref_3').innerHTML = peso
     // peso = peso + `<option value="${i}" selected>$</option>`
-
-
-
-
-
-
-
 }
+
 function btnCloseAdd() {
     document.querySelector('.bg-modal').style.display = 'none'
     document.querySelector('.bg-modal').innerHTML = ``
-    console.log('fecho tela')
+    // console.log('fecho tela')
 }
 /* ========================================================= */
 /* ======================= FIM ============================= */
@@ -1075,7 +1068,7 @@ onload = isWindown();
 function addTarefaIndividual(coord) {
     let materia, idElemento, elemento;
     //alert('id = ' + `${id}`)
-    document.querySelector('body').style.overflow = 'hidden';
+    
     document.querySelector('.bg-modal').style.display = 'flex';
     document.querySelector('.bg-modal').innerHTML = `
      <div class="addTarefasIndividuais">
