@@ -13,17 +13,21 @@ function closeSlideMenu() {
     document.getElementById('content').style.marginLeft = '0px';
 }
 
+function scrollUP(){
+    scrollTo(0,0);
+}
 
 /* ========================================================= */
 /* Funcao para abrir e fechar pop-up screen para add tarefas */
 /* ========================================================= */
-function btnOpenAdd() {
 
+function btnOpenAdd() {
     let localStrg = JSON.parse(localStorage.getItem('data'));
     let select = `<option value="blank" selected></option>`;
     let peso = `<option value="-1" selected></option>`;
     document.querySelector('.bg-modal').style.display = 'flex'
     document.querySelector('.bg-modal').innerHTML = `
+    <div class="modal-content">
     <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
         <p>Adicionar tarefas</p>
 
@@ -93,17 +97,13 @@ function btnOpenAdd() {
     document.querySelector('#pesoPref_3').innerHTML = peso
     // peso = peso + `<option value="${i}" selected>$</option>`
 
-
-
-
-
-
-
+    scrollUP();
 }
+
 function btnCloseAdd() {
     document.querySelector('.bg-modal').style.display = 'none'
     document.querySelector('.bg-modal').innerHTML = ``
-    console.log('fecho tela')
+    // console.log('fecho tela')
 }
 /* ========================================================= */
 /* ======================= FIM ============================= */
@@ -371,9 +371,46 @@ wheat     #f5deb3 = Inglês
 /* ========================================================= */
 /* ========== Configuracoes de peso das materias =========== */
 /* ========================================================= */
+
+function clearTurno(valInit, valEnd){
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let newData = data;
+    for(let i = 1; i <= 15; i++){                         // horarios
+        if(!(i >= valInit && i <= valEnd)){
+            for(let j = 1; j <= 7; j++){                  // dias semana
+                for(let h = 0; h < localStrg.disciplinas.length; h++){
+                    let index = localStrg.disciplinas[h].coordenadas.indexOf(parseInt(`${i}${j}`));
+                    if(index != -1){
+                        let lenNota  = newData.disciplinas[h].nota.length;
+                        let lenCoord = newData.disciplinas[h].coordenadas.length;
+                        newData.disciplinas[h].coordenadas[lenCoord] = localStrg.disciplinas[h].coordenadas[index];
+                        newData.disciplinas[h].nota[lenNota]         = localStrg.disciplinas[h].nota[index];
+                    }
+                }
+            }
+        }
+    }
+    // for(let i = valInit; i <= valEnd; i++){
+    //     for(let j = 1; j <= 7; j++ ){
+    //         for(let h = 0; h < localStrg.disciplinas.length; h++){
+    //             let index = localStrg.disciplinas[h].coordenadas.indexOf(parseInt(`${i}${j}`));
+    //             // console.log(`materia = ${localStrg.disciplinas[h].materia}\nindex = ${index}`)
+    //             if(index != -1){
+    //                 console.log(`index = ${index}`)
+    //                 localStrg.disciplinas[h].coordenadas.splice(index, 1);
+    //                 localStrg.disciplinas[h].nota.splice(index, 1);
+    //                 // console.log(`Materia = ${localStrg.disciplinas[h].materia} \nCoord = ${index}`)
+    //             }
+    //         }
+    //     }
+    // }
+    console.log(newData);
+    localStorage.clear();
+    localStorage.setItem('data', JSON.stringify(newData));
+}
+
 function submitAddTarefa() {
 
-    let localStrg = JSON.parse(localStorage.getItem('data'));
     /* Definicao das variaveis a serem usadas */
     let jsPref_1 = document.getElementById('pref_1').value;
     let jsPref_2 = document.getElementById('pref_2').value;
@@ -400,23 +437,34 @@ function submitAddTarefa() {
         btnCloseAdd()
 
         // Verificacao do turno
-        // K = primeiro horario de cada turno
-        if (tManha) {
+
+        if (tManha){
             turno = 1,
-                k = 11
+            valInit = 1
+            valEnd = 6
+            clearTurno(valInit, valEnd)
+
             console.log('passou manha')
         }
         else if (tTarde) {
             turno = 2,
-                k = 61
+
+            valInit = 7
+            valEnd = 10
+            clearTurno(valInit, valEnd)
+
             console.log('passou tarde')
         }
         else if (tNoite) {
             turno = 3
-            k = 121
+            valInit = 11
+            valEnd = 15
+            clearTurno(valInit, valEnd)
             console.log('passou noite')
         }
 
+        let localStrg = JSON.parse(localStorage.getItem('data'));
+        
         // Verificacao do peso 
         //1.Utizando o parseInt para transformar os pesos em integrers para os calculos
         var pesoTotal = parseInt(peso1) + parseInt(peso2) + parseInt(peso3);
@@ -427,10 +475,13 @@ function submitAddTarefa() {
         var porcentagem3 = 1 / (pesoTotal / peso3);
 
         //3.Aplicando as porcentagens calculadas anteriormente sobre o numero de slots disponiveis
-        var slotsTotal = 20;//Alteravel
-        var slots1 = Math.round(slotsTotal * porcentagem1);
-        var slots2 = Math.round(slotsTotal * porcentagem2);
-        var slots3 = Math.round(slotsTotal * porcentagem3);
+
+        var slotsTotal = 25;//Alteravel
+        var slots1 = Math.round(slotsTotal*porcentagem1);
+        var slots2 = Math.round(slotsTotal*porcentagem2);
+        var slots3 = Math.round(slotsTotal*porcentagem3);
+
+
         //OBS.Math.round pode causar um aumento ou diminuiçao de 1 slot
 
         //4.Armazenamento das coordenadas
@@ -438,109 +489,102 @@ function submitAddTarefa() {
         var cordenadas2 = [];
         var cordenadas3 = [];
 
-
-        for (let i = 0; i < slots1 - 1; ++i) {
-            // let rand = Math.cil(Math.random()*6);
-            for (let j = 1; j <= 14; j++) {     // horarios
-                for (let h = 1; h <= 7; h++) {  // dias da semana
-                    cordenadas1[i] = `${j}${h}`
+        let count1 = 0, count2 = 0, count3 = 0;
+        for(let i = valInit; i <= valEnd; i++){
+            for(let j = 1; j <= 7; j++){
+                if(j == 6 ){                               // se for sabado tem 2/3 de chance de nao ter nenhuma materia no slot
+                    if(1 > Math.ceil(Math.random() * 3)){
+                        let rand = Math.floor(Math.random() * 10);
+                        if(rand <= 3 && slots1 != count1){
+                            cordenadas1[count1] = parseInt(`${i}${j}`)
+                            count1++;
+                        }
+                        else if (rand > 3 && rand <= 6 && slots2 != count2) {
+                            cordenadas2[count2] = parseInt(`${i}${j}`)
+                            count2++;
+                        }                
+                        else if (rand > 6 && rand <= 9 && slots3 != count3) {
+                            cordenadas3[count3] = parseInt(`${i}${j}`)
+                            count3++;
+                        }  
+                    }
+                } // end if sabado
+                else if(j == 7 ){                               // se for domingo tem 1/3 de chance de nao ter nenhuma materia no slot
+                    if(2 > Math.ceil(Math.random() * 3)){
+                        let rand = Math.floor(Math.random() * 10);
+                        if(rand <= 3 && slots1 != count1){
+                            cordenadas1[count1] = parseInt(`${i}${j}`)
+                            count1++;
+                        }
+                        else if (rand > 3 && rand <= 6 && slots2 != count2) {
+                            cordenadas2[count2] = parseInt(`${i}${j}`)
+                            count2++;
+                        }                
+                        else if (rand > 6 && rand <= 9 && slots3 != count3) {
+                            cordenadas3[count3] = parseInt(`${i}${j}`)
+                            count3++;
+                        }  
+                    }
+                } // end if do final de semana
+                else{
+                    let rand = Math.ceil(Math.random() * 10);
+                    if(rand <= 3 && slots1 != count1){
+                        cordenadas1[count1] = parseInt(`${i}${j}`)
+                        count1++;
+                    }
+                    else if (rand > 3 && rand <= 6 && slots2 != count2) {
+                        cordenadas2[count2] = parseInt(`${i}${j}`)
+                        count2++;
+                    }                
+                    else if (rand > 6 && rand <= 9 && slots3 != count3) {
+                        cordenadas3[count3] = parseInt(`${i}${j}`)
+                        count3++;
+                    }                
                 }
             }
-        }
-        for (let i = 0; i < slots2 - 1; ++i) {
-            // let rand = Math.cil(Math.random()*6);
-            for (let j = 1; j <= 14; j++) {     // horarios
-                for (let h = 1; h <= 7; h++) {  // dias da semana
-                }
-            }
-            cordenadas2[i] = `${x}${y}`
-        }
-        for (let i = 0; i < slots3 - 1; ++i) {
-            // let rand = Math.cil(Math.random()*6);
-            for (let j = 1; j <= 14; j++) {     // horarios
-                for (let h = 1; h <= 7; h++) {  // dias da semana
-                    cordenadas3[i] = `${j}${h}`
-                }
-            }
-        }
+        } // end for para adicao de materia
 
-
-
-
-
-        //5.Calculos das cordenadas da primeira materia
-        // for(let i = 0; i < slots1 - 1; ++i){
-        //     cordenadas1[i] = k;
-        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
-        //     {
-        //         k = k + 4;
-        //     }
-        //     else
-        //     {
-        //         ++k;
-        //     }
-        // }
-        // //6.Calculos das cordenadas da segunda materia
-        // for(let i = 0; i < slots2 - 1; ++i){
-        //     cordenadas2[i] = k;
-        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
-        //     {
-        //         k = k + 4;
-        //     }
-        //     else
-        //     {
-        //         ++k;
-        //     }
-        // }
-        // //7.Calculos das cordenadas da terceira materia
-        // for(let i = 0; i < slots3 - 1; ++i){
-        //     cordenadas3[i] = k;
-        //     if(k == 17 || k == 67 || k == 127 || k == 27 || k == 77 || k == 137 || k == 37 || k == 87 || k == 147 )//Datas que representam domingo
-        //     {
-        //         k = k + 4;
-        //     }
-        //     else
-        //     {
-        //         ++k;
-        //     }
-        // }
+        
         //8.Local para colocar o codigo do local storage:
+        /* Coloca no local storage as coordenadas */
+        for(let j = 0; j < localStrg.disciplinas.length; j++){
+            if(localStrg.disciplinas[j].materia == jsPref_1){
+                for(let h = 0; h < cordenadas1.length; h++){
+                    let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                    localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
+                    localStrg.disciplinas[j].nota[lenCoord] = '';
+                    // console.log('coord 1 = ' + cordenadas1[h])
+                }
+            }
+            if(localStrg.disciplinas[j].materia == jsPref_2){
+                for(let h = 0; h < cordenadas2.length; h++){
+                    let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                    localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
+                    localStrg.disciplinas[j].nota[lenCoord] = '';
+                    // console.log('coord 2 = ' + cordenadas2[h])
+                }
+            }
+            if(localStrg.disciplinas[j].materia == jsPref_3){
+                for(let h = 0; h < cordenadas3.length; h++){
+                    let lenCoord = localStrg.disciplinas[j].coordenadas.length;
+                    localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
+                    localStrg.disciplinas[j].nota[lenCoord] = '';
+                    // console.log('coord 3 = ' + cordenadas3[h])
+                }
+
+            }
+        }
+        
+        localStorage.setItem('data', JSON.stringify(localStrg));
+        isWindown();
     }
 
-    /* Coloca no local storage as coordenadas */
-    for (let j = 0; j < localStrg.disciplinas.length; j++) {
-        if (localStrg.disciplinas[j].materia == jsPref_1) {
-            for (let h = 0; h < cordenadas1.length; h++) {
-                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
-                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
-                console.log('coord 1 = ' + cordenadas1[h])
-            }
-        }
-        if (localStrg.disciplinas[j].materia == jsPref_2) {
-            for (let h = 0; h < cordenadas2.length; h++) {
-                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
-                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
-                console.log('coord 2 = ' + cordenadas2[h])
-            }
-        }
-        if (localStrg.disciplinas[j].materia == jsPref_3) {
-            for (let h = 0; h < cordenadas3.length; h++) {
-                let lenCoord = localStrg.disciplinas[j].coordenadas.length;
-                localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
-                console.log('coord 3 = ' + cordenadas3[h])
-            }
-        }
-        console.log("entrou no for amigo")
-    }
-
-    localStorage.setItem('data', JSON.stringify(localStrg))
-
-    console.log("jsPref_1 = " + jsPref_1);
-    console.log("jsPref_2 = " + jsPref_2);
-    console.log("jsPref_3 = " + jsPref_3);
-    console.log("Coord 1 = " + cordenadas1);
-    console.log("Coord 2 = " + cordenadas2);
-    console.log("Coord 3 = " + cordenadas3);
+    // console.log("jsPref_1 = " + jsPref_1);
+    // console.log("jsPref_2 = " + jsPref_2);
+    // console.log("jsPref_3 = " + jsPref_3);
+    // console.log("Coord 1 = " + cordenadas1);
+    // console.log("Coord 2 = " + cordenadas2);
+    // console.log("Coord 3 = " + cordenadas3);
     // console.log(`================================`);
     // console.log("cor1 =" + cor1);
     // console.log(`cor2 = ${cor2}`);
@@ -603,21 +647,28 @@ function editNotas(idMateria, idNota) {
     let content_anotacoes = document.querySelector('.content_anotacoes').innerText;
 
     document.querySelector('.content_anotacoes').style.display = 'none';
-    document.querySelector('.editNotas').style.display = 'block';
+
+    document.querySelector('.editNotas').style.display = 'flex';
+    document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'inline';
+    
+
 
     document.querySelector('.editNotas textarea').innerText = content_anotacoes;
-    console.log('foi')
 }
 
 function savealteracoes(idMateria, idNota) {
-    let localStrg = JSON.parse(localStorage.getItem('data'));
-    let content_anotacoes = document.querySelector('.editNotas textarea').value;
+    let resposta = confirm('Deseja salvar as alterações?')
+    if (resposta == true) {
 
-    localStrg.disciplinas[idMateria].nota[idNota] = content_anotacoes;
-
-    localStorage.setItem('data', JSON.stringify(localStrg));
-    console.log(localStrg);
-    btnCloseAdd();
+        let localStrg = JSON.parse(localStorage.getItem('data'));
+        let content_anotacoes = document.querySelector('.editNotas textarea').value;
+        
+        localStrg.disciplinas[idMateria].nota[idNota] = content_anotacoes;
+        
+        localStorage.setItem('data', JSON.stringify(localStrg));
+        console.log(localStrg);
+        btnCloseAdd();
+    }
 }
 
 function showDisciplinaIndividual(coord, idMateria) {
@@ -639,13 +690,18 @@ function showDisciplinaIndividual(coord, idMateria) {
           <div class="content_anotacoes" onclick="editNotas(${idMateria},${idNota})">${disciplina.nota[idNota]}</div>
           <div class="editNotas">
             <textarea name="editNotas" id="editNotas" cols="30" rows="10"></textarea>
-            <button class="btn_savealteracoes" onclick="savealteracoes(${idMateria},${idNota})">Salvar alterações</button>
-            <div class="btnViewDisciplina">
-                   <i class="fas fa-times btnAddTarefa" onclick="savealteracoes(${idMateria},${idNota})"></i>
-                   <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
-                 </div>
+
           </div>
+            <div class="btnViewDisciplina">
+          <i class="fas fas fa-check btn_savealteracoes" onclick="savealteracoes(${idMateria},${idNota})"></i>
+          <i class="fas fa-times btnRemTarefa" onclick="remTarefaIndividual(${coord}, ${idMateria})"></i>
+        </div>
       </div>`;
+
+    document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'none';
+
+    scrollUP();
+
     //   janela.innerHTML = `
     // <div class="viewDisciplina">
     //     <i class="fas fa-times btnClose" onclick="btnCloseAdd()"></i>
@@ -664,6 +720,7 @@ function showDisciplinaIndividual(coord, idMateria) {
     //     </div>
     //   </div>`;
     // showTarefasCB(coord, idMateria);
+
 }
 
 // function showTarefasCB(coord, idMateria) {
@@ -1109,10 +1166,6 @@ function isWindown() {
             setMyDayToToday();
             putMymaterias();
             break;
-        case '/myday.html':
-            setMyDayToToday();
-            putMymaterias();
-            break;
         case '/configuracao.html':
             configDisciplinas();
             break;
@@ -1136,7 +1189,7 @@ onload = isWindown();
 function addTarefaIndividual(coord) {
     let materia, idElemento, elemento;
     //alert('id = ' + `${id}`)
-    document.querySelector('body').style.overflow = 'hidden';
+    
     document.querySelector('.bg-modal').style.display = 'flex';
     document.querySelector('.bg-modal').innerHTML = `
      <div class="addTarefasIndividuais">
@@ -1167,6 +1220,8 @@ function addTarefaIndividual(coord) {
         elemento.innerHTML = `<option value="${materia}">${materia}</option>`;
         idElemento.add(elemento)
     }
+
+    scrollUP();
 }
 
 function btnSubmit_AddTarefaIndividual(coord) {
@@ -1320,6 +1375,8 @@ function manipulacaoItensLocalStorage() {
         elemento.innerHTML = `<option value="${materia}">${materia}</option>`;
         idElemento.add(elemento)
     }
+
+    scrollUP();
 }
 
 // event listener desabilitado, para reativa ir no sidemenu no html e retirar comentario
@@ -1333,12 +1390,15 @@ function pagConfig_window_addItemLStrg() {
     document.querySelector('.bg-modal').innerHTML = `
     <div class="manipulacaoItensLocalStorage addTarefasIndividuais">
        <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
-       <p>Manipulação de Disciplinas</p>
+       <p>Adição de Disciplina</p>
 
        <div class="elements_addItemLStrg">
             <form action="#">
                 <span class="disciplinaMan_span">Nova Disciplina:</span>
                 <input type="text" autocomplete="off" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+                <span class="disciplinaManCor_span">Cor:</span>
+                <input type="text" autocomplete="off" class="disciplinaManCor_text" id="disciplinaCor_input" placeholder=" Cor em RGB/Hexadecimal">
+
             </form>
             <button type="button" class="btn btn-success addItemLStrg" onclick="addItemLStrg()">Adicionar</button>
         </div>
@@ -1347,6 +1407,8 @@ function pagConfig_window_addItemLStrg() {
 
     let btnAdd = document.querySelector('.manipulacaoItensLocalStorage .addItemLStrg');
     btnAdd.style.left = '40%';
+
+    scrollUP();
 }
 
 
@@ -1371,17 +1433,62 @@ function pagConfig_remItemLStrg(nameMateria) {
 
 }
 
-function configDisciplinas() {
+
+function saveEdit(indexItem){
+    let localStrg = JSON.parse(localStorage.getItem("data"))
+    let name = document.getElementById('disciplina_input').value
+    let color = document.getElementById('disciplinaCor_input').value
+
+    localStrg.disciplinas[indexItem].materia = name;
+    localStrg.disciplinas[indexItem].cor = color
+
+    localStorage.setItem('data', JSON.stringify(localStrg));
+    location.reload();
+}
+
+function editItem(indexItem){
+    let localStrg = JSON.parse(localStorage.getItem("data"))
+
+    document.querySelector('.bg-modal').style.display = 'flex';
+    document.querySelector('.bg-modal').innerHTML = `
+    <div class="manipulacaoItensLocalStorage addTarefasIndividuais">
+       <div class="close_btn_form" onclick="btnCloseAdd()">+</div>
+       <p>Edição de Disciplina</p>
+
+       <div class="elements_addItemLStrg">
+            <form action="#">
+                <span class="disciplinaMan_span">Nome Disciplina:</span>
+                <input type="text" autocomplete="off" class="disciplinaMan_text" id="disciplina_input" placeholder=" Nome disciplina">
+                <span class="disciplinaManCor_span">Cor:</span>
+                <input type="text" autocomplete="off" class="disciplinaManCor_text" id="disciplinaCor_input" placeholder=" Cor em RGB/Hexadecimal">
+
+            </form>
+            <button type="button" class="btn btn-success addItemLStrg" onclick="saveEdit(${indexItem})">Salvar</button>
+        </div>
+     </div>`
+    let btnAdd = document.querySelector('.manipulacaoItensLocalStorage .addItemLStrg');
+    btnAdd.style.left = '40%';
+
+    document.getElementById('disciplina_input').value = localStrg.disciplinas[indexItem].materia
+    document.getElementById('disciplinaCor_input').value = localStrg.disciplinas[indexItem].cor
+
+    scrollUP();
+}
+
+function configDisciplinas(){
+
+
     let localStrg = JSON.parse(localStorage.getItem("data"))
     let itens_disciplinas = '';
     box_disciplinas = document.querySelector('.box_disciplinas');
 
     for (let i = 0; i < localStrg.disciplinas.length; i++) {
         let materia = localStrg.disciplinas[i].materia;
+        let cor = localStrg.disciplinas[i].cor;
 
         itens_disciplinas += `
         <div class="item_disciplina">
-            <span type="button" data-toggle="collapse" data-target="#box_dataItem${i}" aria-expanded="false" aria-controls="box_dataItem${i}">
+            <span type="button" class="collapse_nameMateria" data-toggle="collapse" data-target="#box_dataItem${i}" aria-expanded="false" aria-controls="box_dataItem${i}" style="background-color: ${cor}">
                 ${materia}
             </span>
             <button type="button" class="btn btn-danger" onclick="pagConfig_remItemLStrg('${materia}')">Remover</button>
@@ -1389,6 +1496,7 @@ function configDisciplinas() {
             <div class="box_dataItem collapse" id="box_dataItem${i}">
                 <div class="card card-body dataItem">
                     <span class="tag_anotacao">Anotações:</span>
+                        <span class="btn_editColor" onclick="editItem(${i})">Editar</span>
                     <span class="anotacao"></span>
                     
                 </div>
@@ -1412,6 +1520,8 @@ function configDisciplinas() {
         // console.log(localStrg.disciplinas[i].materia + " = " + notas);
         notas_disciplinas.innerHTML = notas;
     }
+
+    scrollUP();
 }
 
 
@@ -1442,10 +1552,23 @@ function remItemLStrg() {
     }
 }
 
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
 function addItemLStrg() {
     item = document.getElementById('disciplina_input').value;
-    //cor  = document.getElementById('disciplina_input');
-
+    color = document.getElementById('disciplinaCor_input').value;
+    if(color == ''){
+        color = getRandomColor();
+    };
     if (ValidacaoInputItemLStrg(item) == true) {
         let inputBox = document.getElementById('disciplina_input');
         inputBox.style.border = 'solid green 2px';
@@ -1458,7 +1581,7 @@ function addItemLStrg() {
             "nota": [],
             "tarefa": [],
             "tarefa_state": [],
-            "cor": "purple"
+            "cor": color
         }
         let len = localStr.disciplinas.length;
         localStr.disciplinas[len] = novoItem;
@@ -1502,6 +1625,3 @@ function delete_localStorage() {
 /* ========================================================= */
 /* ===== Fim - Adicao/remocao de itens do local storage ==== */
 /* ========================================================= */
-
-
-
