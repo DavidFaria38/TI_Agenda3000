@@ -13,11 +13,14 @@ function closeSlideMenu() {
     document.getElementById('content').style.marginLeft = '0px';
 }
 
+function scrollUP(){
+    scrollTo(0,0);
+}
 
 /* ========================================================= */
 /* Funcao para abrir e fechar pop-up screen para add tarefas */
 /* ========================================================= */
-function btnOpenAdd() {
+function btnOpenAdd() {    
     let localStrg = JSON.parse(localStorage.getItem('data'));
     let select = `<option value="blank" selected></option>`;
     let peso = `<option value="-1" selected></option>`;
@@ -92,6 +95,8 @@ function btnOpenAdd() {
     document.querySelector('#pesoPref_2').innerHTML = peso
     document.querySelector('#pesoPref_3').innerHTML = peso
     // peso = peso + `<option value="${i}" selected>$</option>`
+
+    scrollUP();
 }
 
 function btnCloseAdd() {
@@ -324,9 +329,46 @@ wheat     #f5deb3 = Inglês
 /* ========================================================= */
 /* ========== Configuracoes de peso das materias =========== */
 /* ========================================================= */
+
+function clearTurno(valInit, valEnd){
+    let localStrg = JSON.parse(localStorage.getItem('data'));
+    let newData = data;
+    for(let i = 1; i <= 15; i++){                         // horarios
+        if(!(i >= valInit && i <= valEnd)){
+            for(let j = 1; j <= 7; j++){                  // dias semana
+                for(let h = 0; h < localStrg.disciplinas.length; h++){
+                    let index = localStrg.disciplinas[h].coordenadas.indexOf(parseInt(`${i}${j}`));
+                    if(index != -1){
+                        let lenNota  = newData.disciplinas[h].nota.length;
+                        let lenCoord = newData.disciplinas[h].coordenadas.length;
+                        newData.disciplinas[h].coordenadas[lenCoord] = localStrg.disciplinas[h].coordenadas[index];
+                        newData.disciplinas[h].nota[lenNota]         = localStrg.disciplinas[h].nota[index];
+                    }
+                }
+            }
+        }
+    }
+    // for(let i = valInit; i <= valEnd; i++){
+    //     for(let j = 1; j <= 7; j++ ){
+    //         for(let h = 0; h < localStrg.disciplinas.length; h++){
+    //             let index = localStrg.disciplinas[h].coordenadas.indexOf(parseInt(`${i}${j}`));
+    //             // console.log(`materia = ${localStrg.disciplinas[h].materia}\nindex = ${index}`)
+    //             if(index != -1){
+    //                 console.log(`index = ${index}`)
+    //                 localStrg.disciplinas[h].coordenadas.splice(index, 1);
+    //                 localStrg.disciplinas[h].nota.splice(index, 1);
+    //                 // console.log(`Materia = ${localStrg.disciplinas[h].materia} \nCoord = ${index}`)
+    //             }
+    //         }
+    //     }
+    // }
+    console.log(newData);
+    localStorage.clear();
+    localStorage.setItem('data', JSON.stringify(newData));
+}
+
 function submitAddTarefa() {
 
-    let localStrg = JSON.parse(localStorage.getItem('data'));
     /* Definicao das variaveis a serem usadas */
     let jsPref_1 = document.getElementById('pref_1').value;
     let jsPref_2 = document.getElementById('pref_2').value;
@@ -357,24 +399,26 @@ function submitAddTarefa() {
             turno = 1,
             valInit = 1
             valEnd = 6
-
+            clearTurno(valInit, valEnd)
             console.log('passou manha')
         }
         else if (tTarde){
             turno = 2,
             valInit = 7
             valEnd = 10
-
+            clearTurno(valInit, valEnd)
             console.log('passou tarde')
         }
         else if (tNoite){
             turno = 3
             valInit = 11
             valEnd = 15
-
+            clearTurno(valInit, valEnd)
             console.log('passou noite')
         }
 
+        let localStrg = JSON.parse(localStorage.getItem('data'));
+        
         // Verificacao do peso 
         //1.Utizando o parseInt para transformar os pesos em integrers para os calculos
         var pesoTotal = parseInt(peso1) + parseInt(peso2) + parseInt(peso3);
@@ -460,7 +504,7 @@ function submitAddTarefa() {
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
                     localStrg.disciplinas[j].nota[lenCoord] = '';
-                    console.log('coord 1 = ' + cordenadas1[h])
+                    // console.log('coord 1 = ' + cordenadas1[h])
                 }
             }
             if(localStrg.disciplinas[j].materia == jsPref_2){
@@ -468,7 +512,7 @@ function submitAddTarefa() {
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
                     localStrg.disciplinas[j].nota[lenCoord] = '';
-                    console.log('coord 2 = ' + cordenadas2[h])
+                    // console.log('coord 2 = ' + cordenadas2[h])
                 }
             }
             if(localStrg.disciplinas[j].materia == jsPref_3){
@@ -476,21 +520,21 @@ function submitAddTarefa() {
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
                     localStrg.disciplinas[j].nota[lenCoord] = '';
-                    console.log('coord 3 = ' + cordenadas3[h])
+                    // console.log('coord 3 = ' + cordenadas3[h])
                 }
             }
-            console.log("entrou no for amigo")
         }
         
-        localStorage.setItem('data', JSON.stringify(localStrg))
+        localStorage.setItem('data', JSON.stringify(localStrg));
+        isWindown();
     }
 
-    console.log("jsPref_1 = " + jsPref_1);
-    console.log("jsPref_2 = " + jsPref_2);
-    console.log("jsPref_3 = " + jsPref_3);
-    console.log("Coord 1 = " + cordenadas1);
-    console.log("Coord 2 = " + cordenadas2);
-    console.log("Coord 3 = " + cordenadas3);
+    // console.log("jsPref_1 = " + jsPref_1);
+    // console.log("jsPref_2 = " + jsPref_2);
+    // console.log("jsPref_3 = " + jsPref_3);
+    // console.log("Coord 1 = " + cordenadas1);
+    // console.log("Coord 2 = " + cordenadas2);
+    // console.log("Coord 3 = " + cordenadas3);
     // console.log(`================================`);
     // console.log("cor1 =" + cor1);
     // console.log(`cor2 = ${cor2}`);
@@ -600,6 +644,8 @@ function showDisciplinaIndividual(coord, idMateria) {
         </div>
       </div>`;
     document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'none';
+
+    scrollUP();
 }
 
 // function showTarefasCB(coord, idMateria) {
@@ -1099,6 +1145,8 @@ function addTarefaIndividual(coord) {
         elemento.innerHTML = `<option value="${materia}">${materia}</option>`;
         idElemento.add(elemento)
     }
+
+    scrollUP();
 }
 
 function btnSubmit_AddTarefaIndividual(coord) {
@@ -1229,6 +1277,8 @@ function manipulacaoItensLocalStorage() {
         elemento.innerHTML = `<option value="${materia}">${materia}</option>`;
         idElemento.add(elemento)
     }
+
+    scrollUP();
 }
 
 // event listener desabilitado, para reativa ir no sidemenu no html e retirar comentario
@@ -1259,6 +1309,8 @@ function pagConfig_window_addItemLStrg() {
 
     let btnAdd = document.querySelector('.manipulacaoItensLocalStorage .addItemLStrg');
     btnAdd.style.left = '40%';
+
+    scrollUP();
 }
 
 
@@ -1320,6 +1372,8 @@ function editItem(indexItem){
 
     document.getElementById('disciplina_input').value = localStrg.disciplinas[indexItem].materia
     document.getElementById('disciplinaCor_input').value = localStrg.disciplinas[indexItem].cor
+
+    scrollUP();
 }
 
 function configDisciplinas(){
@@ -1365,6 +1419,8 @@ function configDisciplinas(){
         // console.log(localStrg.disciplinas[i].materia + " = " + notas);
         notas_disciplinas.innerHTML = notas;
     }
+
+    scrollUP();
 }
 
 
