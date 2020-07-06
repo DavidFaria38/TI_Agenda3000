@@ -31,29 +31,30 @@
             <!-- Inside Sidebar  - X  -->
             <div id="menu" class="nav_bar">
                 <a href="#" class="close" onclick="closeSlideMenu()">
-                  <i class="fas fa-times"></i> <!-- JS => add X -->
+                    <i class="fas fa-times"></i> <!-- JS => add X -->
                 </a>
                 <a href="index.html">Home</a>
                 <a href="myWeek.html">MyWeek</a>
                 <a href="myday.html">MyDay</a>
                 <a href="configuracao.html">Configurações</a>
                 <!-- <a id="configDisciplinas">Manipular Disciplinas</a> -->
-                <a id="del_localStorage">Apagar local Storage</a>
-              </div>
+                <a id="del_localStorage" onclick="delete_localStorage()">Apagar Agenda</a>
+            </div>
         </div>
     </nav>
 
     <main>
 
-        <section class="box_config">
+        <section class=" box_config">
             <div class="manipular_disciplinas">
                 <p>
                     <button class="btn btn_configItem" type="button" data-toggle="collapse"
                         data-target="#card_manipularDisciplinas" aria-expanded="true"
                         aria-controls="card_manipularDisciplinas">Disciplinas</button>
-                        
-                        <button class="btn btn-success btn_addDisciplina" type="button" 
-                            onclick="pagConfig_window_addItemLStrg()"><i class="fas fa-times btn_Icon_addDisciplina"></i></button>
+
+                    <button class="btn btn-success btn_addDisciplina" type="button"
+                        onclick="pagConfig_window_addItemLStrg()"><i
+                            class="fas fa-times btn_Icon_addDisciplina"></i></button>
                 </p>
                 <div class="box_config_manipularDisciplinas show" id="card_manipularDisciplinas">
                     <div class="card card-body box_disciplinas">
@@ -73,7 +74,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        
+
                     </div>
                 </div>
                 <p>

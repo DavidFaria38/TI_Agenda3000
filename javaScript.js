@@ -13,8 +13,8 @@ function closeSlideMenu() {
     document.getElementById('content').style.marginLeft = '0px';
 }
 
-function scrollUP(){
-    scrollTo(0,0);
+function scrollUP() {
+    scrollTo(0, 0);
 }
 
 /* ========================================================= */
@@ -372,19 +372,19 @@ wheat     #f5deb3 = Inglês
 /* ========== Configuracoes de peso das materias =========== */
 /* ========================================================= */
 
-function clearTurno(valInit, valEnd){
+function clearTurno(valInit, valEnd) {
     let localStrg = JSON.parse(localStorage.getItem('data'));
     let newData = data;
-    for(let i = 1; i <= 15; i++){                         // horarios
-        if(!(i >= valInit && i <= valEnd)){
-            for(let j = 1; j <= 7; j++){                  // dias semana
-                for(let h = 0; h < localStrg.disciplinas.length; h++){
+    for (let i = 1; i <= 15; i++) {                         // horarios
+        if (!(i >= valInit && i <= valEnd)) {
+            for (let j = 1; j <= 7; j++) {                  // dias semana
+                for (let h = 0; h < localStrg.disciplinas.length; h++) {
                     let index = localStrg.disciplinas[h].coordenadas.indexOf(parseInt(`${i}${j}`));
-                    if(index != -1){
-                        let lenNota  = newData.disciplinas[h].nota.length;
+                    if (index != -1) {
+                        let lenNota = newData.disciplinas[h].nota.length;
                         let lenCoord = newData.disciplinas[h].coordenadas.length;
                         newData.disciplinas[h].coordenadas[lenCoord] = localStrg.disciplinas[h].coordenadas[index];
-                        newData.disciplinas[h].nota[lenNota]         = localStrg.disciplinas[h].nota[index];
+                        newData.disciplinas[h].nota[lenNota] = localStrg.disciplinas[h].nota[index];
                     }
                 }
             }
@@ -438,9 +438,9 @@ function submitAddTarefa() {
 
         // Verificacao do turno
 
-        if (tManha){
+        if (tManha) {
             turno = 1,
-            valInit = 1
+                valInit = 1
             valEnd = 6
             clearTurno(valInit, valEnd)
 
@@ -449,7 +449,7 @@ function submitAddTarefa() {
         else if (tTarde) {
             turno = 2,
 
-            valInit = 7
+                valInit = 7
             valEnd = 10
             clearTurno(valInit, valEnd)
 
@@ -464,7 +464,7 @@ function submitAddTarefa() {
         }
 
         let localStrg = JSON.parse(localStorage.getItem('data'));
-        
+
         // Verificacao do peso 
         //1.Utizando o parseInt para transformar os pesos em integrers para os calculos
         var pesoTotal = parseInt(peso1) + parseInt(peso2) + parseInt(peso3);
@@ -477,9 +477,9 @@ function submitAddTarefa() {
         //3.Aplicando as porcentagens calculadas anteriormente sobre o numero de slots disponiveis
 
         var slotsTotal = 25;//Alteravel
-        var slots1 = Math.round(slotsTotal*porcentagem1);
-        var slots2 = Math.round(slotsTotal*porcentagem2);
-        var slots3 = Math.round(slotsTotal*porcentagem3);
+        var slots1 = Math.round(slotsTotal * porcentagem1);
+        var slots2 = Math.round(slotsTotal * porcentagem2);
+        var slots3 = Math.round(slotsTotal * porcentagem3);
 
 
         //OBS.Math.round pode causar um aumento ou diminuiçao de 1 slot
@@ -490,82 +490,82 @@ function submitAddTarefa() {
         var cordenadas3 = [];
 
         let count1 = 0, count2 = 0, count3 = 0;
-        for(let i = valInit; i <= valEnd; i++){
-            for(let j = 1; j <= 7; j++){
-                if(j == 6 ){                               // se for sabado tem 2/3 de chance de nao ter nenhuma materia no slot
-                    if(1 > Math.ceil(Math.random() * 3)){
+        for (let i = valInit; i <= valEnd; i++) {
+            for (let j = 1; j <= 7; j++) {
+                if (j == 6) {                               // se for sabado tem 1/3 de chance de nao ter nenhuma materia no slot
+                    if (1 < Math.ceil(Math.random() * 3)) {
                         let rand = Math.floor(Math.random() * 10);
-                        if(rand <= 3 && slots1 != count1){
+                        if (rand <= 3 && slots1 != count1) {
                             cordenadas1[count1] = parseInt(`${i}${j}`)
                             count1++;
                         }
                         else if (rand > 3 && rand <= 6 && slots2 != count2) {
                             cordenadas2[count2] = parseInt(`${i}${j}`)
                             count2++;
-                        }                
+                        }
                         else if (rand > 6 && rand <= 9 && slots3 != count3) {
                             cordenadas3[count3] = parseInt(`${i}${j}`)
                             count3++;
-                        }  
+                        }
                     }
                 } // end if sabado
-                else if(j == 7 ){                               // se for domingo tem 1/3 de chance de nao ter nenhuma materia no slot
-                    if(2 > Math.ceil(Math.random() * 3)){
+                else if (j == 7) {                               // se for domingo tem 1/3 de chance de nao ter nenhuma materia no slot
+                    if (2 > Math.ceil(Math.random() * 3)) {
                         let rand = Math.floor(Math.random() * 10);
-                        if(rand <= 3 && slots1 != count1){
+                        if (rand <= 3 && slots1 != count1) {
                             cordenadas1[count1] = parseInt(`${i}${j}`)
                             count1++;
                         }
                         else if (rand > 3 && rand <= 6 && slots2 != count2) {
                             cordenadas2[count2] = parseInt(`${i}${j}`)
                             count2++;
-                        }                
+                        }
                         else if (rand > 6 && rand <= 9 && slots3 != count3) {
                             cordenadas3[count3] = parseInt(`${i}${j}`)
                             count3++;
-                        }  
+                        }
                     }
                 } // end if do final de semana
-                else{
+                else {
                     let rand = Math.ceil(Math.random() * 10);
-                    if(rand <= 3 && slots1 != count1){
+                    if (rand <= 3 && slots1 != count1) {
                         cordenadas1[count1] = parseInt(`${i}${j}`)
                         count1++;
                     }
                     else if (rand > 3 && rand <= 6 && slots2 != count2) {
                         cordenadas2[count2] = parseInt(`${i}${j}`)
                         count2++;
-                    }                
+                    }
                     else if (rand > 6 && rand <= 9 && slots3 != count3) {
                         cordenadas3[count3] = parseInt(`${i}${j}`)
                         count3++;
-                    }                
+                    }
                 }
             }
         } // end for para adicao de materia
 
-        
+
         //8.Local para colocar o codigo do local storage:
         /* Coloca no local storage as coordenadas */
-        for(let j = 0; j < localStrg.disciplinas.length; j++){
-            if(localStrg.disciplinas[j].materia == jsPref_1){
-                for(let h = 0; h < cordenadas1.length; h++){
+        for (let j = 0; j < localStrg.disciplinas.length; j++) {
+            if (localStrg.disciplinas[j].materia == jsPref_1) {
+                for (let h = 0; h < cordenadas1.length; h++) {
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas1[h];
                     localStrg.disciplinas[j].nota[lenCoord] = '';
                     // console.log('coord 1 = ' + cordenadas1[h])
                 }
             }
-            if(localStrg.disciplinas[j].materia == jsPref_2){
-                for(let h = 0; h < cordenadas2.length; h++){
+            if (localStrg.disciplinas[j].materia == jsPref_2) {
+                for (let h = 0; h < cordenadas2.length; h++) {
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas2[h];
                     localStrg.disciplinas[j].nota[lenCoord] = '';
                     // console.log('coord 2 = ' + cordenadas2[h])
                 }
             }
-            if(localStrg.disciplinas[j].materia == jsPref_3){
-                for(let h = 0; h < cordenadas3.length; h++){
+            if (localStrg.disciplinas[j].materia == jsPref_3) {
+                for (let h = 0; h < cordenadas3.length; h++) {
                     let lenCoord = localStrg.disciplinas[j].coordenadas.length;
                     localStrg.disciplinas[j].coordenadas[lenCoord] = cordenadas3[h];
                     localStrg.disciplinas[j].nota[lenCoord] = '';
@@ -574,7 +574,7 @@ function submitAddTarefa() {
 
             }
         }
-        
+
         localStorage.setItem('data', JSON.stringify(localStrg));
         isWindown();
     }
@@ -650,7 +650,7 @@ function editNotas(idMateria, idNota) {
 
     document.querySelector('.editNotas').style.display = 'flex';
     document.querySelector('.viewDisciplina .btn_savealteracoes').style.display = 'inline';
-    
+
 
 
     document.querySelector('.editNotas textarea').innerText = content_anotacoes;
@@ -662,9 +662,9 @@ function savealteracoes(idMateria, idNota) {
 
         let localStrg = JSON.parse(localStorage.getItem('data'));
         let content_anotacoes = document.querySelector('.editNotas textarea').value;
-        
+
         localStrg.disciplinas[idMateria].nota[idNota] = content_anotacoes;
-        
+
         localStorage.setItem('data', JSON.stringify(localStrg));
         console.log(localStrg);
         btnCloseAdd();
@@ -1189,7 +1189,7 @@ onload = isWindown();
 function addTarefaIndividual(coord) {
     let materia, idElemento, elemento;
     //alert('id = ' + `${id}`)
-    
+
     document.querySelector('.bg-modal').style.display = 'flex';
     document.querySelector('.bg-modal').innerHTML = `
      <div class="addTarefasIndividuais">
@@ -1326,17 +1326,22 @@ function removeTurno(turno) {
 // valida se local storage possui parametro item
 function ValidacaoInputItemLStrg(item) {
     let result = true;
-    let localStr = JSON.parse(localStorage.getItem('data'));
-    if (item != '') {
-        for (let i = 0; i < localStr.disciplinas.length; i++) {
-            let materia = localStr.disciplinas[i].materia;
-            if (item == materia) {
-                result = false;
-                alert(`Agenda3000 já possui item ${item}`);
+    if (item.length <= 15) {
+        let localStr = JSON.parse(localStorage.getItem('data'));
+        if (item != '') {
+            for (let i = 0; i < localStr.disciplinas.length; i++) {
+                let materia = localStr.disciplinas[i].materia;
+                if (item == materia) {
+                    result = false;
+                    alert(`Agenda3000 já possui item ${item}`);
+                }
             }
+        } else {
+            alert('Por favor preencha a caixa de entrada');
+            result = false;
         }
     } else {
-        alert('Por favor preencha a caixa de entrada');
+        alert('Nome de matéria muito grande,\n por favor use uma abreviação ou um nome menor que 15 caracteres.');
         result = false;
     }
     return result;
@@ -1434,7 +1439,7 @@ function pagConfig_remItemLStrg(nameMateria) {
 }
 
 
-function saveEdit(indexItem){
+function saveEdit(indexItem) {
     let localStrg = JSON.parse(localStorage.getItem("data"))
     let name = document.getElementById('disciplina_input').value
     let color = document.getElementById('disciplinaCor_input').value
@@ -1446,7 +1451,7 @@ function saveEdit(indexItem){
     location.reload();
 }
 
-function editItem(indexItem){
+function editItem(indexItem) {
     let localStrg = JSON.parse(localStorage.getItem("data"))
 
     document.querySelector('.bg-modal').style.display = 'flex';
@@ -1475,7 +1480,7 @@ function editItem(indexItem){
     scrollUP();
 }
 
-function configDisciplinas(){
+function configDisciplinas() {
 
 
     let localStrg = JSON.parse(localStorage.getItem("data"))
@@ -1557,7 +1562,7 @@ function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
     for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
+        color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
 }
@@ -1566,7 +1571,7 @@ function getRandomColor() {
 function addItemLStrg() {
     item = document.getElementById('disciplina_input').value;
     color = document.getElementById('disciplinaCor_input').value;
-    if(color == ''){
+    if (color == '') {
         color = getRandomColor();
     };
     if (ValidacaoInputItemLStrg(item) == true) {
@@ -1616,9 +1621,12 @@ function window_addItemLStrg() {
 
 /* remover botao do side menu */
 function delete_localStorage() {
-    localStorage.clear();
-    localStorage.setItem('data', JSON.stringify(data));
-    isWindown();
+    let result = confirm('Deseja apagar todos os dados da Agenda3000?\nOs dados serāo permanentemente apagados!');
+    if (result == true) {
+        localStorage.clear();
+        localStorage.setItem('data', JSON.stringify(data));
+        isWindown();
+    }
 }
 
 // document.querySelector('#del_localStorage').addEventListener('click', delete_localStorage)
